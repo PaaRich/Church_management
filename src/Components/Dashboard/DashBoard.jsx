@@ -23,7 +23,7 @@ const DashBoard = ({ children }) => {
               alt="avatar"
             />
           </div>
-          <div className="p-5">
+          <div className="p-5 w-full">
           {children}
           </div>
           {/* <DashBoardHome /> */}

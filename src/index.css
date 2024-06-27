@@ -6,6 +6,17 @@
   --primary: "dodgerblue";
 }
 
+.CircularProgressbar-path {
+  stroke: url(#gradient);
+}
+
+.here{
+  color: rgb(173, 20, 20);
+}
+.CircularProgressbar-text {
+  font-size: 24px; /* Adjust the size as needed */
+}
+
 html,
 body {
   font-family: "Poppins", sans-serif;
