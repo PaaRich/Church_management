@@ -1,14 +1,15 @@
 import SideBar from "./SideBar";
+import DashBoardHome from "./DashBoardHome";
 
 const DashBoard = () => {
   return (
     <div>
-      <div className="container main--container">
+      <div className="main--container">
         <div className="dashboard--sidebar">
           <SideBar />
         </div>
         <main className="dashboard--main--content">
-          <div>dashboard</div>
+          <DashBoardHome />
         </main>
       </div>
     </div>

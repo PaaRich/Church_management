@@ -23,3 +23,36 @@
   background-color: blue;
   width: 20%;
 }
+
+/* dashboard-home styles */
+.dashboard-home-container {
+  position: relative;
+}
+/* .rounded-border {
+  position: absolute;
+  left: 0;
+  background-color: red;
+  height: 100dvh;
+  width: 30px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 50%;
+} */
+.dashboard-home-header form {
+  position: absolute;
+  top: 40%;
+  left: 70%;
+  transform: translate(-40%, -70%);
+}
+.dashboard-home-header input {
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.204);
+  margin: auto 0;
+}
+.dashboard-home-header input:focus {
+  outline: none;
+}
+.dashboard-home-header {
+  height: 5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+}
