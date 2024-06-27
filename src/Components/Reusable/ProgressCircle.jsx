@@ -8,7 +8,7 @@ const ProgressCircle = ({ percentage, text }) => {
     <svg style={{ height: 0 }}>
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: "purple", stopOpacity: 1 }} />
+          <stop offset="0%" style={{ stopColor: "violet", stopOpacity: 1 }} />
           <stop
             offset="100%"
             style={{ stopColor: "rgb(173, 20, 20)", stopOpacity: 1 }}

@@ -10,6 +10,7 @@ import { BiLogOut } from "react-icons/bi";
 import { GiTeacher } from "react-icons/gi";
 import { TbUsersGroup } from "react-icons/tb";
 import { PiChalkboardTeacherDuotone } from "react-icons/pi";
+import './DashboardMain.css'
 
 const SideBar = () => {
   return (
