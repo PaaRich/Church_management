@@ -5,10 +5,10 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import ProgressCircle from "../Reusable/ProgressCircle";
 
 const DashBoardHome = () => {
-  const malePercentage=38
-  const femalePercentage=62
-  const childrenPercentage=28
-  const youthPercentage=67
+  const malePercentage = 38;
+  const femalePercentage = 62;
+  const childrenPercentage = 28;
+  const youthPercentage = 67;
 
   return (
     <div className="dashboard-home-container">
@@ -56,19 +56,31 @@ const DashBoardHome = () => {
         {/* cards end here */}
         <div className="mt-10 grid grid-cols-4 gap-10">
           <div className="text-center">
-            <ProgressCircle percentage={femalePercentage} text={`${femalePercentage}%`} />
+            <ProgressCircle
+              percentage={femalePercentage}
+              text={`${femalePercentage}%`}
+            />
             <h4 className="font-semibold text-md mt-5 text-xl">Female</h4>
           </div>
           <div className="text-center">
-            <ProgressCircle percentage={malePercentage} text={`${malePercentage}%`} />
+            <ProgressCircle
+              percentage={malePercentage}
+              text={`${malePercentage}%`}
+            />
             <h4 className="font-semibold text-md mt-5 text-xl">Male</h4>
           </div>
           <div className="text-center">
-            <ProgressCircle percentage={childrenPercentage} text={`${childrenPercentage}%`} />
+            <ProgressCircle
+              percentage={childrenPercentage}
+              text={`${childrenPercentage}%`}
+            />
             <h4 className="font-semibold text-md mt-5 text-xl">Children</h4>
           </div>
           <div className="text-center">
-            <ProgressCircle percentage={youthPercentage} text={`${youthPercentage}%`} />
+            <ProgressCircle
+              percentage={youthPercentage}
+              text={`${youthPercentage}%`}
+            />
             <h4 className="font-semibold text-md mt-5 text-xl">Youth</h4>
           </div>
         </div>

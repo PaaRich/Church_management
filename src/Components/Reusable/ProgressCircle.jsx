@@ -28,7 +28,7 @@ const ProgressCircle = ({ percentage, text }) => {
           textColor: "#000",
           pathColor: "url(#gradient)",
           trailColor: "#d6d6d6",
-          textSize:"16px"
+          textSize: "16px",
         })}
       />
     </div>
