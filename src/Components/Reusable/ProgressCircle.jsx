@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // ProgressCircle.js
 import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";

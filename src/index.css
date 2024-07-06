@@ -28,7 +28,7 @@ body {
   box-sizing: border-box;
 }
 
-/* dashboard styles herer */
+/* dashboard styles here */
 .main--container {
   display: flex;
   width: 100%;
@@ -61,6 +61,33 @@ body {
   border-radius: 50px;
 }
 
+/* people styles */
+.c-person {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.228);
+  transition-duration: 0.5s;
+}
+.c-person:hover {
+  background-color: rgba(128, 128, 128, 0.08);
+}
+.c-people-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.069);
+}
+button.flex {
+  transition-duration: 0.5s;
+}
+button.flex:hover {
+  background-color: #0f172acf;
+  color: white;
+}
+
+/* profile styles */
+.c-profile p:nth-child(2) {
+  font-weight: lighter;
+  color: rgba(0, 0, 0, 0.315);
+}
+.c-profile .h-full div {
+  margin-bottom: 1rem;
+}
 /* form styles */
 .c-level-input-container {
   background-color: gainsboro;
@@ -103,4 +130,18 @@ input {
 }
 input:focus {
   outline: none;
+}
+/* Attendence styles */
+.c-check-in-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0f172a;
+}
+.c-meetings div {
+  transition-duration: 0.5s;
+}
+.c-meetings div:hover {
+  background-color: rgba(0, 0, 255, 0.517);
+  color: white;
 }
