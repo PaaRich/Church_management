@@ -9,7 +9,7 @@ function Reports() {
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-between w-1/3">
           <div
-            className="flex items-center rounded-sm text-xl cursor-pointer p-3 hover:bg-slate-900 hover:text-white"
+            className="flex items-center rounded-sm text-xl cursor-pointer p-3 hover:bg-slate-900 duration-500 hover:text-white"
             onClick={() => navigate(-1)}
           >
             <IoIosArrowBack size={24} />
