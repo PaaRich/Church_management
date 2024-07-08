@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { IoIosArrowDown, IoIosArrowUp, IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import BackBtn from "../../Reusable/BackBtn";
 
 function Forms() {
   //Education level dropdown state variable
@@ -17,10 +17,9 @@ function Forms() {
   const [school, setSchool] = useState("school");
 
   //navigator
-  const navigator = useNavigate();
   return (
     <div className="w-full ">
-      <div className="church_profile pb-5 relative">
+      <div className="church_profile pb-2 relative">
         <div className="flex items-center justify-center flex-col">
           <img
             className="rounded-full w-10 h-10 bg-black"
@@ -31,13 +30,7 @@ function Forms() {
           <p className="font-light">Logo</p>
           <p className="pt-3">Church membership form</p>
         </div>
-        <div
-          className="c-form-navigator absolute p-2 top-0 left-0 flex items-center text-lg cursor-pointer"
-          onClick={() => navigator(-1)}
-        >
-          <IoIosArrowBack size={23} />
-          Form
-        </div>
+        <BackBtn text="Form" paddingAndMargin="mb-0 p-3" />
       </div>
       <form action="" className="w-full h-full">
         <div className="flex gap-3">

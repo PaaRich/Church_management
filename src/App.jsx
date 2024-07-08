@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import { Routes, Route } from "react-router-dom";
 import DashBoard from "./Components/Dashboard/DashBoard";
 import DashBoardHome from "./Components/Dashboard/DashBoardHome";
@@ -9,8 +9,10 @@ import Reports from "./Components/Dashboard/Reports/Reports";
 import Mustard from "./Components/Dashboard/Mustard/Mustard";
 import Ministries from "./Components/Dashboard/Ministries/Ministries";
 import Coaching from "./Components/Dashboard/Coaching/Coaching";
+import SpecificComplain from "./Components/Dashboard/Coaching/SpecificComplain";
 import School from "./Components/Dashboard/School/School";
 import Communications from "./Components/Dashboard/Communications/Communications";
+import Profile from "./Components/Dashboard/People/Profile";
 function App() {
   return (
     <>
@@ -32,6 +34,18 @@ function App() {
               </DashBoard>
             }
           />
+          {/* render profile  start*/}
+          <Route
+            path="/dashboard/people/profile"
+            element={
+              <DashBoard>
+                <People>
+                  <Profile />
+                </People>
+              </DashBoard>
+            }
+          />
+          {/* render profile end*/}
           <Route
             path="/dashboard/forms"
             element={
@@ -77,6 +91,14 @@ function App() {
             element={
               <DashBoard>
                 <Coaching />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/coaching/specific_complains"
+            element={
+              <DashBoard>
+                <SpecificComplain />
               </DashBoard>
             }
           />
