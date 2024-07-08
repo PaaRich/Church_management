@@ -1,22 +1,13 @@
 import { useState } from "react";
-import { IoIosArrowBack, IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import BackBtn from "../../Reusable/BackBtn";
 
 function Attendance() {
-  const navigate = useNavigate();
   const [meeting, setMeeting] = useState("Select meeting");
   const [openMeeting, setOpenMeeting] = useState(false);
   return (
-    <div className="h-[80vh]">
-      <div className="my-3">
-        <div
-          className="flex items-center text-lg cursor-pointer w-fit p-3 hover:text-white hover:bg-blue-900"
-          onClick={() => navigate(-1)}
-        >
-          <IoIosArrowBack size={23} />
-          Attendance
-        </div>
-      </div>
+    <div>
+      <BackBtn text="Attendance" paddingAndMargin="mb-3 p-3" />
       <form action="" className="relative">
         <div className="flex items-center justify-around">
           <div className="relative">

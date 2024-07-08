@@ -1,17 +1,23 @@
-import React from "react";
+//import React from "react";
+import MustardChapter from "./MustardChapter";
+import { Chapters } from "./Chapters";
+import BackBtn from "../../Reusable/BackBtn";
 
 function Mustard() {
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">
-      Mustard
-      </h2>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia
-        aliquam totam unde ex est impedit cupiditate ipsum, beatae ullam nisi
-        neque quisquam, optio culpa dolorem delectus quas, error repudiandae!
-        Eius!
-      </p>
+    <div className="h-full">
+      <BackBtn text="Mustard" paddingAndMargin="mb-3 p-3" />
+      <div className="grid gap-y-10 w-11/12 m-auto grid-cols-2">
+        {Chapters.map((item) => (
+          <MustardChapter
+            key={item.name}
+            chapter={item.chapter}
+            roll={item.roll}
+            location={item.location}
+            //img={item.img}
+          />
+        ))}
+      </div>
     </div>
   );
 }
