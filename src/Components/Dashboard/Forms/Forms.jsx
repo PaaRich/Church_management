@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp, IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import "./style.css"
 
 function Forms() {
   //Education level dropdown state variable
@@ -19,12 +20,12 @@ function Forms() {
   //navigator
   const navigator = useNavigate();
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="church_profile pb-5 relative">
         <div className="flex items-center justify-center flex-col">
           <img
             className="rounded-full w-10 h-10 bg-black"
-            src="/public/images/avatar2.webp"
+            src="/images/avatar2.webp"
             alt="church_profile-pic"
           />
           <h2>Church Name</h2>
@@ -39,7 +40,7 @@ function Forms() {
           Form
         </div>
       </div>
-      <form action="" className="w-full h-full">
+      <form action="" className="form--section w-full h-full">
         <div className="flex gap-3">
           <div className="flex flex-col w-1/2">
             <input type="text" placeholder="Firstname" required />
@@ -210,7 +211,7 @@ function Forms() {
             </div>
           </div>
         </div>
-        <div className="w-full relative">
+        <div className="w-full relative pb-5">
           <button
             className="btn rounded-md text-white px-3 py-4 bg-slate-900 ho w-96"
             type="submit"

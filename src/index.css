@@ -128,9 +128,9 @@ input {
   border-radius: 3px;
   margin-bottom: 10px;
 }
-input:focus {
+/* input:focus {
   outline: none;
-}
+} */
 /* Attendence styles */
 .c-check-in-btn {
   position: absolute;

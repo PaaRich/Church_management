@@ -7,7 +7,7 @@ function Attendance() {
   const [meeting, setMeeting] = useState("Select meeting");
   const [openMeeting, setOpenMeeting] = useState(false);
   return (
-    <div>
+    <div className="h-[80vh]">
       <div className="my-3">
         <div
           className="flex items-center text-lg cursor-pointer w-fit p-3 hover:text-white hover:bg-blue-900"
