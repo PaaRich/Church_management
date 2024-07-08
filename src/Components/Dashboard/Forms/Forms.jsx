@@ -18,7 +18,7 @@ function Forms() {
 
   //navigator
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="church_profile pb-5 relative">
         <div className="flex items-center justify-center flex-col">
           <img
