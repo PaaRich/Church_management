@@ -23,7 +23,7 @@ const DashBoard = ({ children }) => {
               alt="avatar"
             />
           </div>
-          <div className="p-5 w-full">
+          <div className="p-5 w-full overflow-y-scroll h-[85vh]">
           {children}
           </div>
           {/* <DashBoardHome /> */}

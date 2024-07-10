@@ -5,7 +5,7 @@ import { IoIosArrowBack } from "react-icons/io";
 function Reports() {
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="h-[80vh]">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-between w-1/3">
           <div
