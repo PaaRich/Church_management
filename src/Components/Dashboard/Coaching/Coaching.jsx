@@ -22,7 +22,7 @@ function Coaching() {
             placeholder="Complain Type"
           />
           <button
-            className="bg-blue-500 py-2 px-6 text-white rounded-sm "
+            className="bg-blue-500 py-2 px-6 text-white rounded-sm hover:bg-blue-400 duration-200"
             type="submit"
           >
             Log

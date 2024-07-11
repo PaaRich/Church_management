@@ -6,7 +6,7 @@ const BackBtn = ({ text, paddingAndMargin }) => {
   const navigate = useNavigate(-1);
   return (
     <div
-      className={`${paddingAndMargin} border-2 flex items-center text-xl hover:bg-slate-900 hover:text-white duration-500 cursor-pointer w-fit`}
+      className={`${paddingAndMargin} border-2 flex items-center text-xl hover:bg-slate-900 hover:border-slate-900 hover:text-white duration-500 cursor-pointer w-fit`}
       onClick={() => navigate(-1)}
     >
       <IoIosArrowBack size={24} />

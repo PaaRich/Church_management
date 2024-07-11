@@ -10,7 +10,7 @@ const Communications = () => {
           <p className="text-xl font-medium mb-2">Broadcast</p>
           <div className="flex items-center justify-between w-11/12">
             <select
-              className="py-2 px-5 w-1/3 bg-slate-200"
+              className="py-2 px-5 w-1/3 bg-slate-200 cursor-pointer"
               name="Platform"
               id=""
             >
@@ -21,7 +21,7 @@ const Communications = () => {
               <option value="Email">Email</option>
             </select>
             <select
-              className="py-2 px-5 w-1/3 bg-slate-200"
+              className="py-2 px-5 w-1/3 bg-slate-200 cursor-pointer"
               name="Target People"
               id=""
             >
@@ -46,7 +46,7 @@ const Communications = () => {
         <div className="mt-5">
           <p className="text-xl my-3 font-medium">Follow up</p>
           <select
-            className="py-2 px-5 w-1/3 bg-slate-200"
+            className="py-2 px-5 w-1/3 bg-slate-200 cursor-pointer"
             name="Follow up"
             id=""
           >

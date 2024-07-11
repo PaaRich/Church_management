@@ -8,7 +8,7 @@ function Attendance() {
         <div className="flex items-center justify-around">
           <div className="relative w-1/3">
             <select
-              className="py-4 px-5 w-full bg-slate-200"
+              className="py-4 px-5 w-full bg-slate-200 cursor-pointer"
               name="Select Meeting"
               id=""
             >
@@ -28,10 +28,10 @@ function Attendance() {
             placeholder="Enter ID"
           />
         </div>
-        <div className="c-check-in-btn mt-20">
+        <div className="w-full relative mt-20">
           <button
             type="submit"
-            className="border-0 w-80 text-white py-4 text-lg"
+            className="border-0 w-80 text-white py-4 text-lg absolute left-1/2 -translate-x-1/2 bg-slate-900 hover:bg-slate-800 duration-200 rounded"
             onClick={(e) => e.preventDefault}
           >
             Check-in

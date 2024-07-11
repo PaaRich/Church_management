@@ -128,12 +128,12 @@ input:focus {
   outline: none;
 }
 /* Attendence styles */
-.c-check-in-btn {
+/* .c-check-in-btn {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   background-color: #0f172a;
-}
+} */
 .c-meetings div {
   transition-duration: 0.5s;
 }
