@@ -51,7 +51,7 @@ function Coaching() {
             </div>
           </div>
           <div className="w-1/2">
-            <p className="pt-8 pb-1 text-xl">Specific Complains</p>
+            <p className="pt-8 pb-1 text-xl pl-4">Specific Complains</p>
             <div className="mt-1">
               {committee.map(
                 (item, index) =>

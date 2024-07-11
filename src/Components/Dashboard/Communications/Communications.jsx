@@ -69,18 +69,18 @@ const Communications = () => {
               type="text"
               placeholder="Title"
             />
-            <button className="py-2 px-4 bg-slate-800 text-white rounded-md">
+            <button className="py-2 px-4 bg-slate-800 hover:bg-slate-700 duration-200 text-white rounded-md">
               File
             </button>
           </span>
-          <button className="bg-blue-700 text-white py-2 w-2/3 rounded-lg mt-2">
+          <button className="bg-blue-700 hover:bg-blue-600 duration-200 text-white py-2 w-2/3 rounded-lg mt-2">
             Upload
           </button>
           <div className="mt-3">
             <p className="text-xl font-medium">Search</p>
             <span>
               <input className="w-2/3 mr-5" type="search" placeholder="Title" />
-              <button className="py-2 px-4 bg-blue-600 text-white rounded-md">
+              <button className="py-2 px-4 bg-blue-600 hover:bg-blue-500 text-white rounded-md">
                 Find
               </button>
             </span>
@@ -95,18 +95,18 @@ const Communications = () => {
               type="text"
               placeholder="Title"
             />
-            <button className="py-2 px-4 bg-slate-800 text-white rounded-md">
+            <button className="py-2 px-4 bg-slate-800 hover:bg-slate-700 duration-200 text-white rounded-md">
               File
             </button>
           </span>
-          <button className="bg-blue-700 text-white py-2 w-2/3 rounded-lg mt-2">
+          <button className="bg-blue-700 hover:bg-blue-600 duration-200 text-white py-2 w-2/3 rounded-lg mt-2">
             Upload
           </button>
           <div className="mt-3">
             <p className="text-xl font-medium">Search</p>
             <span>
               <input className="w-2/3 mr-5" type="search" placeholder="Title" />
-              <button className="py-2 px-4 bg-blue-600 text-white rounded-md">
+              <button className="py-2 px-4 bg-blue-600 hover:bg-blue-500 duration-200 text-white rounded-md">
                 Find
               </button>
             </span>
