@@ -11,11 +11,11 @@ function Forms() {
             src="/images/avatar2.webp"
             alt="church_profile-pic"
           />
-          <h2>Church Name</h2>
+          <h2 className="text-xl">Church Name</h2>
           <p className="font-light">Logo</p>
           <p className="pt-1">Church membership form</p>
         </div>
-        <BackBtn text="Form" paddingAndMargin="mb-0 p-3" />
+        <BackBtn text="Form" paddingAndMargin="mb-0 p-2" />
       </div>
       <form action="" className=" w-full h-full">
         <div className="grid grid-cols-2 gap-x-2">

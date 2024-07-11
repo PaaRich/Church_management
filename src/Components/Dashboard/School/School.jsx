@@ -4,7 +4,7 @@ function School() {
   return (
     <div className="w-5/6">
       <div className="flex items-center justify-between">
-        <BackBtn text="Foundational School" paddingAndMargin="mb-3 p-3" />
+        <BackBtn text="Foundational School" paddingAndMargin="mb-3 p-2" />
         <div className="relative w-52">
           <select className="py-2 px-5 w-full bg-slate-200" name="Action" id="">
             <option value="" disabled selected>

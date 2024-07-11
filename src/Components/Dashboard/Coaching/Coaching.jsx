@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Coaching() {
   return (
     <div>
-      <BackBtn text="Foundational School" paddingAndMargin="mb-2 p-3" />
+      <BackBtn text="Foundational School" paddingAndMargin="mb-2 p-2" />
       <div>
         <p className="font-semibold">Log Complain</p>
         <form className="flex items-center mt-4">

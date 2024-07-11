@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import { NavLink } from "react-router-dom";
 import { IoPerson } from "react-icons/io5";
 import { LuFileEdit } from "react-icons/lu";
@@ -10,7 +10,7 @@ import { BiLogOut } from "react-icons/bi";
 import { GiTeacher } from "react-icons/gi";
 import { TbUsersGroup } from "react-icons/tb";
 import { PiChalkboardTeacherDuotone } from "react-icons/pi";
-import './DashboardMain.css'
+import "./DashboardMain.css";
 
 const SideBar = () => {
   return (
@@ -22,55 +22,73 @@ const SideBar = () => {
       />
       <ul className="mb-5">
         <li>
-          <NavLink to={'/dashboard/people'} className="flex items-center gap-3">
+          <NavLink to={"/dashboard/people"} className="flex items-center gap-3">
             <IoPerson color="#fff" size={25} />
             Poeple
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/forms'} className="flex items-center gap-3">
+          <NavLink to={"/dashboard/forms"} className="flex items-center gap-3">
             <LuFileEdit color="#fff" size={25} />
             Forms
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/attendance'} className="flex items-center gap-3">
+          <NavLink
+            to={"/dashboard/attendance"}
+            className="flex items-center gap-3"
+          >
             <MdOutlineFingerprint color="#fff" size={25} />
             Attendance
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/reports'} className="flex items-center gap-3">
+          <NavLink
+            to={"/dashboard/reports"}
+            className="flex items-center gap-3"
+          >
             <TbReport color="#fff" size={25} />
             Reports
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/mustard_seed'} className="flex items-center gap-3">
+          <NavLink
+            to={"/dashboard/mustard_seed"}
+            className="flex items-center gap-3"
+          >
             <IoIosPeople color="#fff" size={25} />
             Mustard Seed
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/ministries'} className="flex items-center gap-3">
+          <NavLink
+            to={"/dashboard/ministries"}
+            className="flex items-center gap-3"
+          >
             <TbUsersGroup color="#fff" size={25} />
             Ministries
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/coaching'} className="flex items-center gap-3">
+          <NavLink
+            to={"/dashboard/coaching"}
+            className="flex items-center gap-3"
+          >
             <PiChalkboardTeacherDuotone color="#fff" size={25} />
             Coaching
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/school'} className="flex items-center gap-3">
+          <NavLink to={"/dashboard/school"} className="flex items-center gap-3">
             <GiTeacher color="#fff" size={25} />
             Foundation School
           </NavLink>
         </li>
         <li>
-          <NavLink to={'/dashboard/communications'} className="flex items-center gap-3">
+          <NavLink
+            to={"/dashboard/communications"}
+            className="flex items-center gap-3"
+          >
             <TbMessageCircleDown color="#fff" size={25} />
             Communication
           </NavLink>

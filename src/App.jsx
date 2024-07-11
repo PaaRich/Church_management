@@ -7,7 +7,9 @@ import Forms from "./Components/Dashboard/Forms/Forms";
 import Attendance from "./Components/Dashboard/Attendance/Attendance";
 import Reports from "./Components/Dashboard/Reports/Reports";
 import Mustard from "./Components/Dashboard/Mustard/Mustard";
+import Chapter from "./Components/Dashboard/Mustard/Chapter";
 import Ministries from "./Components/Dashboard/Ministries/Ministries";
+import Ministry from "./Components/Dashboard/Ministries/Ministry";
 import Coaching from "./Components/Dashboard/Coaching/Coaching";
 import SpecificComplain from "./Components/Dashboard/Coaching/SpecificComplain";
 import School from "./Components/Dashboard/School/School";
@@ -36,7 +38,7 @@ function App() {
           />
           {/* render profile  start*/}
           <Route
-            path="/dashboard/people/profile"
+            path="/dashboard/people/:id"
             element={
               <DashBoard>
                 <People>
@@ -79,10 +81,36 @@ function App() {
             }
           />
           <Route
+            path="/dashboard/mustard_seed/:id"
+            element={
+              <DashBoard>
+                <Chapter />
+              </DashBoard>
+            }
+          />
+          {/* <Route
+            path="/dashboard/mustard_seed/:"
+            element={
+              <DashBoard>
+                <Chapter>
+                  <Profile />
+                </Chapter>
+              </DashBoard>
+            }
+          /> */}
+          <Route
             path="/dashboard/ministries"
             element={
               <DashBoard>
                 <Ministries />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/ministries/:id"
+            element={
+              <DashBoard>
+                <Ministry />
               </DashBoard>
             }
           />

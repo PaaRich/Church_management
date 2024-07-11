@@ -81,10 +81,6 @@ button.flex:hover {
 }
 
 /* profile styles */
-.c-profile p:nth-child(2) {
-  font-weight: lighter;
-  color: rgba(0, 0, 0, 0.315);
-}
 .c-profile .h-full div {
   margin-bottom: 1rem;
 }
@@ -123,14 +119,14 @@ button.flex:hover {
   background-color: #0f172ae4;
 } */
 input {
-  background-color: gainsboro;
+  background-color: #e2e8f0;
   padding: 0.5rem;
   border-radius: 3px;
   margin-bottom: 5px;
 }
-/* input:focus {
+input:focus {
   outline: none;
-} */
+}
 /* Attendence styles */
 .c-check-in-btn {
   position: absolute;

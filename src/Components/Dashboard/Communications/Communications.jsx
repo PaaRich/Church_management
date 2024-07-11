@@ -4,8 +4,8 @@ import BackBtn from "../../Reusable/BackBtn";
 const Communications = () => {
   return (
     <div className="flex">
-      <div className="w-1/2 border-r-2 border-r-slate-50">
-        <BackBtn text="Communication" paddingAndMargin="mb-0 p-3" />
+      <div className="w-1/2 border-r-2 ">
+        <BackBtn text="Communication" paddingAndMargin="mb-2 p-2" />
         <form>
           <p className="text-xl font-medium mb-2">Broadcast</p>
           <div className="flex items-center justify-between w-11/12">

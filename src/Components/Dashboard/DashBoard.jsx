@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import SideBar from "./SideBar";
-import DashBoardHome from "./DashBoardHome";
+//import DashBoardHome from "./DashBoardHome";
 
 const DashBoard = ({ children }) => {
   return (

@@ -3,7 +3,7 @@ import BackBtn from "../../Reusable/BackBtn";
 function Attendance() {
   return (
     <div>
-      <BackBtn text="Attendance" paddingAndMargin="mb-3 p-3" />
+      <BackBtn text="Attendance" paddingAndMargin="mb-3 p-2" />
       <form action="" className="relative">
         <div className="flex items-center justify-around">
           <div className="relative w-1/3">

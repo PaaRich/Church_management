@@ -2,21 +2,23 @@
 //import React from 'react'
 
 //import BarChart from "../../Reusable/BarChart";
+import { useParams } from "react-router-dom";
 
 const Profile = ({
-  firstName,
+  //firstName,
   lastName,
   dateJoined,
   maritalStatus,
   position,
 }) => {
+  const { id } = useParams();
   return (
     <div>
       <div className="c-profile flex justify-between border-b-2 border-b-black h-3/6">
         <div className="w-1/2 h-full">
           <div>
             <p>First Name</p>
-            <p>{firstName}</p>
+            <p className="font-light">{id}</p>
           </div>
           <div>
             <p>Last Name</p>

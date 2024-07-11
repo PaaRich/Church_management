@@ -1,20 +1,11 @@
-//import React from "react";
-import { useNavigate } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
+import BackBtn from "../../Reusable/BackBtn";
 
 function Reports() {
-  const navigate = useNavigate();
   return (
     <div className="h-[80vh]">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-between w-1/3">
-          <div
-            className="flex items-center rounded-sm text-xl cursor-pointer p-3 hover:bg-slate-900 duration-500 hover:text-white"
-            onClick={() => navigate(-1)}
-          >
-            <IoIosArrowBack size={24} />
-            Reports
-          </div>
+          <BackBtn text="Report" paddingAndMargin="p-3 mb-3" />
           <p className="font-light">Attendance</p>
         </div>
         <button className="bg-green-600 cursor-pointer text-white p-3 rounded-sm hover:bg-green-500 duration-300">
