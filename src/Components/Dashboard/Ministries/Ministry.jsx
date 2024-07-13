@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 //import React from 'react'
-import { useParams } from "react-router-dom";
+import { useParams, Outlet, Link } from "react-router-dom";
 import BackBtn from "../../Reusable/BackBtn";
 import Person from "../People/Person";
 import { committee } from "../People/Committee";
@@ -23,17 +24,17 @@ const Ministry = () => {
             {committee.map(
               (person, index) =>
                 index < 4 && (
-                  <Person
-                    key={index}
-                    person={person.person}
-                    position={person.position}
-                  />
+                  <Link to={person.person} key={index}>
+                    <Person person={person.person} position={person.position} />
+                  </Link>
                 )
             )}
           </div>
         </div>
       </div>
-      <div className="w-1/2">seie</div>
+      <div className="w-1/2 px-5">
+        <Outlet />
+      </div>
     </div>
   );
 };

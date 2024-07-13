@@ -38,7 +38,7 @@ function App() {
           />
           {/* render profile  start*/}
           <Route
-            path="/dashboard/people/:id"
+            path="/dashboard/people/:person"
             element={
               <DashBoard>
                 <People>
@@ -87,17 +87,10 @@ function App() {
                 <Chapter />
               </DashBoard>
             }
-          />
-          {/* <Route
-            path="/dashboard/mustard_seed/:"
-            element={
-              <DashBoard>
-                <Chapter>
-                  <Profile />
-                </Chapter>
-              </DashBoard>
-            }
-          /> */}
+          >
+            <Route path=":person" element={<Profile />} />
+          </Route>
+
           <Route
             path="/dashboard/ministries"
             element={
@@ -113,7 +106,9 @@ function App() {
                 <Ministry />
               </DashBoard>
             }
-          />
+          >
+            <Route path=":person" element={<Profile />} />
+          </Route>
           <Route
             path="/dashboard/coaching"
             element={

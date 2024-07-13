@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 //import React from 'react'
-import { useParams } from "react-router-dom";
+import { useParams, Link, Outlet } from "react-router-dom";
 import BackBtn from "../../Reusable/BackBtn";
 import Person from "../People/Person";
 import { committee } from "../People/Committee";
 
-const Chapter = ({ children }) => {
+const Chapter = () => {
   const { id } = useParams();
   return (
     <div className="flex">
@@ -24,23 +24,17 @@ const Chapter = ({ children }) => {
             {committee.map(
               (person, index) =>
                 index < 4 && (
-                  // <Link
-                  //   to={`/dashboard/mustard_seed/${person.person}`}
-                  //   key={index}
-                  // >
-                  //   <Person person={person.person} position={person.position} />
-                  // </Link>
-                  <Person
-                    key={index}
-                    person={person.person}
-                    position={person.position}
-                  />
+                  <Link to={person.person} key={index}>
+                    <Person person={person.person} position={person.position} />
+                  </Link>
                 )
             )}
           </div>
         </div>
       </div>
-      <div className="w-1/2">{children}</div>
+      <div className="w-1/2 px-5">
+        <Outlet />
+      </div>
     </div>
   );
 };

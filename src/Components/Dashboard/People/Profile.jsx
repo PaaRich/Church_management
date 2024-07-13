@@ -11,14 +11,14 @@ const Profile = ({
   maritalStatus,
   position,
 }) => {
-  const { id } = useParams();
+  const { person } = useParams();
   return (
     <div>
       <div className="c-profile flex justify-between border-b-2 border-b-black h-3/6">
         <div className="w-1/2 h-full">
           <div>
             <p>First Name</p>
-            <p className="font-light">{id}</p>
+            <p className="font-light">{person}</p>
           </div>
           <div>
             <p>Last Name</p>
