@@ -1,4 +1,4 @@
-import img from "../../../../public/images/avatar2.webp";
+//import img from "../../../../public/images/avatar2.webp";
 
 export const Chapters = [
   {

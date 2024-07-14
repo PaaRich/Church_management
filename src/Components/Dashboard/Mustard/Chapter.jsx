@@ -24,7 +24,7 @@ const Chapter = () => {
             {committee.map(
               (person, index) =>
                 index < 4 && (
-                  <Link to={person.person} key={index}>
+                  <Link to={person.person} state={person} key={index}>
                     <Person person={person.person} position={person.position} />
                   </Link>
                 )

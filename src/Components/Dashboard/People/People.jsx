@@ -18,7 +18,11 @@ function People({ children }) {
       <div className="flex h-full">
         <div className="w-1/2 h-full pr-4 border-r-2 ">
           {committee.map((person) => (
-            <Link key={person.person} to={`/dashboard/people/${person.person}`}>
+            <Link
+              key={person.person}
+              state={person}
+              to={`/dashboard/people/${person.person}`}
+            >
               <Person
                 person={person.person}
                 position={person.position}
