@@ -118,14 +118,17 @@ button.flex:hover {
 .w-full > button:hover {
   background-color: #0f172ae4;
 } */
-input {
+input,
+select {
   background-color: #e2e8f0;
-  padding: 0.5rem;
+  background-color: transparent;
+  padding: .8rem;
   border-radius: 3px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+  border: 2px solid #e2e8f0;
 }
 input:focus {
-  outline: none;
+  /* outline: none; */
 }
 /* Attendence styles */
 /* .c-check-in-btn {
@@ -141,3 +144,5 @@ input:focus {
   background-color: rgba(0, 0, 255, 0.517);
   color: white;
 }
+
+

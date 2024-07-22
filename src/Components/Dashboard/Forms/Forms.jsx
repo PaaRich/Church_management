@@ -18,7 +18,7 @@ function Forms() {
         <BackBtn text="Form" paddingAndMargin="mb-0 p-2" />
       </div>
       <form action="" className=" w-full h-full">
-        <div className="grid grid-cols-2 gap-x-2">
+        <div className="grid grid-cols-2 gap-x-5">
           <input type="text" placeholder="Firstname" required />
           <input type="text" placeholder="Othername" />
           <div className="flex my-2">
@@ -34,7 +34,7 @@ function Forms() {
           <input type="tel" placeholder="telephone" />
           <div className="relative">
             <select
-              className="py-2 px-5 w-full bg-slate-200"
+              className="py-3 px-5 w-full bg-slate-200/80"
               name="Education"
               id=""
             >
@@ -61,7 +61,7 @@ function Forms() {
           <input type="text" name="" id="" placeholder="Location" required />
           <div className="relative">
             <select
-              className="py-2 px-5 w-full bg-slate-200"
+              className="py-3 px-5 w-full bg-slate-200/80"
               name="Marital Status"
               id=""
             >
@@ -76,7 +76,7 @@ function Forms() {
           <input type="email" name="" id="" placeholder="Email" />
           <div className="relative">
             <select
-              className="py-2 px-5 w-full bg-slate-200"
+              className="py-3 px-5 w-full bg-slate-200/80"
               name="Media"
               id=""
             >
@@ -91,7 +91,7 @@ function Forms() {
           </div>
           <div className="relative">
             <select
-              className="py-2 px-5 w-full bg-slate-200"
+              className="py-3 px-5 w-full bg-slate-200/80"
               name="School"
               id=""
             >
