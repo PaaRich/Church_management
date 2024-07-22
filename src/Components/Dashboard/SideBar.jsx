@@ -100,7 +100,7 @@ const SideBar = () => {
           </NavLink>
         </li>
       </ul>
-      <button className="flex items-center gap-3 text-white mt-7 px-4 py-2 bg-blue-500 hover:bg-blue-500/60 w-full">
+      <button className="flex items-center gap-3 text-white mt-7 mb-5 px-4 py-3 bg-blue-500 hover:bg-blue-500/60 w-full">
         <BiLogOut color="#fff" size={25} />
         Logout
       </button>
