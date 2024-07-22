@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Mustard() {
   return (
     <div className="h-full">
-      <BackBtn text="Mustard" paddingAndMargin="mb-3 p-2" />
+      <BackBtn text="Mustard" paddingAndMargin="mb-3 p-2" path={'/dashboard/reports'} />
       <div className="grid gap-y-10 w-11/12 m-auto grid-cols-2">
         {Chapters.map((item, index) => (
           <Link to={`/dashboard/mustard_seed/${item.chapter}`} key={index}>

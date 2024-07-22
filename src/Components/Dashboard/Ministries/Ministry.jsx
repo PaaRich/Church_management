@@ -11,7 +11,7 @@ const Ministry = () => {
     <div className="flex">
       <div className="w-1/2 border-r-2 border-r-slate-300">
         <span className="flex items-center">
-          <BackBtn text="Ministries" paddingAndMargin="p-2 mb-1" />
+          <BackBtn text="Ministries" paddingAndMargin="p-2 mb-1" path={'/dashboard/ministries'}/>
           <p className="text-xl font-medium ml-10">{id}</p>
         </span>
         <span>

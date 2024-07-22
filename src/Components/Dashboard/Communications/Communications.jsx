@@ -5,12 +5,12 @@ const Communications = () => {
   return (
     <div className="flex">
       <div className="w-1/2 border-r-2 ">
-        <BackBtn text="Communication" paddingAndMargin="mb-2 p-2" />
+        <BackBtn text="Communication" paddingAndMargin="mb-2 p-2" path={'/dashboard/school'} />
         <form>
           <p className="text-xl font-medium mb-2">Broadcast</p>
           <div className="flex items-center justify-between w-11/12">
             <select
-              className="py-2 px-5 w-1/3 bg-slate-200 cursor-pointer"
+              className="py-2 px-5 w-2/3 mr-2 bg-slate-200 cursor-pointer"
               name="Platform"
               id=""
             >
@@ -21,7 +21,7 @@ const Communications = () => {
               <option value="Email">Email</option>
             </select>
             <select
-              className="py-2 px-5 w-1/3 bg-slate-200 cursor-pointer"
+              className="py-2 px-5 w-2/3 ml-2 bg-slate-200 cursor-pointer"
               name="Target People"
               id=""
             >
@@ -46,7 +46,7 @@ const Communications = () => {
         <div className="mt-5">
           <p className="text-xl my-3 font-medium">Follow up</p>
           <select
-            className="py-2 px-5 w-1/3 bg-slate-200 cursor-pointer"
+            className="py-2 px-5 w-2/3 bg-slate-200 cursor-pointer"
             name="Follow up"
             id=""
           >

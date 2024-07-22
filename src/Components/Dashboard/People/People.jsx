@@ -10,7 +10,7 @@ function People({ children }) {
   return (
     <div className="p-0">
       <div className="c-people-header flex">
-        <BackBtn text="People" paddingAndMargin="mb-5 p-2" />
+        <BackBtn text="People" paddingAndMargin="mb-5 p-2" path={'/dashboard'} />
         <div className="w-1/2">
           <div></div>
         </div>

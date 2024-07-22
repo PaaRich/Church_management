@@ -10,7 +10,7 @@ const DashBoard = ({ children }) => {
           <SideBar />
         </div>
         <main className="dashboard--main--content">
-          <div className="dashboard-home-header flex gap-8 items-center justify-end p-3 pr-5 shadow-md">
+          <div className="dashboard-home-header flex gap-8  justify-end p-3 pr-5 shadow-md pb-0">
             <form action="" className="w-full text-right">
               <input
                 type="text"
@@ -19,8 +19,8 @@ const DashBoard = ({ children }) => {
               />
             </form>
             <img
-              className="rounded-full w-[50px]"
-              src="./images/avatar2.webp"
+              className=" w-[50px] h-[50px]"
+              src="/images/avatar2.webp"
               alt="avatar"
             />
           </div>

@@ -1,5 +1,5 @@
 //import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import { IoPerson } from "react-icons/io5";
 import { LuFileEdit } from "react-icons/lu";
 import { MdOutlineFingerprint } from "react-icons/md";
@@ -17,10 +17,16 @@ const SideBar = () => {
     <div className="sidebar--items">
       <img
         className="rounded-full w-[35%] mb-4 mt-2 ml-4"
-        src="./images/avatar2.webp"
+        src="/images/avatar2.webp"
         alt="avartar"
       />
       <ul className="mb-5">
+        <li>
+          <Link to={"/dashboard"} className="flex items-center gap-3">
+            <IoPerson color="#fff" size={25} />
+            Dashboard
+          </Link>
+        </li>
         <li>
           <NavLink to={"/dashboard/people"} className="flex items-center gap-3">
             <IoPerson color="#fff" size={25} />

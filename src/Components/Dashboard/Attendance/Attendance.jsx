@@ -2,11 +2,11 @@ import BackBtn from "../../Reusable/BackBtn";
 
 function Attendance() {
   return (
-    <div>
-      <BackBtn text="Attendance" paddingAndMargin="mb-3 p-2" />
+    <div className="mt-5">
+      <BackBtn text="Attendance" paddingAndMargin="mb-3 p-2" path={'/dashboard/forms'} />
       <form action="" className="relative">
-        <div className="flex items-center justify-around">
-          <div className="relative w-1/3">
+        <div className="flex items-center gap-10">
+          <div className="relative w-full">
             <select
               className="py-4 px-5 w-full bg-slate-200 cursor-pointer"
               name="Select Meeting"
@@ -21,7 +21,7 @@ function Attendance() {
             </select>
           </div>
           <input
-            className="w-1/3 py-4 px-3 text-lg bg-slate-200"
+            className="w-full py-4 px-3 text-lg bg-slate-200"
             type="text"
             name=""
             id=""

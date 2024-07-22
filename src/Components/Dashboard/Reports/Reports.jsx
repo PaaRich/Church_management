@@ -5,7 +5,7 @@ function Reports() {
     <div className="h-[80vh]">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-between w-1/3">
-          <BackBtn text="Report" paddingAndMargin="p-3 mb-3" />
+          <BackBtn text="Report" paddingAndMargin="p-3 mb-3" path={'/dashboard/attendance'} />
           <p className="text-xl">Attendance</p>
         </div>
         <button className="bg-green-600 cursor-pointer text-white p-3 rounded-sm hover:bg-green-500 duration-300">

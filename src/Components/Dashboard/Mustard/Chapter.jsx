@@ -11,7 +11,7 @@ const Chapter = () => {
     <div className="flex">
       <div className="w-1/2 border-r-2 border-r-slate-300">
         <span className="flex items-center">
-          <BackBtn text="Mustard Seed" paddingAndMargin="p-2 mb-1" />
+          <BackBtn text="Mustard Seed" paddingAndMargin="p-2 mb-1" path={'/dashboard/mustard_seed'} />
           <p className="text-xl font-medium ml-10">{id}</p>
         </span>
         <span>

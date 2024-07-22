@@ -1,6 +1,12 @@
+import { useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
 
 function Forms() {
+
+const [media,setMedia]= useState('')
+const getMedia= (e)=>{
+  setMedia(e.target.value)
+}
   //navigator
   return (
     <div className="w-full">
@@ -15,7 +21,7 @@ function Forms() {
           <p className="font-light">Logo</p>
           <p className="pt-1">Church membership form</p>
         </div>
-        <BackBtn text="Form" paddingAndMargin="mb-0 p-2" />
+        <BackBtn text="Form" paddingAndMargin="mb-0 p-2" path={'/dashboard/people'} />
       </div>
       <form action="" className=" w-full h-full">
         <div className="grid grid-cols-2 gap-x-5">
@@ -38,7 +44,7 @@ function Forms() {
               name="Education"
               id=""
             >
-              <option value="" disabled selected>
+              <option value="">
                 Highest Level of Education
               </option>
               <option value="Postgraduate">Postgraduate</option>
@@ -65,7 +71,7 @@ function Forms() {
               name="Marital Status"
               id=""
             >
-              <option value="" disabled selected>
+              <option value="">
                 Marital Status
               </option>
               <option value="Married">Married</option>
@@ -79,8 +85,10 @@ function Forms() {
               className="py-3 px-5 w-full bg-slate-200/80"
               name="Media"
               id=""
+              onChange={getMedia}
+              value={media}
             >
-              <option value="" disabled selected>
+              <option value="">
                 How did you hear of us
               </option>
               <option value="COSMOPOLITAN TV">COSMOPOLITAN TV</option>
@@ -88,6 +96,10 @@ function Forms() {
               <option value="Invited by someone">Invited by someone</option>
               <option value="others">others</option>
             </select>
+            {
+              media==="Invited by someone" &&
+            <input className="w-full" type="text" name="invited_by" id="" placeholder="Invited By" />
+            }
           </div>
           <div className="relative">
             <select
@@ -95,7 +107,7 @@ function Forms() {
               name="School"
               id=""
             >
-              <option value="" disabled selected>
+              <option value="">
                 School
               </option>
               <option value="UENR">UENR</option>

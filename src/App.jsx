@@ -15,13 +15,15 @@ import SpecificComplain from "./Components/Dashboard/Coaching/SpecificComplain";
 import School from "./Components/Dashboard/School/School";
 import Communications from "./Components/Dashboard/Communications/Communications";
 import Profile from "./Components/Dashboard/People/Profile";
+import Homepage from "./Components/Home/Homepage";
 function App() {
   return (
     <>
       <div>
         <Routes>
+          <Route path="/" element={<Homepage/>}/>
           <Route
-            path="/"
+            path="/dashboard"
             element={
               <DashBoard>
                 <DashBoardHome />

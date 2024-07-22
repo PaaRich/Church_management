@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Ministries() {
   return (
     <div className="h-full">
-      <BackBtn text="Ministries" paddingAndMargin="mb-3 p-2" />
+      <BackBtn text="Ministries" paddingAndMargin="mb-3 p-2" path={'/dashboard/mustard_seed'}/>
       <div className="grid gap-y-10 w-11/12 m-auto grid-cols-2">
         {MinistriesObj.map((item) => (
           <Link
