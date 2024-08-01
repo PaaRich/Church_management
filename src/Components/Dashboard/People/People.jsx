@@ -10,16 +10,20 @@ function People({ children }) {
   return (
     <div className="p-0">
       <div className="c-people-header flex">
-        <BackBtn text="People" paddingAndMargin="mb-5 p-2" path={'/dashboard'} />
+        <BackBtn
+          text="People"
+          paddingAndMargin="mb-5 p-2"
+          path={"/dashboard"}
+        />
         <div className="w-1/2">
           <div></div>
         </div>
       </div>
       <div className="flex h-full">
         <div className="w-1/2 h-full pr-4 border-r-2 ">
-          {committee.map((person) => (
+          {committee.map((person, index) => (
             <Link
-              key={person.person}
+              key={index}
               state={person}
               to={`/dashboard/people/${person.person}`}
             >
