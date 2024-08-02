@@ -2,6 +2,7 @@ import BackBtn from "../../Reusable/BackBtn";
 import project from "../../../assets/management.webp";
 import projectRoll from "../../../assets/project-manager-roll.jpg";
 import discipline from "../../../assets/discipline1.jpg";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -27,10 +28,11 @@ const Lessons = () => {
         <h1 className="text-xl ">Lessons</h1>
         <div className="relative w-[40%]">
           <div
-            className="border-2 p-2 active:border-black cursor-pointer rounded-sm"
+            className="flex items-center justify-between border-2 p-2  cursor-pointer rounded-sm"
             onClick={() => setDropAction(!dropAction)}
           >
-            Active
+            <p>Active</p>
+            {dropAction ? <IoIosArrowUp /> : <IoIosArrowDown />}
           </div>
           {dropAction && (
             <div className="flex flex-col items-start absolute top-full border-2 z-50 bg-slate-200 w-full rounded-b-sm shadow-xl">

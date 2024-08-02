@@ -1,5 +1,6 @@
 import BackBtn from "../../Reusable/BackBtn";
 import { Link, Outlet } from "react-router-dom";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useState } from "react";
 
 const Exams = () => {
@@ -15,10 +16,11 @@ const Exams = () => {
         <h1 className="text-xl ">Exams</h1>
         <div className="relative w-[40%]">
           <div
-            className="border-2 p-2 active:border-black cursor-pointer rounded-sm"
+            className="flex items-center justify-between border-2 p-2 cursor-pointer rounded-sm"
             onClick={() => setDropAction(!dropAction)}
           >
-            Active
+            <p>Active</p>
+            {dropAction ? <IoIosArrowUp /> : <IoIosArrowDown />}
           </div>
           {dropAction && (
             <div className="flex flex-col items-start absolute top-full border-2 z-50 bg-slate-200 w-full rounded-b-sm shadow-xl">
