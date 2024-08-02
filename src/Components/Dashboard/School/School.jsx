@@ -1,20 +1,43 @@
 import BackBtn from "../../Reusable/BackBtn";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function School() {
+  const [dropAction, setDropAction] = useState(false);
   return (
     <div className="w-full px-10 mt-5">
       <div className="flex items-center justify-between">
-        <BackBtn text="Foundational School" paddingAndMargin="mb-3 p-2" path={'/dashboard/coaching'}/>
+        <BackBtn
+          text="Foundational School"
+          paddingAndMargin="mb-3 p-2"
+          path={"/dashboard/coaching"}
+        />
         <div className="relative w-[40%]">
-          <select
-            className="py-3 px-5 w-full bg-slate-200 cursor-pointer"
-            name="Action"
-            id=""
+          <div
+            className="border-2 p-2 active:border-black cursor-pointer rounded-sm"
+            onClick={() => setDropAction(!dropAction)}
           >
-            <option value="Schedule Meeting">Schedule Meeting</option>
-            <option value="Take a Lesson">Take a Lesson</option>
-            <option value="Exams">Exams</option>
-          </select>
+            Active
+          </div>
+          {dropAction && (
+            <div className="flex flex-col items-start absolute top-full border-2 z-50 bg-slate-200 w-full rounded-b-sm shadow-xl">
+              <Link className="hover:bg-slate-500 hover:text-white w-full p-1">
+                Schedule Meeting
+              </Link>
+              <Link
+                className="hover:bg-slate-500 hover:text-white w-full p-1"
+                to="/dashboard/school/lessons"
+              >
+                Take a Lesson
+              </Link>
+              <Link
+                className="hover:bg-slate-500 hover:text-white w-full p-1"
+                to="/dashboard/school/exams"
+              >
+                Exams
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex items-start justify-between gap-10 mt-10">
@@ -52,7 +75,14 @@ function School() {
         </div>
       </div>
       <div>
-        <textarea className="border-2 border-slate-200/80 w-full p-5 resize-none mt-5 rounded-sm" name="" id="" cols="30" rows="6" placeholder="Information about Meeting"></textarea>
+        <textarea
+          className="border-2 border-slate-200/80 w-full p-5 resize-none mt-5 rounded-sm"
+          name=""
+          id=""
+          cols="30"
+          rows="6"
+          placeholder="Information about Meeting"
+        ></textarea>
       </div>
       <div className="w-full relative">
         <button className="bg-slate-950 hover:bg-slate-800 duration-200 text-white mt-10 py-4 w-3/6 absolute left-1/2 -translate-x-1/2 rounded ">
