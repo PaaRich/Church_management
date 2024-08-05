@@ -18,7 +18,7 @@ function School() {
             className="flex items-center justify-between border-2 p-2 cursor-pointer rounded-sm"
             onClick={() => setDropAction(!dropAction)}
           >
-            <p>Active</p>
+            <p>Schedule Meeting</p>
             {dropAction ? <IoIosArrowUp /> : <IoIosArrowDown />}
           </div>
           {dropAction && (
