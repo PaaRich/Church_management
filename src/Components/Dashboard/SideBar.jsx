@@ -1,21 +1,44 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
+//import Dropdown from "../Reusable/DropDown";
 import { IoPerson } from "react-icons/io5";
 import { LuFileEdit } from "react-icons/lu";
 import { MdOutlineFingerprint } from "react-icons/md";
 import { TbReport } from "react-icons/tb";
-import { IoIosPeople } from "react-icons/io";
+import { IoIosArrowDown, IoIosPeople } from "react-icons/io";
 import { TbMessageCircleDown } from "react-icons/tb";
 import { BiLogOut } from "react-icons/bi";
 import { GiTeacher } from "react-icons/gi";
 import { TbUsersGroup } from "react-icons/tb";
 import { PiChalkboardTeacherDuotone } from "react-icons/pi";
-import {RxDashboard } from "react-icons/rx"
+import { RxDashboard } from "react-icons/rx";
 import "./DashboardMain.css";
 
 const SideBar = () => {
   const [dropReport, setDropReport] = useState(false);
   const [dropComplain, setDropComplain] = useState(false);
+  const dropDownRef = useRef(null);
+  const dropDownCoachRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+      setDropReport(false);
+    }
+    if (
+      dropDownCoachRef.current &&
+      !dropDownCoachRef.current.contains(event.target)
+    ) {
+      setDropComplain(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
       className="sidebar--items"
@@ -58,31 +81,36 @@ const SideBar = () => {
             Attendance
           </NavLink>
         </li>
-        <li>
+        {/* <Dropdown options={options} placeholder="Select an option" /> */}
+
+        <li ref={dropDownRef}>
           <Link
             to={"/dashboard/reports/attendance"}
-            className="flex items-center gap-3"
+            className="flex items-center gap-3 peer"
             onClick={() => setDropReport(!dropReport)}
           >
             <TbReport color="#fff" size={25} />
-            Reports
-          </Link>
-          {dropReport && (
-            <div className="flex flex-col ml-10">
-              <NavLink
-                to="/dashboard/reports/attendance"
-                className="hover:text-black active:text-black"
-              >
-                Attendance
-              </NavLink>
-              <NavLink
-                to={"/dashboard/reports/workers"}
-                className="hover:text-black active:text-black "
-              >
-                Workers
-              </NavLink>
+            <div className="flex justify-between items-center w-full">
+              Reports
+              <IoIosArrowDown
+                size={20}
+                className={`${dropReport && "rotate-180"}`}
+              />
             </div>
-          )}
+          </Link>
+          <div
+            //className="flex flex-col ml-10"
+            className={`${
+              dropReport ? "drop--down" : "drop--Up"
+            } flex flex-col ml-10 duration-500 `}
+          >
+            <NavLink className="child" to="/dashboard/reports/attendance">
+              Attendance
+            </NavLink>
+            <NavLink className="child" to={"/dashboard/reports/workers"}>
+              Workers
+            </NavLink>
+          </div>
         </li>
         <li>
           <NavLink
@@ -102,20 +130,28 @@ const SideBar = () => {
             Ministries
           </NavLink>
         </li>
-        <li>
+        <li ref={dropDownCoachRef}>
           <NavLink
             to={"/dashboard/coaching"}
             className="flex items-center gap-3"
             onClick={() => setDropComplain(!dropComplain)}
           >
             <PiChalkboardTeacherDuotone color="#fff" size={25} />
-            Coaching
+            <div className="flex items-center justify-between w-full">
+              Coaching
+              <IoIosArrowDown
+                size={21}
+                className={`${dropComplain && "rotate-180"}`}
+              />
+            </div>
           </NavLink>
-          {dropComplain && (
-            <NavLink className="block ml-10" to={"complains"}>
+          <div
+            className={`${dropComplain ? "drop--down-c" : "drop--Up-c"} ml-10`}
+          >
+            <NavLink to={"complains"} className="block child">
               Complains
             </NavLink>
-          )}
+          </div>
         </li>
         <li>
           <NavLink to={"/dashboard/school"} className="flex items-center gap-3">

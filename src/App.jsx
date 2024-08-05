@@ -23,6 +23,7 @@ import Exams from "./Components/Dashboard/School/Exams";
 import Lessons from "./Components/Dashboard/School/Lessons";
 import ExamQue from "./Components/Dashboard/School/ExamQue";
 import Cert from "./Components/Dashboard/School/Cert";
+// eslint-disable-next-line no-unused-vars
 import Login from "./Components/Login/Login";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
@@ -43,7 +44,7 @@ function App() {
           transition={"flip"}
         />
         <Routes>
-          <Route path="/" element={<Homepage/>}/>
+          <Route path="/" element={<Homepage />} />
           <Route
             path="/dashboard"
             element={
