@@ -25,7 +25,7 @@ const DashBoard = ({ children }) => {
             />
           </div>
           <div className="p-5 w-full overflow-y-scroll h-[85vh]">
-          {children}
+            {children}
           </div>
           {/* <DashBoardHome /> */}
         </main>

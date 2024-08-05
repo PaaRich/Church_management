@@ -6,16 +6,23 @@ import People from "./Components/Dashboard/People/People";
 import Forms from "./Components/Dashboard/Forms/Forms";
 import Attendance from "./Components/Dashboard/Attendance/Attendance";
 import Reports from "./Components/Dashboard/Reports/Reports";
+import Workers from "./Components/Dashboard/Reports/Workers";
 import Mustard from "./Components/Dashboard/Mustard/Mustard";
 import Chapter from "./Components/Dashboard/Mustard/Chapter";
 import Ministries from "./Components/Dashboard/Ministries/Ministries";
 import Ministry from "./Components/Dashboard/Ministries/Ministry";
 import Coaching from "./Components/Dashboard/Coaching/Coaching";
+import LogComplain from "./Components/Dashboard/Coaching/LogComplain";
+import Complains from "./Components/Dashboard/Coaching/Complains";
 import SpecificComplain from "./Components/Dashboard/Coaching/SpecificComplain";
 import School from "./Components/Dashboard/School/School";
 import Communications from "./Components/Dashboard/Communications/Communications";
 import Profile from "./Components/Dashboard/People/Profile";
 import Homepage from "./Components/Home/Homepage";
+import Exams from "./Components/Dashboard/School/Exams";
+import Lessons from "./Components/Dashboard/School/Lessons";
+import ExamQue from "./Components/Dashboard/School/ExamQue";
+import Cert from "./Components/Dashboard/School/Cert";
 import Login from "./Components/Login/Login";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
@@ -36,8 +43,7 @@ function App() {
           transition={"flip"}
         />
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Homepage/>}/>
           <Route
             path="/dashboard"
             element={
@@ -83,10 +89,18 @@ function App() {
             }
           />
           <Route
-            path="/dashboard/reports"
+            path="/dashboard/reports/attendance"
             element={
               <DashBoard>
                 <Reports />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/reports/workers"
+            element={
+              <DashBoard>
+                <Workers />
               </DashBoard>
             }
           />
@@ -134,7 +148,10 @@ function App() {
                 <Coaching />
               </DashBoard>
             }
-          />
+          >
+            <Route index element={<LogComplain />} />
+            <Route path="complains" element={<Complains />} />
+          </Route>
           <Route
             path="/dashboard/coaching/specific_complains"
             element={
@@ -151,6 +168,25 @@ function App() {
               </DashBoard>
             }
           />
+          <Route
+            path="/dashboard/school/lessons"
+            element={
+              <DashBoard>
+                <Lessons />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/school/exams"
+            element={
+              <DashBoard>
+                <Exams />
+              </DashBoard>
+            }
+          >
+            <Route index element={<ExamQue />} />
+            <Route path="cert" element={<Cert />} />
+          </Route>
           <Route
             path="/dashboard/communications"
             element={

@@ -2,11 +2,11 @@
 //import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
-const BackBtn = ({ text, paddingAndMargin,path }) => {
+const BackBtn = ({ text, paddingAndMargin, path }) => {
   const navigate = useNavigate(-1);
   return (
     <div
-      className={`${paddingAndMargin} mb-5 border-2 flex items-center text-md hover:bg-slate-900 hover:border-slate-900 hover:text-white duration-500 cursor-pointer w-fit`}
+      className={`${paddingAndMargin} border-2 flex items-center text-md hover:bg-slate-900 hover:border-slate-900 hover:text-white duration-500 cursor-pointer w-fit`}
       onClick={() => navigate(path)}
     >
       <IoIosArrowBack size={24} />
