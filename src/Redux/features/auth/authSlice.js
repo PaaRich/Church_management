@@ -17,8 +17,33 @@ export const addUser = createAsyncThunk(
     try {
       return await authServices.addUser(userData);
     } catch (error) {
-      console.log(error);
-      const message = "error message here";
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+
+//login user
+export const loginUser = createAsyncThunk(
+  "auth/login",
+  async (userData, thunkAPI) => {
+    try {
+      return await authServices.loginUser(userData);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -36,6 +61,7 @@ export const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder
+    //adding new member
       .addCase(addUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -43,9 +69,28 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        toast.success("user added");
+        toast.success("member added successfully");
       })
       .addCase(addUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+    //login user
+      .addCase(loginUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoggedIn=true;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.activeUser= action.payload.user
+        toast.success("logged in successfully");
+      })
+      .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

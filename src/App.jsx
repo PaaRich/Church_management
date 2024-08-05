@@ -28,7 +28,7 @@ import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-axios.defaults.baseURL = "http://127.0.0.1:5000/api/v1";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -37,13 +37,15 @@ function App() {
       <div>
         <ToastContainer
           position="top-center"
-          autoClose={5000}
+          autoClose={4000}
           hideProgressBar={true}
           newestOnTop={true}
-          transition={"flip"}
+          // transition="flip"
+          theme="colored"
         />
         <Routes>
           <Route path="/" element={<Homepage/>}/>
+          <Route path="/login" element={<Login/>}/>
           <Route
             path="/dashboard"
             element={
