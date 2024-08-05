@@ -169,12 +169,12 @@ input:focus {
 }
 .slick-slide {
   padding: 0 10px;
-  transition-duration: 0.5s; /* Adjust the value to set the desired gap */
+  transition-duration: 0.5s;
   cursor: pointer;
 }
 .slick-slide:hover {
   transform: scale(1.2);
 }
 .slick-list {
-  margin: 0 -10px; /* Adjust the value to match the padding */
+  margin: 0 -10px;
 }
