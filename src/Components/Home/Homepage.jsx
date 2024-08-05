@@ -6,10 +6,10 @@ import Footer from './Footer'
 function Homepage() {
   return (
     <div>
-      {/* <Navbar/>
+      <Navbar/>
       <Header/>
-      <Footer/> */}
-      <h2>Homepage</h2>
+      <Footer/>
+      {/* <h2>Homepage</h2> */}
     </div>
   )
 }
