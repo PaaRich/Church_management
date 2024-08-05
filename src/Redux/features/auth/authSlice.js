@@ -1,0 +1,58 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import authServices from "./authServices";
+import { toast } from "react-toastify";
+
+const initialState = {
+  isLoggedIn: false,
+  activeUser: null,
+  isError: false,
+  isSuccess: false,
+  isLoading: false,
+};
+
+//add user
+export const addUser = createAsyncThunk(
+  "auth/register",
+  async (userData, thunkAPI) => {
+    try {
+      return await authServices.addUser(userData);
+    } catch (error) {
+      console.log(error);
+      const message = "error message here";
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    RESET(state) {
+      state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(addUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(addUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success("user added");
+      })
+      .addCase(addUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      });
+  },
+});
+
+export const { RESET } = authSlice.actions;
+export default authSlice.reducer;

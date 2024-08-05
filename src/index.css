@@ -9,7 +9,15 @@
 .CircularProgressbar-path {
   stroke: url(#gradient);
 }
+.row{
+  max-width: 1500px;
+  margin: 0 auto;
+}
 
+.container{
+  padding:  1rem;
+  margin: 0 auto;
+}
 .here {
   color: rgb(173, 20, 20);
 }

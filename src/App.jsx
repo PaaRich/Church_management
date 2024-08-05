@@ -16,12 +16,28 @@ import School from "./Components/Dashboard/School/School";
 import Communications from "./Components/Dashboard/Communications/Communications";
 import Profile from "./Components/Dashboard/People/Profile";
 import Homepage from "./Components/Home/Homepage";
+import Login from "./Components/Login/Login";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+axios.defaults.baseURL = "http://127.0.0.1:5000/api/v1";
+axios.defaults.withCredentials = true;
+
 function App() {
   return (
     <>
       <div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          transition={"flip"}
+        />
         <Routes>
-          <Route path="/" element={<Homepage/>}/>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard"
             element={

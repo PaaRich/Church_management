@@ -58,7 +58,7 @@ const getMedia= (e)=>{
 
           <input type="text" name="" id="" placeholder="Lastname" required />
           <input
-            type="text"
+            type="date"
             name=""
             id=""
             placeholder="Date of birth"
@@ -117,6 +117,10 @@ const getMedia= (e)=>{
               <option value="NODASS">NODASS</option>
               <option value="SDA">SDA</option>
             </select>
+            <div className="my-8">
+            <label className="pb-3 bg-blue-500 text-white p-5 rounded-md cursor-pointer" htmlFor="userPhoto">Upload Photo</label>
+            <input className="hidden" type="file" name="user_photo" id="userPhoto" />
+            </div>
           </div>
         </div>
         <div className="w-full relative pb-5 mt-2">

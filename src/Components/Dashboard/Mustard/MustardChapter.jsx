@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 //import React from 'react';
-import img from "../../../../public/images/avatar2.webp";
+import img from "/images/avatar2.webp";
 import { IoLocationOutline } from "react-icons/io5";
 const MustardChapter = ({ chapter, roll, location }) => {
   return (

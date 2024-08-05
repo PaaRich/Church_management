@@ -10,6 +10,8 @@ import { BiLogOut } from "react-icons/bi";
 import { GiTeacher } from "react-icons/gi";
 import { TbUsersGroup } from "react-icons/tb";
 import { PiChalkboardTeacherDuotone } from "react-icons/pi";
+import { RxDashboard } from "react-icons/rx";
+
 import "./DashboardMain.css";
 
 const SideBar = () => {
@@ -23,7 +25,7 @@ const SideBar = () => {
       <ul className="mb-5">
         <li>
           <Link to={"/dashboard"} className="flex items-center gap-3">
-            <IoPerson color="#fff" size={25} />
+            <RxDashboard color="#fff" size={25} />
             Dashboard
           </Link>
         </li>
