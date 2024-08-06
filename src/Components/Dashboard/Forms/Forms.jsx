@@ -92,7 +92,7 @@ function Forms() {
             name="othername"
           />
           <div className="flex my-2">
-            <label htmlFor="" className="mr-5">
+            <label htmlFor="Male" className="mr-5">
               <input
                 className="mr-2"
                 type="radio"
@@ -104,7 +104,7 @@ function Forms() {
               />
               Male
             </label>
-            <label htmlFor="">
+            <label htmlFor="Female">
               <input
                 className="mr-2"
                 type="radio"
@@ -139,20 +139,50 @@ function Forms() {
               <option value="Junior High School">Junior High School</option>
             </select>
           </div>
-          <input
+          {/* <input
             type="text"
             name="mustard_seed"
             onChange={handleChange}
             value={userData.mustard_seed}
             placeholder="Mustard Seed"
-          />
-          <input
+          /> */}
+                          <div className="relative">
+            <select
+              className="py-3 px-5 w-full bg-slate-200/80"
+              name="mustard_seed"
+              onChange={handleChange}
+              value={userData.mustard_seed}
+              id=""
+            >
+              <option value="">select ministry</option>
+              <option value="Children Ministry">Children Ministry</option>
+              <option value="Youth Ministry">Youth Ministry</option>
+              <option value="Women Ministry">Women Ministry</option>
+              <option value="Men Ministry">Men Ministry</option>
+            </select>
+          </div>
+          {/* <input
             type="text"
             name="ministry"
             onChange={handleChange}
             value={userData.ministry}
             placeholder="Ministry"
-          />
+          /> */}
+                    <div className="relative">
+            <select
+              className="py-3 px-5 w-full bg-slate-200/80"
+              name="ministry"
+              onChange={handleChange}
+              value={userData.ministry}
+              id=""
+            >
+              <option value="">select ministry</option>
+              <option value="Children Ministry">Children Ministry</option>
+              <option value="Youth Ministry">Youth Ministry</option>
+              <option value="Women Ministry">Women Ministry</option>
+              <option value="Men Ministry">Men Ministry</option>
+            </select>
+          </div>
 
           <input
             type="text"

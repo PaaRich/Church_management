@@ -13,20 +13,24 @@ const Profile = () => {
       <div className="c-profile flex justify-between border-b-2 border-b-black h-3/6">
         <div className="w-1/2 h-full">
           <div>
-            <p>First Name</p>
-            <p className="font-light">{personData.person}</p>
+            <p className="font-semibold">First Name</p>
+            <p className="font-light">{personData.firstname}</p>
           </div>
           <div>
-            <p>Last Name</p>
-            <p>{personData.lastName}</p>
+            <p className="font-semibold">Last Name</p>
+            <p>{personData?.lastname}</p>
           </div>
           <div>
-            <p>Date Joined</p>
-            <p>{personData.dateJoined}</p>
+            <p className="font-semibold">Date Joined</p>
+            <p>{new Date(personData?.createdAt).toLocaleString("en-US") }</p>
           </div>
           <div>
-            <p>Marital Status</p>
-            <p>{personData.maritalStatus}</p>
+            <p className="font-semibold">Marital Status</p>
+            <p>{personData?.marital_status}</p>
+          </div>
+          <div>
+            <p className="font-semibold">Phone Number</p>
+            <p>{personData?.phonenumber}</p>
           </div>
         </div>
         <div className="w-1/2 text-end">
@@ -41,7 +45,8 @@ const Profile = () => {
               <p>{personData.position}</p>
             </div>
             <div>
-              <p>Status</p>
+              <p className="font-semibold">Status</p>
+              <p>{personData.role}</p>
             </div>
           </div>
         </div>
