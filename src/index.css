@@ -9,13 +9,13 @@
 .CircularProgressbar-path {
   stroke: url(#gradient);
 }
-.row{
+.row {
   max-width: 1500px;
   margin: 0 auto;
 }
 
-.container{
-  padding:  1rem;
+.container {
+  padding: 1rem;
   margin: 0 auto;
 }
 .here {
@@ -69,7 +69,10 @@ body {
   background-color: rgb(0, 204, 255);
   /* border-radius: 50px; */
 }
-
+.active.child {
+  background-color: transparent;
+  color: rgb(0, 204, 255);
+}
 /* people styles */
 .c-person {
   border-bottom: 1px solid rgba(0, 0, 0, 0.228);
@@ -166,12 +169,12 @@ input:focus {
 }
 .slick-slide {
   padding: 0 10px;
-  transition-duration: 0.5s; /* Adjust the value to set the desired gap */
+  transition-duration: 0.5s;
   cursor: pointer;
 }
 .slick-slide:hover {
   transform: scale(1.2);
 }
 .slick-list {
-  margin: 0 -10px; /* Adjust the value to match the padding */
+  margin: 0 -10px;
 }
