@@ -33,7 +33,9 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess && isLoggedIn) {
-      navigate("/dashboard",{replace:true});
+      window.setTimeout(()=>{
+        navigate("/dashboard",{replace:true});
+      },1000)
     }
     dispatch(RESET())
   }, [isSuccess, isLoggedIn]);

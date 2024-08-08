@@ -5,9 +5,34 @@ import Person from "./Person";
 import { committee } from "./Committee";
 import BackBtn from "../../Reusable/BackBtn";
 import { Link } from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux'
+import { useEffect, useState } from "react";
+import { getAllUser } from "../../../Redux/features/auth/authSlice";
+import Loader from "../../Reusable/Loader";
 
 function People({ children }) {
+  const dispatch= useDispatch()
+  const {allUsers,isLoading,isSuccess}= useSelector((state)=>state.auth)
+
+  const [users, setUsers]= useState(allUsers)
+
+  const getUsers= async()=>{
+    await dispatch(getAllUser())
+  }
+
+  useEffect(()=>{
+    getUsers()
+    setUsers(allUsers)
+  },[])
+
+  useEffect(()=>{
+    setUsers(allUsers)
+  },[users])
+  // console.log(users)
+
   return (
+    <>
+    {isLoading && <Loader/>}
     <div className="p-0">
       <div className="c-people-header flex">
         <BackBtn
@@ -21,16 +46,16 @@ function People({ children }) {
       </div>
       <div className="flex h-full">
         <div className="w-1/2 h-full pr-4 border-r-2 ">
-          {committee.map((person, index) => (
+          {allUsers?.map((person, index) => (
             <Link
               key={index}
               state={person}
-              to={`/dashboard/people/${person.person}`}
+              to={`/dashboard/people/${person._id}`}
             >
               <Person
-                person={person.person}
-                position={person.position}
-                mustard_seed={person.mustard_seed}
+                person={person?.firstname}
+                ministry={person?.ministry}
+                mustard_seed={person?.role}
               />
             </Link>
           ))}
@@ -38,6 +63,7 @@ function People({ children }) {
         <div className="w-1/2 h-full pr-4 pt-4 pl-4">{children}</div>
       </div>
     </div>
+    </>
   );
 }
 

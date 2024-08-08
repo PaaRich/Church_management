@@ -27,7 +27,13 @@ const getLoginStatus = async function () {};
 const logoutUser = async function () {};
 
 //get all users
-const getAllUsers = async function () {};
+const getAllUsers = async function () {
+  const response= await axios({
+    method:"GET",
+    url:"/users/all-users"
+  })
+  return response.data
+};
 
 //verify user
 const verifyUser = async function () {};
