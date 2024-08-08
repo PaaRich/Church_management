@@ -16,6 +16,7 @@ import LogComplain from "./Components/Dashboard/Coaching/LogComplain";
 import Complains from "./Components/Dashboard/Coaching/Complains";
 import SpecificComplain from "./Components/Dashboard/Coaching/SpecificComplain";
 import School from "./Components/Dashboard/School/School";
+import Setting from "./Components/Dashboard/SettingComp/Settings";
 import Communications from "./Components/Dashboard/Communications/Communications";
 import Profile from "./Components/Dashboard/People/Profile";
 import Homepage from "./Components/Home/Homepage";
@@ -190,6 +191,14 @@ function App() {
             <Route index element={<ExamQue />} />
             <Route path="cert" element={<Cert />} />
           </Route>
+          <Route
+            path="/dashboard/setting"
+            element={
+              <DashBoard>
+                <Setting />
+              </DashBoard>
+            }
+          />
           <Route
             path="/dashboard/communications"
             element={
