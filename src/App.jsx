@@ -16,6 +16,7 @@ import LogComplain from "./Components/Dashboard/Coaching/LogComplain";
 import Complains from "./Components/Dashboard/Coaching/Complains";
 import SpecificComplain from "./Components/Dashboard/Coaching/SpecificComplain";
 import School from "./Components/Dashboard/School/School";
+import Setting from "./Components/Dashboard/SettingComp/Settings";
 import Communications from "./Components/Dashboard/Communications/Communications";
 import Profile from "./Components/Dashboard/People/Profile";
 import Homepage from "./Components/Home/Homepage";
@@ -28,6 +29,7 @@ import Login from "./Components/Login/Login";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import EditMember from "./Components/Dashboard/EditUser/EditMember";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1";
 axios.defaults.withCredentials = true;
@@ -190,6 +192,22 @@ function App() {
             <Route index element={<ExamQue />} />
             <Route path="cert" element={<Cert />} />
           </Route>
+          <Route
+            path="/dashboard/setting"
+            element={
+              <DashBoard>
+                <Setting />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/edit-user"
+            element={
+              <DashBoard>
+                <EditMember/>
+              </DashBoard>
+            }
+          />
           <Route
             path="/dashboard/communications"
             element={

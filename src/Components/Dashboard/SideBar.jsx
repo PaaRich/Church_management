@@ -5,7 +5,7 @@ import { IoPerson } from "react-icons/io5";
 import { LuFileEdit } from "react-icons/lu";
 import { MdOutlineFingerprint } from "react-icons/md";
 import { TbReport } from "react-icons/tb";
-import { IoIosArrowDown, IoIosPeople } from "react-icons/io";
+import { IoIosArrowDown, IoIosPeople, IoIosSettings } from "react-icons/io";
 import { TbMessageCircleDown } from "react-icons/tb";
 import { BiLogOut } from "react-icons/bi";
 import { GiTeacher } from "react-icons/gi";
@@ -166,6 +166,16 @@ const SideBar = () => {
           >
             <TbMessageCircleDown color="#fff" size={25} />
             Communication
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={"/dashboard/setting"}
+            className="flex items-center gap-3"
+          >
+            {/* change this icon */}
+            <IoIosSettings color="#fff" size={25} />
+            Settings
           </NavLink>
         </li>
       </ul>

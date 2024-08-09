@@ -139,16 +139,7 @@ select {
   margin-bottom: 15px;
   border: 2px solid #e2e8f0;
 }
-input:focus {
-  /* outline: none; */
-}
-/* Attendence styles */
-/* .c-check-in-btn {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #0f172a;
-} */
+
 .c-meetings div {
   transition-duration: 0.5s;
 }
@@ -177,4 +168,12 @@ input:focus {
 }
 .slick-list {
   margin: 0 -10px;
+}
+/* settings styles */
+tbody tr:nth-child(2n-1){
+  background-color: rgba(0, 0, 0, 0.089);
+}
+table tr td,
+table tr th{
+  padding: 5px 1rem;
 }
