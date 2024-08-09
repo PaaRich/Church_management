@@ -154,11 +154,11 @@ function Forms() {
               value={userData.mustard_seed}
               id=""
             >
-              <option value="">select ministry</option>
-              <option value="Children Ministry">Children Ministry</option>
-              <option value="Youth Ministry">Youth Ministry</option>
-              <option value="Women Ministry">Women Ministry</option>
-              <option value="Men Ministry">Men Ministry</option>
+              <option value="">Mustard Seed</option>
+              <option value="UENR Chapter">UENR Chapter</option>
+              <option value="UDS Chapter">UDS Chapter</option>
+              <option value="UCC Chapter">UCC Chapter</option>
+              <option value="KNUST Chapter">KNUST Chapter</option>
             </select>
           </div>
           {/* <input
@@ -176,7 +176,7 @@ function Forms() {
               value={userData.ministry}
               id=""
             >
-              <option value="">select ministry</option>
+              <option value="">Ministry</option>
               <option value="Children Ministry">Children Ministry</option>
               <option value="Youth Ministry">Youth Ministry</option>
               <option value="Women Ministry">Women Ministry</option>

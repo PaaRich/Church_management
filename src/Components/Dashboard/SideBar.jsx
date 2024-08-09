@@ -170,7 +170,7 @@ const SideBar = () => {
         </li>
       </ul>
       <button className="flex items-center gap-3 text-white px-4 py-3 bg-blue-500 hover:bg-blue-500/60 w-full">
-        <BiLogOut color="#030303" size={25} />
+        <BiLogOut color="#fff" size={25} />
         Logout
       </button>
     </div>

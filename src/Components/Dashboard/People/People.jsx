@@ -12,7 +12,7 @@ import Loader from "../../Reusable/Loader";
 
 function People({ children }) {
   const dispatch= useDispatch()
-  const {allUsers,isLoading,isSuccess}= useSelector((state)=>state.auth)
+  const {allUsers,isLoading}= useSelector((state)=>state.auth)
 
   const [users, setUsers]= useState(allUsers)
 
@@ -27,7 +27,7 @@ function People({ children }) {
 
   useEffect(()=>{
     setUsers(allUsers)
-  },[users])
+  },[allUsers])
   // console.log(users)
 
   return (
@@ -46,11 +46,11 @@ function People({ children }) {
       </div>
       <div className="flex h-full">
         <div className="w-1/2 h-full pr-4 border-r-2 ">
-          {allUsers?.map((person, index) => (
+          {users?.map((person, index) => (
             <Link
               key={index}
               state={person}
-              to={`/dashboard/people/${person._id}`}
+              to={`/dashboard/people/${person?.firstname}`}
             >
               <Person
                 person={person?.firstname}

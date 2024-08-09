@@ -28,11 +28,11 @@ const logoutUser = async function () {};
 
 //get all users
 const getAllUsers = async function () {
-  const response= await axios({
-    method:"GET",
-    url:"/users/all-users"
-  })
-  return response.data
+  const response = await axios({
+    method: "GET",
+    url: "/users/all-users",
+  });
+  return response.data;
 };
 
 //verify user
@@ -42,10 +42,22 @@ const verifyUser = async function () {};
 const getUser = async function () {};
 
 //get mustards
-const getMustards = async function () {};
+const getMustards = async function (mustard) {
+  const response = await axios({
+    method: "GET",
+    url: `/users/get-mustards/${mustard}`,
+  });
+  return response.data;
+};
 
 //get ministries
-const getMinistries = async function () {};
+const getMinistries = async function (ministry) {
+  const response = await axios({
+    method: "GET",
+    url: `/users/get-ministries/${ministry}`,
+  });
+  return response.data;
+};
 
 const authServices = {
   addUser,

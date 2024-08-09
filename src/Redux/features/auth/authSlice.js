@@ -8,7 +8,9 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  allUsers:[]
+  allUsers:[],
+  ministryMembers:[],
+  mustardMembers:[]
 };
 
 //add user
@@ -56,6 +58,44 @@ export const getAllUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await authServices.getAllUsers();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//get ministries data
+export const getMinistries = createAsyncThunk(
+  "auth/get-ministries",
+  async (ministry, thunkAPI) => {
+    try {
+      return await authServices.getMinistries(ministry);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//get mustards data
+export const getMustards = createAsyncThunk(
+  "auth/get-mustards",
+  async (mustard, thunkAPI) => {
+    try {
+      return await authServices.getMustards(mustard);
     } catch (error) {
       // console.log(error);
       const message =
@@ -128,6 +168,40 @@ export const authSlice = createSlice({
         state.allUsers= action.payload.users
       })
       .addCase(getAllUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+    //get ministry users
+      .addCase(getMinistries.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMinistries.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.ministryMembers= action.payload.members
+      })
+      .addCase(getMinistries.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+    //get mustard users
+      .addCase(getMustards.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMustards.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.mustardMembers= action.payload.members
+      })
+      .addCase(getMustards.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
