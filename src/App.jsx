@@ -40,7 +40,7 @@ function App() {
       <div>
         <ToastContainer
           position="top-center"
-          autoClose={4000}
+          autoClose={3000}
           hideProgressBar={true}
           newestOnTop={true}
           // transition="flip"
