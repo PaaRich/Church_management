@@ -1,50 +1,58 @@
-import Person from "../People/Person";
-import { committee } from "../People/Committee";
+//import { Link } from "react-router-dom";
+import { complainsObj } from "./complainsObj";
 import { Link } from "react-router-dom";
+
 const Complains = () => {
   return (
     <div>
-      <div className="mt-5 flex">
-        <div className="w-1/2 border-r-2 pr-2">
-          <p className="font-semibold">Complains</p>
-          <div className="flex items-center justify-between">
-            <p className="text-xl">General Coaches</p>
-            <button className="px-3 py-2 rounded-sm bg-green-500 text-white hover:bg-green-400">
-              Assign All
-            </button>
-          </div>
-          <div className="mt-1">
-            {committee.map(
-              (item, index) =>
-                index < 4 && (
-                  <Person
-                    key={item.name}
-                    person={item.person}
-                    position={item.position}
-                  />
-                )
-            )}
-          </div>
-        </div>
-        <div className="w-1/2">
-          <p className="pt-8 pb-1 text-xl pl-4">Specific Coaches</p>
-          <div className="mt-1">
-            {committee.map(
-              (item, index) =>
-                index < 4 && (
+      <div className="mt-5">
+        <h1 className="font-semibold text-2xl">Complains</h1>
+        <div className="w-full mt-5">
+          <table className="w-full border-2 c-complains">
+            <thead>
+              <tr>
+                <td className="border-r-2 font-semibold text-xl py-3 w-1">
+                  No.
+                </td>
+                <td className="border-r-2 font-semibold text-xl py-3">
+                  Contact
+                </td>
+                <td className="border-r-2 font-semibold text-xl py-3">
+                  Complain type
+                </td>
+                <td className="font-semibold text-xl py-3">Date Created</td>
+              </tr>
+            </thead>
+            <tbody>
+              {complainsObj.map((complain, index) => (
+                <tr key={index}>
                   <Link
-                    key={item.name}
-                    to="/dashboard/coaching/specific_complains"
+                    to={`/dashboard/coaching/${complain.contact}`}
+                    state={complain}
+                    className="w-full"
                   >
-                    <Person
-                      person={item.person}
-                      position={item.position}
-                      mustard_seed={item.mustard_seed}
-                    />
+                    <td className="border-r-2">
+                      <span>{`${index + 1}. `}</span>
+                    </td>
+                    <td className="border-r-2">{complain.contact}</td>
+                    <td className="border-r-2">{complain.type}</td>
+                    <td>{complain.date}</td>
                   </Link>
-                )
-            )}
-          </div>
+                </tr>
+              ))}
+              {/* <Link>
+                <tr>
+                  <td className="w-full">d</td>
+                  <td className="w-full">d</td>
+                  <td className="w-full">d</td>
+                </tr>
+              </Link> */}
+            </tbody>
+          </table>
+          {/* <table>
+              <thead></thead>
+              <tbody></tbody>
+            </table> */}
         </div>
       </div>
     </div>

@@ -5,7 +5,9 @@
 :root {
   --primary: "dodgerblue";
 }
-
+select {
+  cursor: pointer;
+}
 .CircularProgressbar-path {
   stroke: url(#gradient);
 }
@@ -170,10 +172,13 @@ select {
   margin: 0 -10px;
 }
 /* settings styles */
-tbody tr:nth-child(2n-1){
+tbody tr:nth-child(2n-1) {
   background-color: rgba(0, 0, 0, 0.089);
 }
 table tr td,
-table tr th{
+table tr th {
   padding: 5px 1rem;
+}
+.c-complains tbody tr:nth-child(2n-1) {
+  background-color: rgba(0, 0, 255, 0.1);
 }
