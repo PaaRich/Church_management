@@ -8,28 +8,28 @@ const Complains = () => {
       <div className="mt-5">
         <h1 className="font-semibold text-2xl">Complains</h1>
         <div className="w-full mt-5">
-          <table className="w-full border-2 c-complains">
-            <thead>
+          <table className="w-full border-2 border-black c-complains">
+            <thead className="bg-blue-500 text-white border-b-4">
               <tr>
-                <td className="border-r-2 font-semibold text-xl py-3 w-1">
+                <td className="border-r-2  font-semibold text-xl py-3 w-1">
                   No.
                 </td>
                 <td className="border-r-2 font-semibold text-xl py-3">
                   Contact
                 </td>
-                <td className="border-r-2 font-semibold text-xl py-3">
+                <td className="border-r-2  font-semibold text-xl py-3">
                   Complain type
                 </td>
-                <td className="font-semibold text-xl py-3">Date Created</td>
+                <td className="font-semibold text-xl py-3 ">Date Created</td>
               </tr>
             </thead>
             <tbody>
               {complainsObj.map((complain, index) => (
-                <tr key={index}>
-                  <Link
+                <tr key={index} className="duration-500">
+                  {/* <Link
                     to={`/dashboard/coaching/${complain.contact}`}
                     state={complain}
-                    className="w-full"
+                    className="w-full block"
                   >
                     <td className="border-r-2">
                       <span>{`${index + 1}. `}</span>
@@ -37,7 +37,13 @@ const Complains = () => {
                     <td className="border-r-2">{complain.contact}</td>
                     <td className="border-r-2">{complain.type}</td>
                     <td>{complain.date}</td>
-                  </Link>
+                  </Link> */}
+                  <td className="border-r-2">
+                    <span>{`${index + 1}.`}</span>
+                  </td>
+                  <td className="border-r-2 ">{complain.contact}</td>
+                  <td className="border-r-2">{complain.type}</td>
+                  <td>{complain.date}</td>
                 </tr>
               ))}
               {/* <Link>

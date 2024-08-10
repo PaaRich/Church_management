@@ -179,6 +179,18 @@ table tr td,
 table tr th {
   padding: 5px 1rem;
 }
+
 .c-complains tbody tr:nth-child(2n-1) {
   background-color: rgba(0, 0, 255, 0.1);
+}
+
+.c-complains tbody tr {
+  cursor: pointer;
+}
+.c-complains tbody tr td {
+  padding: 10px 1rem;
+}
+.c-complains tbody tr:hover {
+  background-color: rgba(0, 0, 255, 0.587);
+  color: white;
 }
