@@ -1,3 +1,4 @@
+import { Outlet, Link } from "react-router-dom";
 import BackBtn from "../../Reusable/BackBtn";
 import { committee } from "./Committee";
 import Person from "./Person";
@@ -13,11 +14,15 @@ const JPK = () => {
         />
         <div className="mt-5">
           {committee.map((person) => (
-            <Person key={person.dateJoined} person={person.lastName} />
+            <Link to={person.lastName} key={person.dateJoined} state={person}>
+              <Person person={person.lastName} />
+            </Link>
           ))}
         </div>
       </div>
-      <div className="basis-1/2">Graphs</div>
+      <div className="basis-1/2">
+        <Outlet />
+      </div>
     </div>
   );
 };

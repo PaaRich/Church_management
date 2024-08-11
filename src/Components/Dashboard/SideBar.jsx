@@ -66,6 +66,12 @@ const SideBar = () => {
           </Link>
         </li>
         <li ref={dropJPKRef}>
+          {/* <details className="duration-500" open>
+            <summary>People</summary>
+            <div>people 1</div>
+            <div>people 2</div>
+            <div>people 3</div>
+          </details> */}
           <Link
             to={"/dashboard/people"}
             className="flex items-center gap-3"

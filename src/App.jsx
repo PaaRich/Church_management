@@ -74,7 +74,10 @@ function App() {
                 <JPK />
               </DashBoard>
             }
-          />
+          >
+            <Route index element={<p>Graph</p>} />
+            <Route path=":person" element={<Profile />} />
+          </Route>
           {/* render profile  start*/}
           <Route
             path="/dashboard/people/:person"
