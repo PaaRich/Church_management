@@ -6,26 +6,7 @@ import { useEffect, useState } from "react";
 import { getAllComplaints } from "../../../Redux/features/complaint/complaintSlice";
 
 const Complains = () => {
-  const dispatch = useDispatch();
-  const { complaintLoading, complaintSuccess, allComplaints } = useSelector(
-    (state) => state.complaint
-  );
-
-  const [complaints, setComplaints] = useState(allComplaints);
-
-  const getComplaints = async function () {
-    await dispatch(getAllComplaints());
-  };
-  useEffect(() => {
-    getComplaints();
-    setComplaints(allComplaints);
-  }, []);
-
-  useEffect(() => {
-    setComplaints(allComplaints);
-  }, [allComplaints]);
-
-  console.log(complaints)
+  
   return (
     <div>
       <div className="mt-5">
