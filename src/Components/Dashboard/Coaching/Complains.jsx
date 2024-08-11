@@ -1,14 +1,36 @@
-//import { Link } from "react-router-dom";
-//import { Link } from "react-router-dom";
+
 import { complainsObj } from "./complainsObj";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllComplaints } from "../../../Redux/features/complaint/complaintSlice";
+import Loader from "../../Reusable/Loader";
 
 const Complains = () => {
-  
+  const dispatch = useDispatch();
+  const { complaintLoading, complaintSuccess, allComplaints } = useSelector(
+    (state) => state.complaint
+  );
+
+  const [complaints, setComplaints] = useState(allComplaints);
+
+  const getComplaints = async function () {
+    await dispatch(getAllComplaints());
+  };
+  useEffect(() => {
+    getComplaints();
+    setComplaints(allComplaints);
+  }, []);
+
+  useEffect(() => {
+    setComplaints(allComplaints);
+  }, [allComplaints]);
+
+  // console.log(complaints)
+
   return (
+    <>
+    {complaintLoading && <Loader/>}
     <div>
       <div className="mt-5">
         <h1 className="font-semibold text-2xl">Complains</h1>
@@ -29,7 +51,7 @@ const Complains = () => {
               </tr>
             </thead>
             <tbody>
-              {complainsObj.map((complain, index) => (
+              {complaints?.map((complain, index) => (
                 <tr key={index} className="duration-500">
                   {/* <Link
                     to={`/dashboard/coaching/${complain.contact}`}
@@ -46,9 +68,9 @@ const Complains = () => {
                   <td className="border-r-2">
                     <span>{`${index + 1}.`}</span>
                   </td>
-                  <td>{complain.date}</td>
-                  <td className="border-r-2 ">{complain.contact}</td>
-                  <td className="border-r-2">{complain.type}</td>
+                  <td>{new Date(complain.createdAt).toLocaleString("en-US",{month:"short",day:"2-digit",year:"numeric"})}</td>
+                  <td className="border-r-2 ">{complain?.active_number}</td>
+                  <td className="border-r-2">{complain.complaint_type}</td>
                 </tr>
               ))}
               {/* <Link>
@@ -67,6 +89,7 @@ const Complains = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

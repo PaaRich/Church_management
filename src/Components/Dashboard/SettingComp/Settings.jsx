@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 //import { MdOutlineModeEdit, MdOutlineDelete } from "react-icons/md";
+import { BsTrash3 } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
+
 
 const Settings = () => {
   const [state, setState] = useState(false);
@@ -73,49 +76,49 @@ const Settings = () => {
             <tbody>
               <tr>
                 <td>Children Ministry</td>
-                <td>
+                <td className="flex gap-3">
                   <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                    edit
+                  <FiEdit />
                   </span>
                   &nbsp;{" "}
                   <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                    del
+                  <BsTrash3 />
                   </span>
                 </td>
               </tr>
               <tr>
                 <td>Youth Ministry</td>
-                <td>
+                <td className="flex gap-3">
                   <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                    edit
+                  <FiEdit />
                   </span>
                   &nbsp;{" "}
                   <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                    del
+                  <BsTrash3 />
                   </span>
                 </td>
               </tr>
               <tr>
                 <td>Women Ministry</td>
-                <td>
+                <td className="flex gap-3">
                   <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                    edit
+                  <FiEdit />
                   </span>
                   &nbsp;{" "}
                   <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                    del
+                  <BsTrash3 />
                   </span>
                 </td>
               </tr>
               <tr>
                 <td>Men Ministry</td>
-                <td>
+                <td className="flex gap-3">
                   <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                    edit
+                  <FiEdit />
                   </span>
                   &nbsp;{" "}
                   <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                    del
+                  <BsTrash3 />
                   </span>
                 </td>
               </tr>
@@ -137,49 +140,49 @@ const Settings = () => {
             <tbody>
               <tr>
                 <td>Children Ministry</td>
-                <td>
+                <td className="flex gap-3">
                   <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                    edit
+                  <FiEdit />
                   </span>
                   &nbsp;{" "}
                   <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                    del
+                  <BsTrash3 />
                   </span>
                 </td>
               </tr>
               <tr>
                 <td>Youth Ministry</td>
-                <td>
+                <td className="flex gap-3">
                   <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                    edit
+                  <FiEdit />
                   </span>
                   &nbsp;{" "}
                   <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                    del
+                  <BsTrash3 />
                   </span>
                 </td>
               </tr>
               <tr>
                 <td>Women Ministry</td>
-                <td>
+                <td className="flex gap-3">
                   <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                    edit
+                  <FiEdit />
                   </span>
                   &nbsp;{" "}
                   <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                    del
+                  <BsTrash3 />
                   </span>
                 </td>
               </tr>
               <tr>
                 <td>Men Ministry</td>
-                <td>
+                <td className="flex gap-3">
                   <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                    edit
+                  <FiEdit />
                   </span>
                   &nbsp;{" "}
                   <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                    del
+                  <BsTrash3 />
                   </span>
                 </td>
               </tr>
