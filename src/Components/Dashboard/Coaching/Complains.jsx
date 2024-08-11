@@ -1,8 +1,9 @@
-//import { Link } from "react-router-dom";
 import { complainsObj } from "./complainsObj";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Complains = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className="mt-5">
@@ -25,19 +26,13 @@ const Complains = () => {
             </thead>
             <tbody>
               {complainsObj.map((complain, index) => (
-                <tr key={index} className="duration-500">
-                  {/* <Link
-                    to={`/dashboard/coaching/${complain.contact}`}
-                    state={complain}
-                    className="w-full block"
-                  >
-                    <td className="border-r-2">
-                      <span>{`${index + 1}. `}</span>
-                    </td>
-                    <td className="border-r-2">{complain.contact}</td>
-                    <td className="border-r-2">{complain.type}</td>
-                    <td>{complain.date}</td>
-                  </Link> */}
+                <tr
+                  key={index}
+                  className="duration-500 "
+                  onClick={() =>
+                    navigate(`${complain.contact}`, { state: complain })
+                  }
+                >
                   <td className="border-r-2">
                     <span>{`${index + 1}.`}</span>
                   </td>
@@ -46,19 +41,8 @@ const Complains = () => {
                   <td>{complain.date}</td>
                 </tr>
               ))}
-              {/* <Link>
-                <tr>
-                  <td className="w-full">d</td>
-                  <td className="w-full">d</td>
-                  <td className="w-full">d</td>
-                </tr>
-              </Link> */}
             </tbody>
           </table>
-          {/* <table>
-              <thead></thead>
-              <tbody></tbody>
-            </table> */}
         </div>
       </div>
     </div>
