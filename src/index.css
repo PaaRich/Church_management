@@ -77,7 +77,7 @@ body {
 }
 /* people styles */
 .c-person {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.228);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.229);
   transition-duration: 0.5s;
 }
 .c-person:hover {
