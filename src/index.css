@@ -186,6 +186,7 @@ table tr th {
 
 .c-complains tbody tr {
   cursor: pointer;
+  transition-duration: 0.5s;
 }
 .c-complains tbody tr td {
   padding: 10px 1rem;

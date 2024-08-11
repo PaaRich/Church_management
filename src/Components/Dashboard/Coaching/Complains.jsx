@@ -1,11 +1,13 @@
 //import { complainsObj } from "./complainsObj";
-//import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllComplaints } from "../../../Redux/features/complaint/complaintSlice";
 import Loader from "../../Reusable/Loader";
 
 const Complains = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   // eslint-disable-next-line no-unused-vars
   const { complaintLoading, complaintSuccess, allComplaints } = useSelector(
@@ -54,19 +56,24 @@ const Complains = () => {
               </thead>
               <tbody>
                 {complaints?.map((complain, index) => (
-                  <tr key={index} className="duration-500">
-                    {/* <Link
-                    to={`/dashboard/coaching/${complain.contact}`}
-                    state={complain}
-                    className="w-full block"
+                  <tr
+                    key={index}
+                    onClick={() =>
+                      navigate(
+                        `/dashboard/coaching/${complain.active_number}`,
+                        { state: complain }
+                      )
+                    }
                   >
-                    <td className="border-r-2">
+                    {/* DEMO  */}
+                    {/* <td className="border-r-2">
                       <span>{`${index + 1}. `}</span>
                     </td>
                     <td className="border-r-2">{complain.contact}</td>
                     <td className="border-r-2">{complain.type}</td>
-                    <td>{complain.date}</td>
-                  </Link> */}
+                    <td>{complain.date}</td> */}
+
+                    {/* ACTUAL */}
                     <td className="border-r-2">
                       <span>{`${index + 1}.`}</span>
                     </td>
@@ -81,19 +88,8 @@ const Complains = () => {
                     <td className="border-r-2">{complain.complaint_type}</td>
                   </tr>
                 ))}
-                {/* <Link>
-                <tr>
-                  <td className="w-full">d</td>
-                  <td className="w-full">d</td>
-                  <td className="w-full">d</td>
-                </tr>
-              </Link> */}
               </tbody>
             </table>
-            {/* <table>
-              <thead></thead>
-              <tbody></tbody>
-            </table> */}
           </div>
         </div>
       </div>
