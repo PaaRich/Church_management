@@ -15,8 +15,10 @@ import { RxDashboard } from "react-icons/rx";
 import "./DashboardMain.css";
 
 const SideBar = () => {
+  const [dropJPK, setDropJPK] = useState(false);
   const [dropReport, setDropReport] = useState(false);
   const [dropComplain, setDropComplain] = useState(false);
+  const dropJPKRef = useRef(null);
   const dropDownRef = useRef(null);
   const dropDownCoachRef = useRef(null);
 
@@ -29,6 +31,9 @@ const SideBar = () => {
       !dropDownCoachRef.current.contains(event.target)
     ) {
       setDropComplain(false);
+    }
+    if (dropJPKRef.current && !dropJPKRef.current.contains(event.target)) {
+      setDropJPK(false);
     }
   };
 
@@ -60,11 +65,26 @@ const SideBar = () => {
             Dashboard
           </Link>
         </li>
-        <li>
-          <NavLink to={"/dashboard/people"} className="flex items-center gap-3">
+        <li ref={dropJPKRef}>
+          <Link
+            to={"/dashboard/people"}
+            className="flex items-center gap-3"
+            onClick={() => setDropJPK(!dropJPK)}
+          >
             <IoPerson color="#fff" size={25} />
-            Poeple
-          </NavLink>
+            <div className="flex justify-between items-center w-full">
+              People
+              <IoIosArrowDown
+                size={20}
+                className={`${dropJPK && "rotate-180"}`}
+              />
+            </div>
+          </Link>
+          <div className={`${dropJPK ? "drop--down-c" : "drop--Up-c"} ml-10`}>
+            <NavLink to={"/dashboard/people/jpk"} className="block child">
+              JPK
+            </NavLink>
+          </div>
         </li>
         <li>
           <NavLink to={"/dashboard/forms"} className="flex items-center gap-3">
@@ -108,7 +128,7 @@ const SideBar = () => {
               Attendance
             </NavLink>
             <NavLink className="child" to={"/dashboard/reports/workers"}>
-              Workers
+              WorkerForce
             </NavLink>
           </div>
         </li>

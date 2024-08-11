@@ -10,8 +10,17 @@ const addComplaint = async function (complaintData) {
   return response.data;
 };
 
-const complaintServices= {
-    addComplaint
-}
+const getAllComplaints = async function () {
+  const response = await axios({
+    method: "GET",
+    url: "/complaints/get-complaints",
+  });
+  return response.data;
+};
 
-export default complaintServices
+const complaintServices = {
+  addComplaint,
+  getAllComplaints,
+};
+
+export default complaintServices;

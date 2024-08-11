@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+//import { MdOutlineModeEdit, MdOutlineDelete } from "react-icons/md";
 
 const Settings = () => {
   const [state, setState] = useState(false);
@@ -45,7 +46,10 @@ const Settings = () => {
                 <p>member</p>
               </div>
               <button className="shadow-lg">
-                <Link to={"/dashboard/edit-user"} className="bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm">
+                <Link
+                  to={"/dashboard/edit-user"}
+                  className="bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm"
+                >
                   Modify
                 </Link>
               </button>
@@ -55,69 +59,133 @@ const Settings = () => {
       </div>
       <div className="mt-10 grid grid-cols-2 gap-10">
         <div>
-        <h3 className="text-xl font-semibold">Ministry Settings</h3>
-        <button className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm">
-          Add Ministry
-        </button>
-        <table className="mt-5 w-full text-left border-[2px] border-slate-300">
-          <thead>
-            <tr>
-              <th>Ministry</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Children Ministry</td>
-              <td>edit | del</td>
-            </tr>
-            <tr>
-              <td>Youth Ministry</td>
-              <td>edit | del</td>
-            </tr>
-            <tr>
-              <td>Women Ministry</td>
-              <td>edit | del</td>
-            </tr>
-            <tr>
-              <td>Men Ministry</td>
-              <td>edit | del</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          <h3 className="text-xl font-semibold">Ministry Settings</h3>
+          <button className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm">
+            Add Ministry
+          </button>
+          <table className="mt-5 w-full text-left border-[2px] border-slate-300">
+            <thead>
+              <tr>
+                <th>Ministry</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Children Ministry</td>
+                <td>
+                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    edit
+                  </span>
+                  &nbsp;{" "}
+                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
+                    del
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>Youth Ministry</td>
+                <td>
+                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    edit
+                  </span>
+                  &nbsp;{" "}
+                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
+                    del
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>Women Ministry</td>
+                <td>
+                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    edit
+                  </span>
+                  &nbsp;{" "}
+                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
+                    del
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>Men Ministry</td>
+                <td>
+                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    edit
+                  </span>
+                  &nbsp;{" "}
+                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
+                    del
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div>
-        <h3 className="text-xl font-semibold">Mustard Settings</h3>
-        <button className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm">
-          Add Mustard
-        </button>
-        <table className="mt-5 w-full text-left border-[2px] border-slate-300">
-          <thead>
-            <tr>
-              <th>Mustard</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Children Ministry</td>
-              <td><span className="cursor-pointer py-1 px-2 bg-green-400 rounded text-white">edit</span> &nbsp;  <span className="cursor-pointer py-1 px-2 bg-red-400 rounded text-white"> del</span></td>
-            </tr>
-            <tr>
-              <td>Youth Ministry</td>
-              <td><span className="cursor-pointer border-2 p-1" >edit</span> | <span className="cursor-pointer border-2 p-1">del</span></td>
-            </tr>
-            <tr>
-              <td>Women Ministry</td>
-              <td><span className="cursor-pointer border-2 p-1">edit</span> | <span className="cursor-pointer border-2 p-1">del</span></td>
-            </tr>
-            <tr>
-              <td>Men Ministry</td>
-              <td><span className="cursor-pointer border-2 p-1">edit</span> | <span className="cursor-pointer border-2 p-1">del</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          <h3 className="text-xl font-semibold">Mustard Settings</h3>
+          <button className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm">
+            Add Mustard
+          </button>
+          <table className="mt-5 w-full text-left border-[2px] border-slate-300">
+            <thead>
+              <tr>
+                <th>Mustard</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Children Ministry</td>
+                <td>
+                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    edit
+                  </span>
+                  &nbsp;{" "}
+                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
+                    del
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>Youth Ministry</td>
+                <td>
+                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    edit
+                  </span>
+                  &nbsp;{" "}
+                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
+                    del
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>Women Ministry</td>
+                <td>
+                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    edit
+                  </span>
+                  &nbsp;{" "}
+                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
+                    del
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>Men Ministry</td>
+                <td>
+                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    edit
+                  </span>
+                  &nbsp;{" "}
+                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
+                    del
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

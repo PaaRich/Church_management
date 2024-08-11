@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { addComplaint, RESET_COMPLAINTS } from "../../../Redux/features/complaint/complaintSlice";
+import Loader from "../../Reusable/Loader";
 
 const LogComplain = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,8 @@ const LogComplain = () => {
   },[complaintSuccess])
 
   return (
+    <>
+    {complaintLoading && <Loader/>}
     <div className="mt-5">
       <p className="font-semibold text-2xl">Log Complain</p>
       <form className=" mt-5" onSubmit={submitData}>
@@ -68,8 +71,8 @@ const LogComplain = () => {
               onChange={handleChange}
             >
               <option value="">Complaint Type</option>
-              <option value="Specific Complaint">Specific Complaint</option>
-              <option value="General Complaint">General Complaint</option>
+              <option value="Specific">Specific Complaint</option>
+              <option value="General">General Complaint</option>
             </select>
           </div>
           <div className="col-span-2">
@@ -93,6 +96,7 @@ const LogComplain = () => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

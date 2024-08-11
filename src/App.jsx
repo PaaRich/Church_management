@@ -30,6 +30,8 @@ import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditMember from "./Components/Dashboard/EditUser/EditMember";
+import JPK from "./Components/Dashboard/People/JPK";
+import ComplainDetail from "./Components/Dashboard/Coaching/ComplainDetail";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1";
 axios.defaults.withCredentials = true;
@@ -62,6 +64,14 @@ function App() {
             element={
               <DashBoard>
                 <People />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/people/jpk"
+            element={
+              <DashBoard>
+                <JPK />
               </DashBoard>
             }
           />
@@ -157,6 +167,15 @@ function App() {
             <Route index element={<LogComplain />} />
             <Route path="complains" element={<Complains />} />
           </Route>
+          {/* this will be taken off */}
+          <Route
+            path="/dashboard/coaching/:contact"
+            element={
+              <DashBoard>
+                <ComplainDetail />
+              </DashBoard>
+            }
+          />
           <Route
             path="/dashboard/coaching/specific_complains"
             element={
@@ -204,7 +223,7 @@ function App() {
             path="/dashboard/edit-user"
             element={
               <DashBoard>
-                <EditMember/>
+                <EditMember />
               </DashBoard>
             }
           />

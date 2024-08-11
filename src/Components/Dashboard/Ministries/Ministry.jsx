@@ -3,7 +3,7 @@
 import { useParams, Outlet, Link } from "react-router-dom";
 import BackBtn from "../../Reusable/BackBtn";
 import Person from "../People/Person";
-import { committee } from "../People/Committee";
+//import { committee } from "../People/Committee";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getMinistries } from "../../../Redux/features/auth/authSlice";

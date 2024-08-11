@@ -2,7 +2,7 @@
 //import React from "react";
 import Person from "./Person";
 //import Profile from "./Profile";
-import { committee } from "./Committee";
+//import { committee } from "./Committee";
 import BackBtn from "../../Reusable/BackBtn";
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux'
