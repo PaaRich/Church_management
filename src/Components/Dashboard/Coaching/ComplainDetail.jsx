@@ -1,5 +1,4 @@
 import { useParams, useLocation } from "react-router-dom";
-import BackBtn from "../../Reusable/BackBtn";
 
 const ComplainDetail = () => {
   const location = useLocation();
@@ -9,17 +8,9 @@ const ComplainDetail = () => {
 
   return (
     <div>
-      <div className="flex items-center">
-        <BackBtn
-          text="Foundational School"
-          paddingAndMargin="mb-2 mr-32 p-2"
-          path={"/dashboard/coaching/complains"}
-        />
-        <h1 className="font-semibold text-3xl">Description</h1>
-      </div>
-
+      <h1 className="font-semibold text-3xl">Description</h1>
       <div>
-        <h4 className="font-semibold text-lg mt-2">{contact}</h4>
+        <h4 className="font-semibold text-lg mt-5">{contact}</h4>
         <p className="text-lg leading-7 pb-2 w-[90%]">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic dolorum
           earum facilis exercitationem quibusdam doloremque, id molestiae illum

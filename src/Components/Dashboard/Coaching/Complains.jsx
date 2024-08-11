@@ -1,10 +1,36 @@
+
 import { complainsObj } from "./complainsObj";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getAllComplaints } from "../../../Redux/features/complaint/complaintSlice";
+import Loader from "../../Reusable/Loader";
 
 const Complains = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { complaintLoading, complaintSuccess, allComplaints } = useSelector(
+    (state) => state.complaint
+  );
+
+  const [complaints, setComplaints] = useState(allComplaints);
+
+  const getComplaints = async function () {
+    await dispatch(getAllComplaints());
+  };
+  useEffect(() => {
+    getComplaints();
+    setComplaints(allComplaints);
+  }, []);
+
+  useEffect(() => {
+    setComplaints(allComplaints);
+  }, [allComplaints]);
+
+  // console.log(complaints)
 
   return (
+    <>
+    {complaintLoading && <Loader/>}
     <div>
       <div className="mt-5">
         <h1 className="font-semibold text-2xl">Complains</h1>
@@ -16,36 +42,54 @@ const Complains = () => {
                   No.
                 </td>
                 <td className="border-r-2 font-semibold text-xl py-3">
-                  Contact
+                  Date Created
                 </td>
                 <td className="border-r-2  font-semibold text-xl py-3">
-                  Complain type
+                  Contacts
                 </td>
-                <td className="font-semibold text-xl py-3 ">Date Created</td>
+                <td className="font-semibold text-xl py-3 ">Complaint Type</td>
               </tr>
             </thead>
             <tbody>
-              {complainsObj.map((complain, index) => (
-                <tr
-                  key={index}
-                  className="duration-500 "
-                  onClick={() =>
-                    navigate(`${complain.contact}`, { state: complain })
-                  }
-                >
+              {complaints?.map((complain, index) => (
+                <tr key={index} className="duration-500">
+                  {/* <Link
+                    to={`/dashboard/coaching/${complain.contact}`}
+                    state={complain}
+                    className="w-full block"
+                  >
+                    <td className="border-r-2">
+                      <span>{`${index + 1}. `}</span>
+                    </td>
+                    <td className="border-r-2">{complain.contact}</td>
+                    <td className="border-r-2">{complain.type}</td>
+                    <td>{complain.date}</td>
+                  </Link> */}
                   <td className="border-r-2">
                     <span>{`${index + 1}.`}</span>
                   </td>
-                  <td className="border-r-2 ">{complain.contact}</td>
-                  <td className="border-r-2">{complain.type}</td>
-                  <td>{complain.date}</td>
+                  <td>{new Date(complain.createdAt).toLocaleString("en-US",{month:"short",day:"2-digit",year:"numeric"})}</td>
+                  <td className="border-r-2 ">{complain?.active_number}</td>
+                  <td className="border-r-2">{complain.complaint_type}</td>
                 </tr>
               ))}
+              {/* <Link>
+                <tr>
+                  <td className="w-full">d</td>
+                  <td className="w-full">d</td>
+                  <td className="w-full">d</td>
+                </tr>
+              </Link> */}
             </tbody>
           </table>
+          {/* <table>
+              <thead></thead>
+              <tbody></tbody>
+            </table> */}
         </div>
       </div>
     </div>
+    </>
   );
 };
 
