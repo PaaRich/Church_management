@@ -1,196 +1,290 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 //import { MdOutlineModeEdit, MdOutlineDelete } from "react-icons/md";
 import { BsTrash3 } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
-
+import Modal from "../../Reusable/Modal";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createMinistry,
+  deleteMinistry,
+  getMinistries,
+  RESET_MINISTRY_STATES,
+} from "../../../Redux/features/ministry/ministrySlice";
+import {
+  createMustard,
+  deleteMustard,
+  getMustards,
+  RESET_MUSTARD_STATES,
+} from "../../../Redux/features/mustard/mustardSlice";
+import Loader from "../../Reusable/Loader";
+import Confirm from "../../Reusable/Confirm";
 
 const Settings = () => {
+  const dispatch = useDispatch();
+  const { ministryLoading, ministrySuccess, allMinistries } = useSelector(
+    (state) => state.ministry
+  );
+
+  const { mustardLoading, mustardSuccess, allMustards } = useSelector(
+    (state) => state.mustard
+  );
+
   const [state, setState] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteMustardModal, setShowDeleteMustardModal] = useState(false);
+  const [deleteId, setDeleteId] = useState("");
+  const [fileDeleted, setFileDeleted] = useState(false);
+  const [ministryData, setMinistryData] = useState("");
+  const [mustardData, setMustardData] = useState("");
+
+  const [allMinistriesData, setAllMinistriesData] = useState(allMinistries);
+  const [allMustardsData, setAllMustardsData] = useState(allMustards);
+
+  const getAllMinistries = async function () {
+    await dispatch(getMinistries());
+  };
+  const getAllMustards = async function () {
+    await dispatch(getMustards());
+  };
+
+  const deleteItem = async function () {
+    setFileDeleted(false)
+    await dispatch(deleteMinistry(deleteId));
+  };
+
+  const deleteMustardItem=async function(){
+    setFileDeleted(false)
+    await dispatch(deleteMustard(deleteId))
+  }
+  useEffect(() => {
+    getAllMinistries();
+    getAllMustards();
+    setAllMinistriesData(allMinistries);
+    setAllMustardsData(allMustards);
+  }, [fileDeleted]);
+
+  useEffect(() => {
+    setAllMinistriesData(allMinistries);
+  }, [allMinistries]);
+
+  useEffect(() => {
+    setAllMustardsData(allMustards);
+  }, [allMustards]);
+
+  const handleCreateMinistry = async function (e) {
+    e.preventDefault();
+    if (!ministryData) {
+      return toast.error("ministry title not provided");
+    }
+    await dispatch(createMinistry({ ministry: ministryData.toLowerCase() }));
+    setAllMinistriesData((prev) => [
+      ...prev,
+      { ministry: ministryData.toLowerCase() },
+    ]);
+    // console.log(ministryData);
+  };
+  useEffect(() => {
+    if (ministrySuccess) {
+      setMinistryData("");
+      setIsOpen(false);
+    }
+    dispatch(RESET_MINISTRY_STATES());
+  }, [ministrySuccess]);
+
+  useEffect(() => {
+    if (mustardSuccess) {
+      setMustardData("");
+      setIsModalOpen(false);
+    }
+    dispatch(RESET_MUSTARD_STATES());
+  }, [mustardSuccess]);
+
+  const handleCreateMustard = async function (e) {
+    e.preventDefault();
+    if (!mustardData) {
+      return toast.error("mustard title not provided");
+    }
+    await dispatch(createMustard({ mustard: mustardData }));
+    setAllMustardsData((prev) => [...prev, { mustard: mustardData }]);
+    // console.log(mustardData);
+  };
+
   const [tel, setTel] = useState("");
   return (
-    <div className="mt-3">
-      <div>
-        <h1 className="text-2xl font-semibold">Modify Member Information</h1>
-        <form className="mt-5">
-          <input
-            className="mr-5 w-[40%]"
-            type="tel"
-            name="tel"
-            value={tel}
-            onChange={(e) => {
-              setTel(e.target.value);
-            }}
-            placeholder="Search Phone Number"
-          />
-          <button
-            className=" bg-blue-600 cursor-pointer shadow-lg text-white p-3 px-8 rounded-sm hover:bg-blue-500 duration-300 "
-            onClick={(e) => {
-              e.preventDefault();
-              if (tel.length > 10 && tel.startsWith("+233")) setState(true);
-            }}
-          >
-            Search
-          </button>
-        </form>
-        {!state && (
-          <div className="mt-5">
-            <div className="w-[70%] flex items-center justify-between gap-5 shadow-md p-3 px-5 rounded-xl border-2 border-slate-300">
-              <div>
-                <h5 className="font-semibold text-lg mb-1">Phone</h5>
-                <p>233545143000</p>
+    <>
+      {ministryLoading && <Loader />}
+      {mustardLoading && <Loader />}
+      {/* delete modal */}
+      {showDeleteModal ? (
+        <Confirm
+          setShowDeleteModal={setShowDeleteModal}
+          onDelete={deleteItem}
+          setFileDeleted={setFileDeleted}
+        />
+      ) : null}
+      {showDeleteMustardModal ? (
+        <Confirm
+          setShowDeleteModal={setShowDeleteMustardModal}
+          onDelete={deleteMustardItem}
+          setFileDeleted={setFileDeleted}
+        />
+      ) : null}
+      {/* delete modal */}
+      <div className="mt-3">
+        <div>
+          <h1 className="text-2xl font-semibold">Modify Member Information</h1>
+          <form className="mt-5">
+            <input
+              className="mr-5 w-[40%]"
+              type="tel"
+              name="tel"
+              value={tel}
+              onChange={(e) => {
+                setTel(e.target.value);
+              }}
+              placeholder="Search Phone Number"
+            />
+            <button
+              className=" bg-blue-600 cursor-pointer shadow-lg text-white p-3 px-8 rounded-sm hover:bg-blue-500 duration-300 "
+              onClick={(e) => {
+                e.preventDefault();
+                if (tel.length > 10 && tel.startsWith("+233")) setState(true);
+              }}
+            >
+              Search
+            </button>
+          </form>
+          {!state && (
+            <div className="mt-5">
+              <div className="w-[70%] flex items-center justify-between gap-5 shadow-md p-3 px-5 rounded-xl border-2 border-slate-300">
+                <div>
+                  <h5 className="font-semibold text-lg mb-1">Phone</h5>
+                  <p>233545143000</p>
+                </div>
+                <div>
+                  <h5 className="font-semibold text-lg mb-1">First Name</h5>
+                  <p>Daniel</p>
+                </div>
+                <div>
+                  <h5 className="font-semibold text-lg mb-1">
+                    Current Position
+                  </h5>
+                  <p>member</p>
+                </div>
+                <button className="shadow-lg">
+                  <Link
+                    to={"/dashboard/edit-user"}
+                    className="bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm"
+                  >
+                    Modify
+                  </Link>
+                </button>
               </div>
-              <div>
-                <h5 className="font-semibold text-lg mb-1">First Name</h5>
-                <p>Daniel</p>
-              </div>
-              <div>
-                <h5 className="font-semibold text-lg mb-1">Current Position</h5>
-                <p>member</p>
-              </div>
-              <button className="shadow-lg">
-                <Link
-                  to={"/dashboard/edit-user"}
-                  className="bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm"
-                >
-                  Modify
-                </Link>
-              </button>
             </div>
+          )}
+        </div>
+        <div className="mt-10 grid grid-cols-2 gap-10">
+          <div>
+            <h3 className="text-xl font-semibold">Ministry Settings</h3>
+            <button
+              onClick={() => setIsOpen(true)}
+              className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm"
+            >
+              Add Ministry
+            </button>
+            <Modal
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              title={"Ministry"}
+              data={ministryData}
+              setData={setMinistryData}
+              submitHandler={handleCreateMinistry}
+            />
+            <table className="mt-5 w-full text-left border-[2px] border-slate-300">
+              <thead>
+                <tr>
+                  <th>Ministry</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allMinistriesData?.map((ministry, index) => (
+                  <tr key={ministry?._id ?? index + 1}>
+                    <td>{ministry?.ministry}</td>
+                    <td className="flex gap-3">
+                      {/* <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    <FiEdit />
+                  </span> */}
+                      &nbsp;{" "}
+                      <span
+                        onClick={() => {
+                          setDeleteId(ministry._id);
+                          setShowDeleteModal(true);
+                        }}
+                        className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400"
+                      >
+                        <BsTrash3 />
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        )}
-      </div>
-      <div className="mt-10 grid grid-cols-2 gap-10">
-        <div>
-          <h3 className="text-xl font-semibold">Ministry Settings</h3>
-          <button className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm">
-            Add Ministry
-          </button>
-          <table className="mt-5 w-full text-left border-[2px] border-slate-300">
-            <thead>
-              <tr>
-                <th>Ministry</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Children Ministry</td>
-                <td className="flex gap-3">
-                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                  <FiEdit />
-                  </span>
-                  &nbsp;{" "}
-                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                  <BsTrash3 />
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Youth Ministry</td>
-                <td className="flex gap-3">
-                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                  <FiEdit />
-                  </span>
-                  &nbsp;{" "}
-                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                  <BsTrash3 />
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Women Ministry</td>
-                <td className="flex gap-3">
-                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                  <FiEdit />
-                  </span>
-                  &nbsp;{" "}
-                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                  <BsTrash3 />
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Men Ministry</td>
-                <td className="flex gap-3">
-                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                  <FiEdit />
-                  </span>
-                  &nbsp;{" "}
-                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                  <BsTrash3 />
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <h3 className="text-xl font-semibold">Mustard Settings</h3>
-          <button className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm">
-            Add Mustard
-          </button>
-          <table className="mt-5 w-full text-left border-[2px] border-slate-300">
-            <thead>
-              <tr>
-                <th>Mustard</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Children Ministry</td>
-                <td className="flex gap-3">
-                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                  <FiEdit />
-                  </span>
-                  &nbsp;{" "}
-                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                  <BsTrash3 />
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Youth Ministry</td>
-                <td className="flex gap-3">
-                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                  <FiEdit />
-                  </span>
-                  &nbsp;{" "}
-                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                  <BsTrash3 />
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Women Ministry</td>
-                <td className="flex gap-3">
-                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                  <FiEdit />
-                  </span>
-                  &nbsp;{" "}
-                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                  <BsTrash3 />
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Men Ministry</td>
-                <td className="flex gap-3">
-                  <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
-                  <FiEdit />
-                  </span>
-                  &nbsp;{" "}
-                  <span className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400">
-                  <BsTrash3 />
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div>
+            <h3 className="text-xl font-semibold">Mustard Settings</h3>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm"
+            >
+              Add Mustard
+            </button>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              title={"Mustard"}
+              data={mustardData}
+              setData={setMustardData}
+              submitHandler={handleCreateMustard}
+            />
+            <table className="mt-5 w-full text-left border-[2px] border-slate-300">
+              <thead>
+                <tr>
+                  <th>Mustard</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allMustardsData?.map((mustard, index) => (
+                  <tr key={mustard?._id ?? index + 1}>
+                    <td>{mustard?.mustard}</td>
+                    <td className="flex gap-3">
+                      {/* <span className="cursor-pointer text-blue-500 hover:border-b-2 border-b-blue-500">
+                    <FiEdit />
+                  </span> */}
+                      &nbsp;{" "}
+                      <span
+                        onClick={() => {
+                          setDeleteId(mustard._id);
+                          setShowDeleteMustardModal(true);
+                        }}
+                        className="cursor-pointer text-red-400 hover:border-b-2 border-b-red-400"
+                      >
+                        <BsTrash3 />
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

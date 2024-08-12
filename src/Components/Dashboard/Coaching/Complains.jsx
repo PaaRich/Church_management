@@ -35,7 +35,10 @@ const Complains = () => {
       {complaintLoading && <Loader />}
       <div>
         <div className="mt-5">
-          <h1 className="font-semibold text-2xl">Complains</h1>
+          <h1 className="font-semibold text-2xl mb-2">Complains</h1>
+          {/* search button here */}
+          <input className="w-[50%] rounded-sm" type="search" name="search_complaint" id="" placeholder="Search Complainant's contact" />
+          {/* search button here */}
           <div className="w-full mt-5">
             <table className="w-full border-2 border-black c-complains">
               <thead className="bg-blue-500 text-white border-b-4">
@@ -51,6 +54,9 @@ const Complains = () => {
                   </td>
                   <td className="font-semibold text-xl py-3 ">
                     Complaint Type
+                  </td>
+                  <td className="font-semibold text-xl py-3 ">
+                    Status
                   </td>
                 </tr>
               </thead>
@@ -85,7 +91,8 @@ const Complains = () => {
                       })}
                     </td>
                     <td className="border-r-2 ">{complain?.active_number}</td>
-                    <td className="border-r-2">{complain.complaint_type}</td>
+                    <td className="border-r-2">{complain?.complaint_type}</td>
+                    <td className="border-r-2"> {complain?.isAssigned ?<p className="bg-red-400 text-white px-5 py-2 text-center w-max rounded-sm">assigned</p>:<p className="bg-green-400 text-white px-5 py-2 text-center w-max rounded-sm">unassigned</p>}</td>
                   </tr>
                 ))}
               </tbody>
