@@ -172,7 +172,7 @@ function App() {
           </Route>
           {/* this will be taken off */}
           <Route
-            path="/dashboard/coaching/:type"
+            path="/dashboard/coaching/:comp_id"
             element={
               <DashBoard>
                 <ComplainDetail />

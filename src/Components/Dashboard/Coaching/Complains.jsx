@@ -60,7 +60,7 @@ const Complains = () => {
                     key={index}
                     onClick={() =>
                       navigate(
-                        `/dashboard/coaching/${complain.complaint_type}`,
+                        `/dashboard/coaching/${complain._id}`,
                         { state: complain }
                       )
                     }

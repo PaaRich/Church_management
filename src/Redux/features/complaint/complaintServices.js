@@ -18,9 +18,15 @@ const getAllComplaints = async function () {
   return response.data;
 };
 
+const getComplaintDetails = async function (id) {
+  const response = await axios.get(`/complaints/complaint/${id}`);
+  return response.data;
+};
+
 const complaintServices = {
   addComplaint,
   getAllComplaints,
+  getComplaintDetails
 };
 
 export default complaintServices;

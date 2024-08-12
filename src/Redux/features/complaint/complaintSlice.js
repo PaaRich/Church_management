@@ -7,6 +7,7 @@ const initialState = {
   complaintError: false,
   complaintSuccess: false,
   allComplaints: [],
+  specificComplaint: null,
 };
 
 //add complaint
@@ -34,6 +35,25 @@ export const getAllComplaints = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await complaintServices.getAllComplaints();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//get complaint details
+export const getComplaint = createAsyncThunk(
+  "complaint/getComplaint",
+  async (comp_id, thunkAPI) => {
+    try {
+      return await complaintServices.getComplaintDetails(comp_id);
     } catch (error) {
       // console.log(error);
       const message =
@@ -84,9 +104,26 @@ export const complaintSlice = createSlice({
         state.complaintLoading = false;
         state.complaintSuccess = true;
         state.complaintError = false;
-        state.allComplaints=action.payload.complaints
+        state.allComplaints = action.payload.complaints;
       })
       .addCase(getAllComplaints.rejected, (state, action) => {
+        state.complaintLoading = false;
+        state.complaintSuccess = false;
+        state.complaintError = true;
+        toast.error(action.payload);
+      })
+
+      //get complaint details
+      .addCase(getComplaint.pending, (state, action) => {
+        state.complaintLoading = true;
+      })
+      .addCase(getComplaint.fulfilled, (state, action) => {
+        state.complaintLoading = false;
+        state.complaintSuccess = true;
+        state.complaintError = false;
+        state.specificComplaint = action.payload.complaint;
+      })
+      .addCase(getComplaint.rejected, (state, action) => {
         state.complaintLoading = false;
         state.complaintSuccess = false;
         state.complaintError = true;
