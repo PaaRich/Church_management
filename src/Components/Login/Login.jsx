@@ -28,6 +28,13 @@ function Login() {
     if (!userData.phonenumber || !userData.password) {
       return toast.error("all fields are required");
     }
+    if (userData.phonenumber.startsWith("0")) {
+      const formattedNumber = userData.phonenumber.slice(1);
+      userData.phonenumber = `233${formattedNumber}`;
+      // console.log(userData.phonenumber)
+    }else if(!userData.phonenumber.startsWith("0")){
+      userData.phonenumber=`233${userData.phonenumber}`
+    }
     await dispatch(loginUser(userData));
   };
 
@@ -54,6 +61,7 @@ function Login() {
             placeholder="Enter Phonenumber"
             onChange={changeHander}
             value={userData.phonenumber}
+            maxLength={10}
           />
           <br />
           <input

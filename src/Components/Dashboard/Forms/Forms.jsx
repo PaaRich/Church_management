@@ -1,15 +1,21 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../../Redux/features/auth/authSlice";
+import { addUser, RESET } from "../../../Redux/features/auth/authSlice";
 import Loader from "../../Reusable/Loader";
+import { getMinistries } from "../../../Redux/features/ministry/ministrySlice";
+import { getMustards } from "../../../Redux/features/mustard/mustardSlice";
+import { toast } from "react-toastify";
 
 function Forms() {
   const dispatch = useDispatch();
+  const { ministryLoading, allMinistries } = useSelector(
+    (state) => state.ministry
+  );
+  const { mustardLoading, allMustards } = useSelector((state) => state.mustard);
+  const { isSuccess,isLoading } = useSelector((state) => state.auth);
 
-  const { isLoading } = useSelector((state) => state.auth);
-
-  const [userData, setUserData] = useState({
+  const initialStates = {
     firstname: "",
     lastname: "",
     othername: "",
@@ -26,7 +32,11 @@ function Forms() {
     media: "",
     school: "",
     invited_by: "",
-  });
+    position: "",
+  };
+  const [ministries, setMinistries] = useState(allMinistries);
+  const [mustards, setMustards] = useState(allMustards);
+  const [userData, setUserData] = useState(initialStates);
 
   const handleChange = (e) => {
     setUserData((prev) =>
@@ -43,18 +53,54 @@ function Forms() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (!userData.phonenumber.match(/^\d{9}$|^\d{10}$/)) {
+      return toast.error("provide a valid phone number");
+    }
+    if (userData.phonenumber.startsWith("0")) {
+      const formattedNumber = userData.phonenumber.slice(1);
+      userData.phonenumber = `233${formattedNumber}`;
+      // console.log(userData.phonenumber)
+    }else if(!userData.phonenumber.startsWith("0")){
+      userData.phonenumber=`233${userData.phonenumber}`
+    }
     await dispatch(addUser(userData));
     // console.log(userData);
   };
 
-  // useEffect(()=>{
-  //   if(isLoading )
-  // },[])
+  useEffect(() => {
+    if (isSuccess) {
+      setUserData(initialData);
+    }
+    dispatch(RESET());
+  }, [isSuccess]);
+
+  const getAllMinistries = async function () {
+    await dispatch(getMinistries());
+  };
+
+  const getAllMustards = async function () {
+    await dispatch(getMustards());
+  };
+  useEffect(() => {
+    getAllMinistries();
+    setMinistries(allMinistries);
+  }, []);
+  useEffect(() => {
+    setMinistries(allMinistries);
+  }, [allMinistries]);
+
+  useEffect(() => {
+    getAllMustards();
+    setMustards(allMustards);
+  }, []);
+  useEffect(() => {
+    setMustards(allMustards);
+  }, [allMustards]);
 
   return (
     <>
       {isLoading && <Loader />}
+      {ministryLoading && <Loader />}
       <div className="w-full">
         <div className="church_profile pb-1 relative">
           <div className="flex items-center justify-center flex-col">
@@ -73,7 +119,7 @@ function Forms() {
             path={"/dashboard/people"}
           />
         </div>
-        <form action="" className=" w-full h-full" onSubmit={handleSubmit}>
+        <form action="" className=" w-full h-full mt-5" onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-x-5">
             <input
               type="text"
@@ -81,7 +127,6 @@ function Forms() {
               onChange={handleChange}
               value={userData.firstname}
               name="firstname"
-              required
             />
             <input
               type="text"
@@ -89,7 +134,6 @@ function Forms() {
               onChange={handleChange}
               value={userData.othername}
               name="othername"
-              required
             />
             <div className="flex my-2">
               <label htmlFor="Male" className="mr-5">
@@ -101,7 +145,6 @@ function Forms() {
                   value="male"
                   name="gender"
                   id="Male"
-                  required
                 />
                 Male
               </label>
@@ -114,18 +157,17 @@ function Forms() {
                   value="female"
                   name="gender"
                   id="Female"
-                  required
                 />
                 Female
               </label>
             </div>
             <input
               type="tel"
-              placeholder="telephone"
+              placeholder="telephone  eg: 0242424444"
               onChange={handleChange}
               value={userData.phonenumber}
               name="phonenumber"
-              required
+              maxLength={10}
             />
             <div className="relative">
               <select
@@ -157,11 +199,12 @@ function Forms() {
                 value={userData.mustard_seed}
                 id=""
               >
-                <option value="">Mustard Seed</option>
-                <option value="UENR Chapter">UENR Chapter</option>
-                <option value="UDS Chapter">UDS Chapter</option>
-                <option value="UCC Chapter">UCC Chapter</option>
-                <option value="KNUST Chapter">KNUST Chapter</option>
+                <option value="">Select Mustard Seed</option>
+                {allMustards?.map((mustard) => (
+                  <React.Fragment key={mustard._id}>
+                    <option value={mustard?.mustard}>{mustard?.mustard}</option>
+                  </React.Fragment>
+                ))}
               </select>
             </div>
             {/* <input
@@ -179,11 +222,14 @@ function Forms() {
                 value={userData.ministry}
                 id=""
               >
-                <option value="">Ministry</option>
-                <option value="Children Ministry">Children Ministry</option>
-                <option value="Youth Ministry">Youth Ministry</option>
-                <option value="Women Ministry">Women Ministry</option>
-                <option value="Men Ministry">Men Ministry</option>
+                <option value="">Select Ministry</option>
+                {allMinistries?.map((ministry) => (
+                  <React.Fragment key={ministry?._id}>
+                    <option value={ministry?.ministry}>
+                      {ministry?.ministry}
+                    </option>
+                  </React.Fragment>
+                ))}
               </select>
             </div>
 
@@ -202,7 +248,6 @@ function Forms() {
               value={userData.DOB}
               id=""
               placeholder="Date of birth"
-              required
             />
             <input
               type="text"
@@ -211,7 +256,6 @@ function Forms() {
               onChange={handleChange}
               value={userData.location}
               placeholder="Location"
-              required
             />
             <div className="relative">
               <select
@@ -259,10 +303,14 @@ function Forms() {
                   placeholder="Invited By"
                 />
               )}
-              <select name="position" id="" className="w-full bg-slate-200">
-                <option value="" selected disabled>
-                  Position
-                </option>
+              <select
+                name="position"
+                onChange={handleChange}
+                value={userData.position}
+                id=""
+                className="w-full bg-slate-200"
+              >
+                <option value="Member">Member</option>
                 <option value="Mustard_seed_President">
                   Mustard Seed President
                 </option>
@@ -294,14 +342,14 @@ function Forms() {
                 >
                   Upload Photo
                 </label>
-                {/* <input
+                <input
                   className="hidden"
                   onChange={handleChange}
                   file={userData.user_photo}
                   type="file"
                   name="user_photo"
                   id="userPhoto"
-                /> */}
+                />
               </div>
             </div>
           </div>

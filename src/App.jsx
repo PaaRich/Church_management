@@ -223,7 +223,7 @@ function App() {
             }
           />
           <Route
-            path="/dashboard/edit-user"
+            path="/dashboard/edit-user/:id"
             element={
               <DashBoard>
                 <EditMember />

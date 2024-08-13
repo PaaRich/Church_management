@@ -9,6 +9,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   allUsers:[],
+  user:null,
   ministryMembers:[],
   mustardMembers:[]
 };
@@ -58,6 +59,25 @@ export const getAllUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await authServices.getAllUsers();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//find user
+export const findUser = createAsyncThunk(
+  "auth/find-user",
+  async (data, thunkAPI) => {
+    try {
+      return await authServices.findUser(data);
     } catch (error) {
       // console.log(error);
       const message =
@@ -168,6 +188,23 @@ export const authSlice = createSlice({
         state.allUsers= action.payload.users
       })
       .addCase(getAllUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+    //find user
+      .addCase(findUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(findUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.user= action.payload.user
+      })
+      .addCase(findUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

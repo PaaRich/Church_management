@@ -20,6 +20,7 @@ import {
 } from "../../../Redux/features/mustard/mustardSlice";
 import Loader from "../../Reusable/Loader";
 import Confirm from "../../Reusable/Confirm";
+import { findUser, RESET } from "../../../Redux/features/auth/authSlice";
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,8 @@ const Settings = () => {
   const { mustardLoading, mustardSuccess, allMustards } = useSelector(
     (state) => state.mustard
   );
+
+  const { isLoading, isSuccess, user } = useSelector((state) => state.auth);
 
   const [state, setState] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -52,14 +55,14 @@ const Settings = () => {
   };
 
   const deleteItem = async function () {
-    setFileDeleted(false)
+    setFileDeleted(false);
     await dispatch(deleteMinistry(deleteId));
   };
 
-  const deleteMustardItem=async function(){
-    setFileDeleted(false)
-    await dispatch(deleteMustard(deleteId))
-  }
+  const deleteMustardItem = async function () {
+    setFileDeleted(false);
+    await dispatch(deleteMustard(deleteId));
+  };
   useEffect(() => {
     getAllMinistries();
     getAllMustards();
@@ -108,12 +111,43 @@ const Settings = () => {
     if (!mustardData) {
       return toast.error("mustard title not provided");
     }
-    await dispatch(createMustard({ mustard: mustardData }));
+    await dispatch(createMustard({ mustard: mustardData.toLowerCase() }));
     setAllMustardsData((prev) => [...prev, { mustard: mustardData }]);
     // console.log(mustardData);
   };
 
   const [tel, setTel] = useState("");
+  const [searchedUser, setSearchedUser] = useState(user);
+
+  const searchUser = async function (e) {
+    let phonenumber;
+    e.preventDefault();
+    if (!tel.match(/^\d{9}$|^\d{10}$/)) {
+      setState(false)
+      return toast.error("provide a valid phone number");
+    }
+    if (tel.startsWith("0")) {
+      const formattedNumber = tel.slice(1);
+      phonenumber = `233${formattedNumber}`;
+    } else if (!tel.startsWith("0")) {
+      phonenumber = `233${tel}`;
+    }
+    // setState(true);
+    await dispatch(findUser({ number: phonenumber }));
+    setTel("");
+  };
+  useEffect(() => {
+    setSearchedUser(user);
+    // console.log(searchedUser)
+  }, [user]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setState(true);
+    }
+    dispatch(RESET());
+  }, [isSuccess]);
+
   return (
     <>
       {ministryLoading && <Loader />}
@@ -135,49 +169,47 @@ const Settings = () => {
       ) : null}
       {/* delete modal */}
       <div className="mt-3">
-        <div>
-          <h1 className="text-2xl font-semibold">Modify Member Information</h1>
-          <form className="mt-5">
+        <div className="pb-14">
+          <h1 className="text-2xl font-semibold">Member Information</h1>
+          <form className="mt-5" onSubmit={searchUser}>
             <input
               className="mr-5 w-[40%]"
               type="tel"
               name="tel"
               value={tel}
+              maxLength={10}
               onChange={(e) => {
                 setTel(e.target.value);
               }}
               placeholder="Search Phone Number"
             />
             <button
+              type="submit"
               className=" bg-blue-600 cursor-pointer shadow-lg text-white p-3 px-8 rounded-sm hover:bg-blue-500 duration-300 "
-              onClick={(e) => {
-                e.preventDefault();
-                if (tel.length > 10 && tel.startsWith("+233")) setState(true);
-              }}
             >
               Search
             </button>
           </form>
-          {!state && (
+          {state && (
             <div className="mt-5">
-              <div className="w-[70%] flex items-center justify-between gap-5 shadow-md p-3 px-5 rounded-xl border-2 border-slate-300">
+              <div className="w-[70%] flex items-center justify-between gap-5 shadow-md p-3 px-5 rounded-md border-2 border-slate-300">
                 <div>
                   <h5 className="font-semibold text-lg mb-1">Phone</h5>
-                  <p>233545143000</p>
+                  <p>{searchedUser?.phonenumber}</p>
                 </div>
                 <div>
                   <h5 className="font-semibold text-lg mb-1">First Name</h5>
-                  <p>Daniel</p>
+                  <p>{searchedUser?.firstname}</p>
                 </div>
                 <div>
                   <h5 className="font-semibold text-lg mb-1">
                     Current Position
                   </h5>
-                  <p>member</p>
+                  <p>{searchedUser?.role}</p>
                 </div>
                 <button className="shadow-lg">
                   <Link
-                    to={"/dashboard/edit-user"}
+                    to={`/dashboard/edit-user/${searchedUser?._id}`}
                     className="bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm"
                   >
                     Modify
@@ -187,6 +219,7 @@ const Settings = () => {
             </div>
           )}
         </div>
+        <hr />
         <div className="mt-10 grid grid-cols-2 gap-10">
           <div>
             <h3 className="text-xl font-semibold">Ministry Settings</h3>

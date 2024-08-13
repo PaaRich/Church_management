@@ -41,6 +41,16 @@ const verifyUser = async function () {};
 //get user information
 const getUser = async function () {};
 
+//find user
+const findUser = async function (data) {
+  const response = await axios({
+    method: "POST",
+    url: "/users/find-user/",
+    data
+  });
+  return response.data;
+};
+
 //get mustards
 const getMustards = async function (mustard) {
   const response = await axios({
@@ -69,6 +79,7 @@ const authServices = {
   getUser,
   getMustards,
   getMinistries,
+  findUser,
 };
 
 export default authServices;
