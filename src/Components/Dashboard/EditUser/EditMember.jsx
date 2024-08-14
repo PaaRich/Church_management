@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../../Redux/features/auth/authSlice";
+import { addUser, getUser } from "../../../Redux/features/auth/authSlice";
 import Loader from "../../Reusable/Loader";
 import { getMinistries } from "../../../Redux/features/ministry/ministrySlice";
 import { getMustards } from "../../../Redux/features/mustard/mustardSlice";
+import { useParams } from "react-router-dom";
 
 function EditMember() {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { ministryLoading, allMinistries } = useSelector(
     (state) => state.ministry
   );
   const { mustardLoading, allMustards } = useSelector((state) => state.mustard);
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading, user } = useSelector((state) => state.auth);
 
   const [ministries, setMinistries] = useState(allMinistries);
   const [mustards, setMustards] = useState(allMustards);
+  const [userInfo, setUserInfo] = useState(user);
   const [userData, setUserData] = useState({
-    firstname: "",
+    firstname: userInfo?.firstname ?? "",
     lastname: "",
     othername: "",
     gender: "",
@@ -35,6 +38,17 @@ function EditMember() {
     invited_by: "",
     position: "",
   });
+
+  const getUserInfo = async function () {
+    await dispatch(getUser(id));
+  };
+  useEffect(() => {
+    getUserInfo();
+    setUserInfo(user);
+  }, []);
+  useEffect(() => {
+    setUserInfo(user);
+  }, [user]);
 
   const handleChange = (e) => {
     setUserData((prev) =>
@@ -81,7 +95,7 @@ function EditMember() {
   return (
     <>
       {isLoading && <Loader />}
-      {ministryLoading && <Loader/>}
+      {ministryLoading && <Loader />}
       <div className="w-full">
         <div className="church_profile pb-1 relative">
           <div className="flex items-center justify-center flex-col">
@@ -228,7 +242,6 @@ function EditMember() {
               value={userData.DOB}
               id=""
               placeholder="Date of birth"
-              
             />
             <input
               type="text"

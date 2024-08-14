@@ -91,6 +91,44 @@ export const findUser = createAsyncThunk(
   }
 );
 
+//update user
+export const updateUser = createAsyncThunk(
+  "auth/update-user",
+  async (userData, thunkAPI) => {
+    try {
+      return await authServices.updateUser(userData);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//update user
+export const getUser = createAsyncThunk(
+  "auth/get-user",
+  async (userId, thunkAPI) => {
+    try {
+      return await authServices.getUser(userId);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //get ministries data
 export const getMinistries = createAsyncThunk(
   "auth/get-ministries",
@@ -205,6 +243,40 @@ export const authSlice = createSlice({
         state.user= action.payload.user
       })
       .addCase(findUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+    //update user
+      .addCase(updateUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success("user updated successfully")
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+    //get user
+      .addCase(getUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.user=action.payload.user
+      })
+      .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

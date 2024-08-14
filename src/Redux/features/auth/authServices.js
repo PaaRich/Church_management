@@ -38,8 +38,24 @@ const getAllUsers = async function () {
 //verify user
 const verifyUser = async function () {};
 
+//update user
+const updateUser = async function (userData) {
+  const response = await axios({
+    method: "PATCH",
+    url: "/users/update-user",
+    data:userData
+  });
+  return response.data;
+};
+
 //get user information
-const getUser = async function () {};
+const getUser = async function (userId) {
+  const response = await axios({
+    method: "GET",
+    url: `/users/get-user/${userId}`,
+  });
+  return response.data;
+};
 
 //find user
 const findUser = async function (data) {
@@ -80,6 +96,7 @@ const authServices = {
   getMustards,
   getMinistries,
   findUser,
+  updateUser
 };
 
 export default authServices;
