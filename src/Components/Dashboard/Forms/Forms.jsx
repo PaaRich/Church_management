@@ -69,7 +69,7 @@ function Forms() {
 
   useEffect(() => {
     if (isSuccess) {
-      setUserData(initialData);
+      setUserData(initialStates);
     }
     dispatch(RESET());
   }, [isSuccess]);
