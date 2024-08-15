@@ -72,6 +72,25 @@ export const getAllUser = createAsyncThunk(
   }
 );
 
+//get all coaches
+export const getAllCoaches = createAsyncThunk(
+  "auth/all-coaches",
+  async (_, thunkAPI) => {
+    try {
+      return await authServices.getAllCoaches();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //find user
 export const findUser = createAsyncThunk(
   "auth/find-user",
@@ -97,6 +116,25 @@ export const updateUser = createAsyncThunk(
   async ({userData,userId}, thunkAPI) => {
     try {
       return await authServices.updateUser(userData,userId);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//register coach
+export const registerCoach = createAsyncThunk(
+  "auth/register-coach",
+  async (coachData, thunkAPI) => {
+    try {
+      return await authServices.registerCoach(coachData);
     } catch (error) {
       // console.log(error);
       const message =
@@ -232,6 +270,23 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
+    //get all coaches
+      .addCase(getAllCoaches.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllCoaches.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.allUsers= action.payload.coaches
+      })
+      .addCase(getAllCoaches.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
     //find user
       .addCase(findUser.pending, (state, action) => {
         state.isLoading = true;
@@ -260,6 +315,23 @@ export const authSlice = createSlice({
         toast.success("user updated successfully")
       })
       .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+    //register coach
+      .addCase(registerCoach.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(registerCoach.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success("coach register successfully")
+      })
+      .addCase(registerCoach.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

@@ -35,6 +35,15 @@ const getAllUsers = async function () {
   return response.data;
 };
 
+//get all coaches
+const getAllCoaches = async function () {
+  const response = await axios({
+    method: "GET",
+    url: "/users/get-coaches",
+  });
+  return response.data;
+};
+
 //verify user
 const verifyUser = async function () {};
 
@@ -47,6 +56,16 @@ const updateUser = async function (userData,userId) {
   });
   return response.data;
 };
+
+//register coach
+const registerCoach= async function (coachData){
+  const response= await axios({
+    method:"POST",
+    url: "/users/register-coach",
+    data:coachData
+  })
+  return response.data
+}
 
 //get user information
 const getUser = async function (userId) {
@@ -96,7 +115,9 @@ const authServices = {
   getMustards,
   getMinistries,
   findUser,
-  updateUser
+  updateUser,
+  registerCoach,
+  getAllCoaches
 };
 
 export default authServices;

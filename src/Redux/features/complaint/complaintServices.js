@@ -23,10 +23,21 @@ const getComplaintDetails = async function (id) {
   return response.data;
 };
 
+//assign complaint
+const assignComplaint = async function (id, assigned_to) {
+  const response = await axios({
+    method: "POST",
+    url: `/complaints/assign-complaint/${id}`,
+    data: {assigned_to},
+  });
+  return response.data;
+};
+
 const complaintServices = {
   addComplaint,
   getAllComplaints,
-  getComplaintDetails
+  getComplaintDetails,
+  assignComplaint,
 };
 
 export default complaintServices;

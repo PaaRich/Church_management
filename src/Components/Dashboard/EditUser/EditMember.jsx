@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, updateUser } from "../../../Redux/features/auth/authSlice";
+import { getUser, registerCoach, updateUser } from "../../../Redux/features/auth/authSlice";
 import Loader from "../../Reusable/Loader";
 import { getMinistries } from "../../../Redux/features/ministry/ministrySlice";
 import { getMustards } from "../../../Redux/features/mustard/mustardSlice";
@@ -17,7 +17,7 @@ function EditMember() {
   const { mustardLoading, allMustards } = useSelector((state) => state.mustard);
   const { isLoading, user } = useSelector((state) => state.auth);
 
-  const initials={
+  const initials = {
     firstname: "",
     lastname: "",
     othername: "",
@@ -35,12 +35,13 @@ function EditMember() {
     school: "",
     invited_by: "",
     position: "",
-    role:""
-  }
+    role: "",
+  };
   const [ministries, setMinistries] = useState(allMinistries);
   const [mustards, setMustards] = useState(allMustards);
   const [userInfo, setUserInfo] = useState(user);
   const [userData, setUserData] = useState(initials);
+  const [coach, setCoach] = useState("");
 
   // console.log(user?.DOB==undefined)
   const getUserInfo = async () => {
@@ -73,7 +74,7 @@ function EditMember() {
       school: user?.school,
       invited_by: user?.invited_by,
       position: user?.position,
-      role:user?.role
+      role: user?.role,
     }));
   }, []);
   useEffect(() => {
@@ -102,7 +103,7 @@ function EditMember() {
       school: user?.school,
       invited_by: user?.invited_by,
       position: user?.position,
-      role:user?.role
+      role: user?.role,
     }));
   }, [user]);
 
@@ -121,7 +122,7 @@ function EditMember() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userData)
+    console.log(userData);
     if (
       !userData.gender ||
       !userData.firstname ||
@@ -136,13 +137,13 @@ function EditMember() {
     ) {
       return toast.error("please fill out all required fields");
     }
-    const selectedDate= new Date(userData.DOB);
-    const currentDate=new Date();
-    if(selectedDate > currentDate){
-      return toast.error("DOB cannot be greater than today\'s date")
+    const selectedDate = new Date(userData.DOB);
+    const currentDate = new Date();
+    if (selectedDate > currentDate) {
+      return toast.error("DOB cannot be greater than today's date");
     }
     await dispatch(updateUser({ userData, userId: id }));
-    setUserData(initials)
+    setUserData(initials);
     // console.log(userData);
   };
 
@@ -169,6 +170,15 @@ function EditMember() {
     setMustards(allMustards);
   }, [allMustards]);
 
+  const submitCoach=async(e)=>{
+    e.preventDefault()
+    if(!coach) {
+      return toast.error('please select a coach type')
+    }
+    await dispatch(registerCoach({userId:id,coach_type:coach}))
+    // console.log(coach)
+  };
+
   return (
     <>
       {isLoading && <Loader />}
@@ -185,7 +195,11 @@ function EditMember() {
             path={"/dashboard/people"}
           />
         </div>
-        <form action="" className=" w-full h-full mt-5 pb-20" onSubmit={handleSubmit}>
+        <form
+          action=""
+          className=" w-full h-full mt-5 pb-20"
+          onSubmit={handleSubmit}
+        >
           <div className="grid grid-cols-2 gap-x-5">
             <input
               type="text"
@@ -403,13 +417,19 @@ function EditMember() {
                 <option value="SDA">SDA</option>
               </select>
               <div>
-                  <select name="role" onChange={handleChange} value={userData.role} id="" className="w-full">
-                    <option value="">-- Change User Role --</option>
-                    <option value="member">Member</option>
-                    <option value="pastor">Pastor</option>
-                    <option value="admin">Admin</option>
-                  </select>
-                </div>
+                <select
+                  name="role"
+                  onChange={handleChange}
+                  value={userData.role}
+                  id=""
+                  className="w-full"
+                >
+                  <option value="">-- Change User Role --</option>
+                  <option value="member">Member</option>
+                  <option value="pastor">Pastor</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
               <div className="mt-3">
                 <label
                   className="p-3 py-4 hover:bg-blue-400 duration-500 bg-blue-500 text-white rounded-md cursor-pointer"
@@ -425,11 +445,10 @@ function EditMember() {
                   name="user_photo"
                   id="userPhoto"
                 />
-           
               </div>
             </div>
           </div>
-          <div className="w-full relative pb-5 mt-5">
+          <div className="w-full relative pb-5 mt-10">
             <button
               className="btn w-80 rounded-md text-white px-3 py-4 bg-slate-900 absolute left-1/2 -translate-x-1/2"
               type="submit"
@@ -440,21 +459,38 @@ function EditMember() {
         </form>
         <hr />
         <div className="mt-10 pb-32">
-        <div className="flex items-center justify-center flex-col mt-5">
-            <h2 className="text-xl font-semibold">Coach Settings</h2>
+          <div className="flex items-center justify-center flex-col mt-5">
+            <h2 className="text-xl font-semibold">Other Settings</h2>
             <p className="pt-1">Assign a member as Coach</p>
           </div>
-        <form action="" className="flex items-center gap-10 w-3/6 justify-between">
-          <div>
-          {/* <label htmlFor="" className="text-xl">Select Coach Type</label> <br /> */}
-          <select name="coach_type" className=" mt-5 w-96" id="">
-            <option value="">Select Coach Type</option>
-            <option value="general">General Coach</option>
-            <option value="specific">Specific Coach</option>
-          </select>
-          </div>
-          <button type="submit" className="py-3 px-8 bg-blue-500 rounded-sm shadow-lg text-white">Assign</button>
-        </form>
+          <form
+            action=""
+            className="mt-5 flex items-center gap-10 w-3/6 justify-between"
+            onSubmit={submitCoach}
+          >
+            <div>
+              {/* <label htmlFor="" className="text-xl">Select Coach Type</label> <br /> */}
+              <select
+                name="coach_type"
+                className=" mt-5 w-96"
+                id=""
+                value={coach}
+                onChange={(e) => {
+                  setCoach(e.target.value);
+                }}
+              >
+                <option value="">Select Coach Type</option>
+                <option value="general">General Coach</option>
+                <option value="specific">Specific Coach</option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              className="py-3 px-8 bg-blue-500 rounded-sm shadow-lg text-white"
+            >
+              Assign
+            </button>
+          </form>
         </div>
       </div>
     </>

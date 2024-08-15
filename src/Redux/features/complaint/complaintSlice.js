@@ -67,6 +67,25 @@ export const getComplaint = createAsyncThunk(
   }
 );
 
+//assign mplaint
+export const assignComplaint = createAsyncThunk(
+  "complaint/assign-omplaint",
+  async ({ comp_id, assigned_to }, thunkAPI) => {
+    try {
+      return await complaintServices.assignComplaint(comp_id, assigned_to);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const complaintSlice = createSlice({
   name: "complaint",
   initialState,
@@ -124,6 +143,23 @@ export const complaintSlice = createSlice({
         state.specificComplaint = action.payload.complaint;
       })
       .addCase(getComplaint.rejected, (state, action) => {
+        state.complaintLoading = false;
+        state.complaintSuccess = false;
+        state.complaintError = true;
+        toast.error(action.payload);
+      })
+
+      //assign complaint
+      .addCase(assignComplaint.pending, (state, action) => {
+        state.complaintLoading = true;
+      })
+      .addCase(assignComplaint.fulfilled, (state, action) => {
+        state.complaintLoading = false;
+        state.complaintSuccess = true;
+        state.complaintError = false;
+        toast.success("Complaint successfully assigned to selected coach");
+      })
+      .addCase(assignComplaint.rejected, (state, action) => {
         state.complaintLoading = false;
         state.complaintSuccess = false;
         state.complaintError = true;

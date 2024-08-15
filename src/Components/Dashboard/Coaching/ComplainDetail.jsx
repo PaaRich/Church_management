@@ -1,8 +1,13 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getComplaint } from "../../../Redux/features/complaint/complaintSlice";
-import { useEffect, useState } from "react";
+import {
+  assignComplaint,
+  getComplaint,
+} from "../../../Redux/features/complaint/complaintSlice";
+import React, { useEffect, useState } from "react";
 import Loader from "../../Reusable/Loader";
+import { getAllCoaches } from "../../../Redux/features/auth/authSlice";
+import { toast } from "react-toastify";
 
 const ComplainDetail = () => {
   const location = useLocation();
@@ -12,8 +17,23 @@ const ComplainDetail = () => {
   const { complaintLoading, complaintSuccess, specificComplaint } = useSelector(
     (state) => state.complaint
   );
+  const { allUsers, isLoading } = useSelector((state) => state.auth);
 
+  const [coaches, setCoaches] = useState(allUsers);
   const [complaint, setComplaint] = useState(specificComplaint);
+  const [selectedCoach, setSelectedCoach] = useState("");
+
+  const getCoaches = async () => {
+    await dispatch(getAllCoaches());
+  };
+  useEffect(() => {
+    getCoaches();
+    setCoaches(allUsers);
+  }, []);
+  useEffect(() => {
+    setCoaches(allUsers);
+  }, [allUsers]);
+
   const getComplaintDetail = async () => {
     await dispatch(getComplaint(comp_id));
   };
@@ -26,14 +46,24 @@ const ComplainDetail = () => {
     setComplaint(specificComplaint);
   }, [specificComplaint]);
 
+
+  const assignToCoach = async (e) => {
+    e.preventDefault();
+    if (!selectedCoach) {
+      return toast.error("please select a coach");
+    }
+    await dispatch(assignComplaint({ comp_id, assigned_to: selectedCoach }));
+  };
+
   // console.log(complaint)
 
   return (
     <>
-    {complaintLoading && <Loader/>}
-    <div>
-      <h1 className="font-semibold text-2xl">Complaint</h1>
-      {/* <p>
+      {complaintLoading && <Loader />}
+      {isLoading && <Loader />}
+      <div>
+        <h1 className="font-semibold text-2xl">Complaint</h1>
+        {/* <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam quae
         nam hic facilis incidunt? Nemo perferendis iste vitae itaque autem
         harum? Molestias repellendus ipsa laudantium aut a nam voluptates
@@ -45,60 +75,90 @@ const ComplainDetail = () => {
         autem harum? Molestias repellendus ipsa laudantium aut a nam voluptates
         possimus.
       </p> */}
-      <div className="border-2 border-blue-500 my-5 p-5 rounded-md">
-        <div className="grid grid-cols-2 w-full items-center">
-        <div className="text-lg font-semibold mr-10">
-            Complainant Name:{"  "}
-            <span className="underline font-light">
-              {complaint?.userId?.firstname} &nbsp;
-              {complaint?.userId?.lastname}
-            </span>
+        <div className="border-2 border-blue-500 my-5 p-5 rounded-md">
+          <div className="grid grid-cols-2 w-full items-center">
+            <div className="text-lg font-semibold mr-10">
+              Complainant Name:{"  "}
+              <span className="underline font-light">
+                {complaint?.userId?.firstname} &nbsp;
+                {complaint?.userId?.lastname}
+              </span>
+            </div>
+            <div className="text-lg font-semibold">
+              Complaint type:{"  "}
+              <span className="underline font-light">
+                {complaint?.complaint_type}
+              </span>
+            </div>
+            <div className="text-lg font-semibold mr-10">
+              Active Phone Number:{"  "}
+              <span className="underline font-light">
+                0{complaint?.active_number}
+              </span>
+            </div>
+            <div className="flex items-center mt-3">
+              <div className="text-lg font-semibold">
+                Date created:{"  "}
+                <span className="underline font-light">
+                  {" "}
+                  {new Date(complaint?.createdAt).toLocaleString("en-US", {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
+              <div></div>
+            </div>
+            {complaint?.isAssigned && 
+            <div className="text-lg font-semibold mr-10">
+              Assigned To:{"  "}
+              <span className="underline font-light">
+                {/* {complaint?.assigned_to?.firstname} */}
+              </span>
+            </div>
+            }
           </div>
-          <div className="text-lg font-semibold">
-            Complaint type:{"  "}
-            <span className="underline font-light">
-              {complaint?.complaint_type}
-            </span>
-          </div>
-          <div className="text-lg font-semibold mr-10">
-            Active Phone Number:{"  "}
-            <span className="underline font-light">
-              {complaint?.active_number}
-            </span>
-          </div>
-        <div className="flex items-center mt-3">
-          <div className="text-lg font-semibold">
-            Date created:{"  "}
-            <span className="underline font-light">
-              {" "}
-              {new Date(complaint?.createdAt).toLocaleString("en-US", {
-                month: "short",
-                day: "2-digit",
-                year: "numeric",
-              })}
-            </span>
-          </div>
-          <div></div>
         </div>
+        <div>
+          <h4 className="font-semibold text-xl mt-10 mb-3">
+            Complaint Description
+          </h4>
+          <p className="text-lg leading-7 pb-2 w-[90%]">
+            {complaint?.complaint}
+          </p>
+          <div className="mt-5">
+            <h4 className="font-semibold text-xl mb-4">Assign Complaint</h4>
+            <form action="" onSubmit={assignToCoach}>
+              <select
+                name="coach"
+                id=""
+                onChange={(e) => {
+                  setSelectedCoach(e.target.value);
+                }}
+                className="bg-slate-200 w-[40%]"
+              >
+                <option value="">-- Select a Coach --</option>
+                {coaches?.map((coach) => (
+                  <React.Fragment key={coach._id}>
+                    <option value={coach._id}>
+                      {coach?.userId?.firstname}&nbsp;{coach?.userId?.lastname}{" "}
+                      &nbsp; &nbsp; &nbsp; &nbsp;{" "}
+                      {`(${coach.coach_type} coach)`}
+                    </option>
+                  </React.Fragment>
+                ))}
+              </select>
+              <button
+                className="bg-blue-500 text-white px-5 py-3 rounded-sm ml-8 shadow-lg"
+                type="submit"
+              >
+                Assign
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-      <div>
-        <h4 className="font-semibold text-xl mt-10 mb-3">Complaint Description</h4>
-        <p className="text-lg leading-7 pb-2 w-[90%]">{complaint?.complaint}</p>
-        <div className="mt-5">
-          <h4 className="font-semibold text-xl mb-4">Assign Complaint</h4>
-          <form action="">
-          <select name="coach" id="" className="bg-slate-200 w-[40%]">
-            <option value="">Select Coach</option>
-            <option value="Coach 1">Coach 1</option>
-            <option value="Coach 2">Coach 2</option>
-            <option value="Coach 3">Coach 3</option>
-          </select>
-          <button className="bg-blue-500 text-white px-5 py-3 rounded-sm ml-8 shadow-lg" type="submit">Assign</button>
-          </form>
-        </div>
-      </div>
-    </div>
     </>
   );
 };
