@@ -119,11 +119,14 @@ const Settings = () => {
   const [tel, setTel] = useState("");
   const [searchedUser, setSearchedUser] = useState(user);
 
+  useEffect(() => {
+    setState(false);
+  }, []);
   const searchUser = async function (e) {
     let phonenumber;
     e.preventDefault();
     if (!tel.match(/^\d{9}$|^\d{10}$/)) {
-      setState(false)
+      setState(false);
       return toast.error("provide a valid phone number");
     }
     if (tel.startsWith("0")) {

@@ -132,6 +132,10 @@ button.flex:hover {
 .w-full > button:hover {
   background-color: #0f172ae4;
 } */
+ input:disabled{
+  background: #ebebebc0;
+  cursor:not-allowed;
+ }
 input,
 select {
   background-color: #e2e8f0;

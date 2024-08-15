@@ -94,9 +94,9 @@ export const findUser = createAsyncThunk(
 //update user
 export const updateUser = createAsyncThunk(
   "auth/update-user",
-  async (userData, thunkAPI) => {
+  async ({userData,userId}, thunkAPI) => {
     try {
-      return await authServices.updateUser(userData);
+      return await authServices.updateUser(userData,userId);
     } catch (error) {
       // console.log(error);
       const message =
@@ -110,7 +110,7 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-//update user
+//get user
 export const getUser = createAsyncThunk(
   "auth/get-user",
   async (userId, thunkAPI) => {

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, getUser } from "../../../Redux/features/auth/authSlice";
+import { getUser, updateUser } from "../../../Redux/features/auth/authSlice";
 import Loader from "../../Reusable/Loader";
 import { getMinistries } from "../../../Redux/features/ministry/ministrySlice";
 import { getMustards } from "../../../Redux/features/mustard/mustardSlice";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function EditMember() {
   const { id } = useParams();
@@ -16,11 +17,8 @@ function EditMember() {
   const { mustardLoading, allMustards } = useSelector((state) => state.mustard);
   const { isLoading, user } = useSelector((state) => state.auth);
 
-  const [ministries, setMinistries] = useState(allMinistries);
-  const [mustards, setMustards] = useState(allMustards);
-  const [userInfo, setUserInfo] = useState(user);
-  const [userData, setUserData] = useState({
-    firstname: userInfo?.firstname ?? "",
+  const initials={
+    firstname: "",
     lastname: "",
     othername: "",
     gender: "",
@@ -37,17 +35,75 @@ function EditMember() {
     school: "",
     invited_by: "",
     position: "",
-  });
+    role:""
+  }
+  const [ministries, setMinistries] = useState(allMinistries);
+  const [mustards, setMustards] = useState(allMustards);
+  const [userInfo, setUserInfo] = useState(user);
+  const [userData, setUserData] = useState(initials);
 
-  const getUserInfo = async function () {
+  // console.log(user?.DOB==undefined)
+  const getUserInfo = async () => {
     await dispatch(getUser(id));
   };
   useEffect(() => {
     getUserInfo();
     setUserInfo(user);
+    let formattedDate;
+    if (!(user?.DOB == undefined)) {
+      const date = new Date(user?.DOB);
+      formattedDate = date.toISOString().split("T")[0];
+    }
+    setUserData((prev) => ({
+      ...prev,
+      firstname: user?.firstname,
+      lastname: user?.lastname,
+      othername: user?.othername,
+      gender: user?.gender,
+      user_photo: user?.user_photo,
+      phonenumber: user?.phonenumber,
+      education_level: user?.education_level,
+      mustard_seed: user?.mustard_seed,
+      ministry: user?.ministry,
+      DOB: formattedDate ?? "",
+      location: user?.location,
+      marital_status: user?.marital_status,
+      email: user?.email,
+      media: user?.media,
+      school: user?.school,
+      invited_by: user?.invited_by,
+      position: user?.position,
+      role:user?.role
+    }));
   }, []);
   useEffect(() => {
     setUserInfo(user);
+    let formattedDate;
+    if (!(user?.DOB == undefined)) {
+      const date = new Date(user?.DOB);
+      formattedDate = date.toISOString().split("T")[0];
+    }
+    setUserData((prev) => ({
+      ...prev,
+      firstname: user?.firstname,
+      lastname: user?.lastname,
+      othername: user?.othername,
+      gender: user?.gender,
+      user_photo: user?.user_photo,
+      phonenumber: user?.phonenumber,
+      education_level: user?.education_level,
+      mustard_seed: user?.mustard_seed,
+      ministry: user?.ministry,
+      DOB: formattedDate ?? "",
+      location: user?.location,
+      marital_status: user?.marital_status,
+      email: user?.email,
+      media: user?.media,
+      school: user?.school,
+      invited_by: user?.invited_by,
+      position: user?.position,
+      role:user?.role
+    }));
   }, [user]);
 
   const handleChange = (e) => {
@@ -65,7 +121,28 @@ function EditMember() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(addUser(userData));
+    console.log(userData)
+    if (
+      !userData.gender ||
+      !userData.firstname ||
+      !userData.lastname ||
+      !userData.ministry ||
+      !userData.mustard_seed ||
+      !userData.location ||
+      !userData.position ||
+      !userData.marital_status ||
+      !userData.media ||
+      !userData.DOB
+    ) {
+      return toast.error("please fill out all required fields");
+    }
+    const selectedDate= new Date(userData.DOB);
+    const currentDate=new Date();
+    if(selectedDate > currentDate){
+      return toast.error("DOB cannot be greater than today\'s date")
+    }
+    await dispatch(updateUser({ userData, userId: id }));
+    setUserData(initials)
     // console.log(userData);
   };
 
@@ -98,14 +175,8 @@ function EditMember() {
       {ministryLoading && <Loader />}
       <div className="w-full">
         <div className="church_profile pb-1 relative">
-          <div className="flex items-center justify-center flex-col">
-            <img
-              className="rounded-full w-10 h-10 bg-black"
-              src="/images/avatar2.webp"
-              alt="church_profile-pic"
-            />
-            <h2 className="text-xl">Church Name</h2>
-            <p className="font-light">Logo</p>
+          <div className="flex items-center justify-center flex-col mt-5">
+            <h2 className="text-xl">Edit Member Information</h2>
             <p className="pt-1">Church membership form</p>
           </div>
           <BackBtn
@@ -114,7 +185,7 @@ function EditMember() {
             path={"/dashboard/people"}
           />
         </div>
-        <form action="" className=" w-full h-full mt-5" onSubmit={handleSubmit}>
+        <form action="" className=" w-full h-full mt-5 pb-20" onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-x-5">
             <input
               type="text"
@@ -162,6 +233,7 @@ function EditMember() {
               onChange={handleChange}
               value={userData.phonenumber}
               name="phonenumber"
+              disabled={true}
             />
             <div className="relative">
               <select
@@ -272,6 +344,7 @@ function EditMember() {
               onChange={handleChange}
               value={userData.email}
               placeholder="Email"
+              disabled={true}
             />
             <div className="relative">
               <select
@@ -329,6 +402,14 @@ function EditMember() {
                 <option value="NODASS">NODASS</option>
                 <option value="SDA">SDA</option>
               </select>
+              <div>
+                  <select name="role" onChange={handleChange} value={userData.role} id="" className="w-full">
+                    <option value="">-- Change User Role --</option>
+                    <option value="member">Member</option>
+                    <option value="pastor">Pastor</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
               <div className="mt-3">
                 <label
                   className="p-3 py-4 hover:bg-blue-400 duration-500 bg-blue-500 text-white rounded-md cursor-pointer"
@@ -344,10 +425,11 @@ function EditMember() {
                   name="user_photo"
                   id="userPhoto"
                 />
+           
               </div>
             </div>
           </div>
-          <div className="w-full relative pb-5 mt-2">
+          <div className="w-full relative pb-5 mt-5">
             <button
               className="btn w-80 rounded-md text-white px-3 py-4 bg-slate-900 absolute left-1/2 -translate-x-1/2"
               type="submit"
@@ -356,6 +438,24 @@ function EditMember() {
             </button>
           </div>
         </form>
+        <hr />
+        <div className="mt-10 pb-32">
+        <div className="flex items-center justify-center flex-col mt-5">
+            <h2 className="text-xl font-semibold">Coach Settings</h2>
+            <p className="pt-1">Assign a member as Coach</p>
+          </div>
+        <form action="" className="flex items-center gap-10 w-3/6 justify-between">
+          <div>
+          {/* <label htmlFor="" className="text-xl">Select Coach Type</label> <br /> */}
+          <select name="coach_type" className=" mt-5 w-96" id="">
+            <option value="">Select Coach Type</option>
+            <option value="general">General Coach</option>
+            <option value="specific">Specific Coach</option>
+          </select>
+          </div>
+          <button type="submit" className="py-3 px-8 bg-blue-500 rounded-sm shadow-lg text-white">Assign</button>
+        </form>
+        </div>
       </div>
     </>
   );

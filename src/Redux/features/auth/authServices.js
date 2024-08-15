@@ -39,10 +39,10 @@ const getAllUsers = async function () {
 const verifyUser = async function () {};
 
 //update user
-const updateUser = async function (userData) {
+const updateUser = async function (userData,userId) {
   const response = await axios({
     method: "PATCH",
-    url: "/users/update-user",
+    url: `/users/update-user/${userId}`,
     data:userData
   });
   return response.data;
