@@ -8,10 +8,10 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  allUsers:[],
-  user:null,
-  ministryMembers:[],
-  mustardMembers:[]
+  allUsers: [],
+  user: null,
+  ministryMembers: [],
+  mustardMembers: [],
 };
 
 //add user
@@ -33,13 +33,50 @@ export const addUser = createAsyncThunk(
   }
 );
 
-
 //login user
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (userData, thunkAPI) => {
     try {
       return await authServices.loginUser(userData);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//get login status
+export const getLoginStatus = createAsyncThunk(
+  "auth/login-status",
+  async (_, thunkAPI) => {
+    try {
+      return await authServices.getLoginStatus();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//logout user
+export const logoutUser = createAsyncThunk(
+  "auth/logout",
+  async (_, thunkAPI) => {
+    try {
+      return await authServices.logoutUser();
     } catch (error) {
       // console.log(error);
       const message =
@@ -113,9 +150,9 @@ export const findUser = createAsyncThunk(
 //update user
 export const updateUser = createAsyncThunk(
   "auth/update-user",
-  async ({userData,userId}, thunkAPI) => {
+  async ({ userData, userId }, thunkAPI) => {
     try {
-      return await authServices.updateUser(userData,userId);
+      return await authServices.updateUser(userData, userId);
     } catch (error) {
       // console.log(error);
       const message =
@@ -217,7 +254,7 @@ export const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-    //adding new member
+      //adding new member
       .addCase(addUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -234,16 +271,16 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //login user
+      //login user
       .addCase(loginUser.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoggedIn=true;
+        state.isLoggedIn = true;
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.activeUser= action.payload.user
+        state.activeUser = action.payload.user;
         toast.success("logged in successfully");
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -253,7 +290,44 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //get all users
+      //logout user
+      .addCase(logoutUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.isLoggedIn = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.activeUser = null;
+        toast.success("logout successful");
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+      //get login status
+      .addCase(getLoginStatus.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getLoginStatus.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.activeUser = action.payload.user;
+      })
+      .addCase(getLoginStatus.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+      //get all users
       .addCase(getAllUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -261,7 +335,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.allUsers= action.payload.users
+        state.allUsers = action.payload.users;
       })
       .addCase(getAllUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -270,7 +344,7 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //get all coaches
+      //get all coaches
       .addCase(getAllCoaches.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -278,7 +352,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.allUsers= action.payload.coaches
+        state.allUsers = action.payload.coaches;
       })
       .addCase(getAllCoaches.rejected, (state, action) => {
         state.isLoading = false;
@@ -287,7 +361,7 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //find user
+      //find user
       .addCase(findUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -295,7 +369,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.user= action.payload.user
+        state.user = action.payload.user;
       })
       .addCase(findUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -304,7 +378,7 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //update user
+      //update user
       .addCase(updateUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -312,7 +386,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        toast.success("user updated successfully")
+        toast.success("user updated successfully");
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -321,7 +395,7 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //register coach
+      //register coach
       .addCase(registerCoach.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -329,7 +403,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        toast.success("coach register successfully")
+        toast.success("coach register successfully");
       })
       .addCase(registerCoach.rejected, (state, action) => {
         state.isLoading = false;
@@ -338,7 +412,7 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //get user
+      //get user
       .addCase(getUser.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -346,7 +420,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.user=action.payload.user
+        state.user = action.payload.user;
       })
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -355,7 +429,7 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //get ministry users
+      //get ministry users
       .addCase(getMinistries.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -363,7 +437,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.ministryMembers= action.payload.members
+        state.ministryMembers = action.payload.members;
       })
       .addCase(getMinistries.rejected, (state, action) => {
         state.isLoading = false;
@@ -372,7 +446,7 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-    //get mustard users
+      //get mustard users
       .addCase(getMustards.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -380,7 +454,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.mustardMembers= action.payload.members
+        state.mustardMembers = action.payload.members;
       })
       .addCase(getMustards.rejected, (state, action) => {
         state.isLoading = false;

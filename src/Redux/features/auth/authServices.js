@@ -21,10 +21,22 @@ const loginUser = async function (userData) {
 };
 
 //get login status
-const getLoginStatus = async function () {};
+const getLoginStatus = async function () {
+  const response = await axios({
+    method: "GET",
+    url: "/users/loginStatus",
+  });
+  return response.data;
+};
 
 //logout User
-const logoutUser = async function () {};
+const logoutUser = async function () {
+  const response = await axios({
+    method: "POST",
+    url: "/users/logout",
+  });
+  return response.data;
+};
 
 //get all users
 const getAllUsers = async function () {

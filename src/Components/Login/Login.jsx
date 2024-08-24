@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {isLoggedIn, isLoading, isSuccess } = useSelector((state) => state.auth);
+  const { isLoggedIn, isLoading, isSuccess } = useSelector(
+    (state) => state.auth
+  );
 
   const [userData, setUserData] = useState({
     phonenumber: "",
@@ -32,20 +34,22 @@ function Login() {
       const formattedNumber = userData.phonenumber.slice(1);
       userData.phonenumber = `233${formattedNumber}`;
       // console.log(userData.phonenumber)
-    }else if(!userData.phonenumber.startsWith("0")){
-      userData.phonenumber=`233${userData.phonenumber}`
+    } else if (!userData.phonenumber.startsWith("0")) {
+      userData.phonenumber = `233${userData.phonenumber}`;
     }
     await dispatch(loginUser(userData));
   };
 
   useEffect(() => {
+    dispatch(RESET());
+  }, []);
+
+  useEffect(() => {
     if (isSuccess && isLoggedIn) {
-      window.setTimeout(()=>{
-        navigate("/dashboard",{replace:true});
-      },1000)
+      navigate("/dashboard", { replace: true });
     }
-    dispatch(RESET())
-  }, [isSuccess, isLoggedIn]);
+    dispatch(RESET());
+  }, [isSuccess, isLoggedIn, dispatch, navigate]);
 
   return (
     <>
@@ -57,7 +61,7 @@ function Login() {
             className="w-full"
             type="tel"
             name="phonenumber"
-            id=""
+            id="phone"
             placeholder="Enter Phonenumber"
             onChange={changeHander}
             value={userData.phonenumber}
@@ -68,7 +72,7 @@ function Login() {
             className="w-full"
             type="password"
             name="password"
-            id=""
+            id="pass"
             placeholder="Enter Password"
             onChange={changeHander}
             value={userData.password}

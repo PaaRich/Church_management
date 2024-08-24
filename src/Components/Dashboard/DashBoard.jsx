@@ -1,8 +1,18 @@
 /* eslint-disable react/prop-types */
+import { useDispatch } from "react-redux";
+import useRedirect from "../../customHooks/useRedirect";
 import SideBar from "./SideBar";
+import { useEffect } from "react";
+import { RESET } from "../../Redux/features/auth/authSlice";
 //import DashBoardHome from "./DashBoardHome";
 
 const DashBoard = ({ children }) => {
+  useRedirect("/login");
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(RESET());
+  }, [dispatch]);
   return (
     <div>
       <div className="main--container">

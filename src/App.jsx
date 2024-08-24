@@ -32,11 +32,19 @@ import "react-toastify/dist/ReactToastify.css";
 import EditMember from "./Components/Dashboard/EditUser/EditMember";
 import JPK from "./Components/Dashboard/People/JPK";
 import ComplainDetail from "./Components/Dashboard/Coaching/ComplainDetail";
+import { getLoginStatus } from "./Redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1";
 axios.defaults.withCredentials = true;
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getLoginStatus());
+  }, [dispatch]);
+
   return (
     <>
       <div>
