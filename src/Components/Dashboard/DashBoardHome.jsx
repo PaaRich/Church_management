@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DashboardMain.css";
 import { IoIosPeople, IoIosHeartEmpty } from "react-icons/io";
 import { FaStarHalfAlt } from "react-icons/fa";
 import ProgressCircle from "../Reusable/ProgressCircle";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserStats } from "../../Redux/features/auth/authSlice";
 
 const DashBoardHome = () => {
-  const malePercentage = 38;
-  const femalePercentage = 62;
-  const childrenPercentage = 28;
-  const youthPercentage = 67;
+  const dispatch = useDispatch();
+  const { isLoading, stats, isSuccess } = useSelector((state) => state.auth);
+
+  const [allStats, setAllStats] = useState(stats);
+
+  //getch all stats
+  const getStats = async () => {
+    await dispatch(getUserStats());
+  };
+
+  useEffect(() => {
+    getStats();
+    setAllStats(stats);
+  }, []);
+
+  //re-render allStats state each time the global stats changes
+  useEffect(() => {
+    setAllStats(stats);
+  }, [stats]);
+
+  console.log(allStats);
+
+  const malePercentage = (allStats?.maleCount/allStats?.totalUserCount)*100;
+  const femalePercentage = (allStats?.femaleCount/allStats?.totalUserCount)*100;
+  const childrenPercentage = (allStats?.children/allStats?.totalUserCount)*100;
+  const youthPercentage = (allStats?.adults/allStats?.totalUserCount)*100;
 
   return (
     <div className="dashboard-home-container">
@@ -20,7 +44,7 @@ const DashBoardHome = () => {
               <IoIosPeople color="#fff" size={40} />
             </div>
             <div className="number my-2">
-              <h2 className="text-3xl font-bold">13.5k</h2>
+              <h2 className="text-3xl font-bold">{allStats?.totalUserCount}</h2>
             </div>
             <p className="p-2">Members</p>
           </div>
@@ -81,7 +105,7 @@ const DashBoardHome = () => {
               percentage={youthPercentage}
               text={`${youthPercentage}%`}
             />
-            <h4 className="font-semibold text-md mt-5 text-xl">Youth</h4>
+            <h4 className="font-semibold text-md mt-5 text-xl">Adults</h4>
           </div>
         </div>
       </div>

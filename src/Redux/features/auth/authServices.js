@@ -116,6 +116,16 @@ const getMinistries = async function (ministry) {
   return response.data;
 };
 
+//get users stats
+const getUserStats = async function () {
+  const response = await axios({
+    method: "GET",
+    url: "/users/get-user-stats",
+  });
+  return response.data;
+};
+
+
 const authServices = {
   addUser,
   loginUser,
@@ -129,7 +139,8 @@ const authServices = {
   findUser,
   updateUser,
   registerCoach,
-  getAllCoaches
+  getAllCoaches,
+  getUserStats
 };
 
 export default authServices;

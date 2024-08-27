@@ -16,7 +16,7 @@ const Complains = () => {
     (state) => state.complaint
   );
 
-  // const [status,setStatus]= useState(false)
+  const [status, setStatus] = useState(false);
   const [complaints, setComplaints] = useState(allComplaints);
   const [searchInput, setSearchInput] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
@@ -43,7 +43,16 @@ const Complains = () => {
     });
     setFilteredItems(items);
   }, [searchInput, complaints]);
+
+  useEffect(() => {
+    const items = complaints?.filter((item) => {
+      return item.isAssigned == Boolean(status);
+    });
+   console.log(status)
+    setFilteredItems(items);
+  }, [status, complaints]);
   // console.log(complaints)
+
   // pagination here
   const [page, setPage] = useState(1);
   const itemsPerPage = 8;
@@ -74,10 +83,18 @@ const Complains = () => {
               onChange={searchHandler}
               maxLength={9}
             />
-            {/* <select value={status} name="complaint_type" id="" onChange={(e)=>{setStatus(e.target.value); getComplaints();console.log(status)}}>
-            <option value="false">Unassigned</option>
-            <option value="true">assigned</option>
-          </select> */}
+            <select
+              value={status}
+              name="complaint_type"
+              id=""
+              onChange={(e) => {
+                setStatus(e.target.value);
+                getComplaints();
+              }}
+            >
+              <option value="false">Unassigned</option>
+              <option value="true">assigned</option>
+            </select>
           </div>
           {/* search button here */}
           <div className="w-full mt-5">

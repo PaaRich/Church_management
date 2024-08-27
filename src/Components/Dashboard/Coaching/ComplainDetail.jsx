@@ -80,20 +80,20 @@ const ComplainDetail = () => {
             <div className="text-lg font-semibold mr-10">
               Complainant Name:{"  "}
               <span className="underline font-light">
-                {complaint?.userId?.firstname} &nbsp;
-                {complaint?.userId?.lastname}
+                {complaint?.singleComplaint?.userId?.firstname} &nbsp;
+                {complaint?.singleComplaint?.userId?.lastname}
               </span>
             </div>
             <div className="text-lg font-semibold">
               Complaint type:{"  "}
               <span className="underline font-light">
-                {complaint?.complaint_type}
+                {complaint?.singleComplaint?.complaint_type}
               </span>
             </div>
             <div className="text-lg font-semibold mr-10">
               Active Phone Number:{"  "}
               <span className="underline font-light">
-                0{complaint?.active_number}
+                0{complaint?.singleComplaint?.active_number}
               </span>
             </div>
             <div className="flex items-center mt-3">
@@ -101,7 +101,7 @@ const ComplainDetail = () => {
                 Date created:{"  "}
                 <span className="underline font-light">
                   {" "}
-                  {new Date(complaint?.createdAt).toLocaleString("en-US", {
+                  {new Date(complaint?.singleComplaint?.createdAt).toLocaleString("en-US", {
                     month: "short",
                     day: "2-digit",
                     year: "numeric",
@@ -110,9 +110,11 @@ const ComplainDetail = () => {
               </div>
               <div></div>
             </div>
-            {complaint?.isAssigned && 
+            {complaint?.singleComplaint?.isAssigned && 
             <div className="text-lg font-semibold mr-10">
               Assigned To:{"  "}
+              {complaint?.others?.firstname} &nbsp;
+              {complaint?.others?.lastname}
               <span className="underline font-light">
                 {/* {complaint?.assigned_to?.firstname} */}
               </span>
@@ -125,7 +127,7 @@ const ComplainDetail = () => {
             Complaint Description
           </h4>
           <p className="text-lg leading-7 pb-2 w-[90%]">
-            {complaint?.complaint}
+            {complaint?.singleComplaint?.complaint}
           </p>
           <div className="mt-5">
             <h4 className="font-semibold text-xl mb-4">Assign Complaint</h4>

@@ -3,12 +3,14 @@ import authReducer from "./features/auth/authSlice";
 import complaintReducer from "./features/complaint/complaintSlice";
 import ministryReducer from "./features/ministry/ministrySlice"
 import mustardReducer from "./features/mustard/mustardSlice"
+import lessonsReducer from './features/lessons/lessonsSlice'
 
 export const Store = configureStore({
   reducer: {
     auth: authReducer,
     complaint: complaintReducer,
     ministry: ministryReducer,
-    mustard:mustardReducer
+    mustard:mustardReducer,
+    lesson:lessonsReducer
   },
 });

@@ -21,6 +21,7 @@ import {
 import Loader from "../../Reusable/Loader";
 import Confirm from "../../Reusable/Confirm";
 import { findUser, RESET } from "../../../Redux/features/auth/authSlice";
+import Lessons from "./Lessons";
 
 const Settings = () => {
   const dispatch = useDispatch();
@@ -223,12 +224,12 @@ const Settings = () => {
           )}
         </div>
         <hr />
-        <div className="mt-10 grid grid-cols-2 gap-10">
+        <div className="mt-10 grid grid-cols-2 gap-10 pb-20">
           <div>
-            <h3 className="text-xl font-semibold">Ministry Settings</h3>
+            <h3 className="text-2xl font-semibold text-slate-800">Ministry Settings</h3>
             <button
               onClick={() => setIsOpen(true)}
-              className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm"
+              className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm"
             >
               Add Ministry
             </button>
@@ -272,10 +273,10 @@ const Settings = () => {
             </table>
           </div>
           <div>
-            <h3 className="text-xl font-semibold">Mustard Settings</h3>
+            <h3 className="text-2xl font-semibold text-slate-800">Mustard Settings</h3>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="mt-5 bg-teal-500 hover:bg-teal-400 duration-500 p-3 px-5 text-white rounded-sm"
+              className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm"
             >
               Add Mustard
             </button>
@@ -319,6 +320,9 @@ const Settings = () => {
             </table>
           </div>
         </div>
+        {/* courses settings */}
+<hr />
+    <Lessons/>
       </div>
     </>
   );

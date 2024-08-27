@@ -35,6 +35,9 @@ import ComplainDetail from "./Components/Dashboard/Coaching/ComplainDetail";
 import { getLoginStatus } from "./Redux/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
+import AddLesson from "./Components/Dashboard/Lessons/AddLesson";
+import EditLesson from "./Components/Dashboard/Lessons/EditLesson";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1";
 axios.defaults.withCredentials = true;
@@ -59,6 +62,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route
             path="/dashboard"
             element={
@@ -243,6 +247,22 @@ function App() {
             element={
               <DashBoard>
                 <Communications />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/add-lesson"
+            element={
+              <DashBoard>
+                <AddLesson />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/edit-lesson/:lesson_id"
+            element={
+              <DashBoard>
+                <EditLesson />
               </DashBoard>
             }
           />

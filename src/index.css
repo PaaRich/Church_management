@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --primary: "dodgerblue";
+  --primary: dodgerblue;
 }
 select {
   cursor: pointer;
@@ -14,6 +14,15 @@ select {
 .row {
   max-width: 1500px;
   margin: 0 auto;
+}
+
+.btn--primary{
+  color: white;
+  background-color: var(--primary);
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.185);
 }
 
 .container {
@@ -144,6 +153,17 @@ select {
   border-radius: 3px;
   margin-bottom: 15px;
   border: 2px solid #e2e8f0;
+}
+.lesson--forms input,
+.lesson--forms textarea,
+.lesson--forms select{
+  background-color: #e2e8f0;
+  background-color: transparent;
+  padding: 0.8rem;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  border: 2px solid #e2e8f0;
+  width: 100%;
 }
 
 .c-meetings div {

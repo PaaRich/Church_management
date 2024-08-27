@@ -5,41 +5,28 @@ import { toast } from "react-toastify";
 import { loginUser, RESET } from "../../Redux/features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+function ForgotPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoggedIn, isLoading, isSuccess } = useSelector(
     (state) => state.auth
   );
 
-  const [userData, setUserData] = useState({
-    phonenumber: "",
-    password: "",
-  });
-
-  const changeHander = (e) => {
-    setUserData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const [phonenumber, setPhonenumber] = useState("");
 
   const submitData = async (e) => {
     e.preventDefault();
     let formattedNumber;
-    if (!userData.phonenumber || !userData.password) {
-      return toast.error("All fields are required");
+    if (!phonenumber) {
+      return toast.error("Enter phone number");
     }
-    if (userData.phonenumber.startsWith("0")) {
-      const number = userData.phonenumber.slice(1);
+    if (phonenumber.startsWith("0")) {
+      const number = phonenumber.slice(1);
       formattedNumber = `233${number}`;
-      // console.log(userData.phonenumber)
-    } else if (!userData.phonenumber.startsWith("0")) {
-      formattedNumber = `233${userData.phonenumber}`;
+    } else if (!phonenumber.startsWith("0")) {
+      formattedNumber = `233${phonenumber}`;
     }
-    await dispatch(
-      loginUser({ phonenumber: formattedNumber, password: userData.password })
-    );
+    await dispatch(loginUser({ phonenumber: formattedNumber }));
   };
 
   useEffect(() => {
@@ -58,37 +45,31 @@ function Login() {
       {isLoading && <Loader />}
       <div className="flex flex-col items-center justify-center h-screen gap-5">
         <form action="" className="w-2/6" onSubmit={submitData}>
-          <h2 className="text-xl font-bold text-center mb-5">Login</h2>
+          <h2 className="text-xl font-bold text-center mb-5">
+            Forgot Password
+          </h2>
           <input
             className="w-full"
             type="tel"
             name="phonenumber"
             id="phone"
             placeholder="Enter Phonenumber"
-            onChange={changeHander}
-            value={userData.phonenumber}
+            onChange={(e) => {
+              setPhonenumber(e.target.value);
+            }}
+            value={phonenumber}
             maxLength={10}
           />
-          <br />
-          <input
-            className="w-full"
-            type="password"
-            name="password"
-            id="pass"
-            placeholder="Enter Password"
-            onChange={changeHander}
-            value={userData.password}
-          />{" "}
           <br />
           <button
             type="submit"
             className="bg-teal-500 text-white p-3 w-full rounded-sm"
           >
-            Login
+            Send
           </button>
           <div className="text-right mt-5">
             <p className="text-teal-600">
-              <Link to={"/forgot-password"}>forgot password?</Link>
+              <Link to={"/login"}>back to login</Link>
             </p>
           </div>
         </form>
@@ -97,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgotPassword;

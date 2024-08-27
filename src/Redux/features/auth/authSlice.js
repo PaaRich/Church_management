@@ -12,6 +12,7 @@ const initialState = {
   user: null,
   ministryMembers: [],
   mustardMembers: [],
+  stats:null
 };
 
 //add user
@@ -96,6 +97,26 @@ export const getAllUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await authServices.getAllUsers();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+
+//get user Stats
+export const getUserStats = createAsyncThunk(
+  "auth/get-user-stats",
+  async (_, thunkAPI) => {
+    try {
+      return await authServices.getUserStats();
     } catch (error) {
       // console.log(error);
       const message =
@@ -313,7 +334,7 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getLoginStatus.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload;
+        state.isLoggedIn = action.payload.status;
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
@@ -338,6 +359,23 @@ export const authSlice = createSlice({
         state.allUsers = action.payload.users;
       })
       .addCase(getAllUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+      //get users stats
+      .addCase(getUserStats.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserStats.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.stats = action.payload.data;
+      })
+      .addCase(getUserStats.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
