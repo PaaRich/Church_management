@@ -16,7 +16,7 @@ const Complains = () => {
     (state) => state.complaint
   );
 
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState("false");
   const [complaints, setComplaints] = useState(allComplaints);
   const [searchInput, setSearchInput] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
@@ -45,10 +45,10 @@ const Complains = () => {
   }, [searchInput, complaints]);
 
   useEffect(() => {
+    const bol = status==="true";
     const items = complaints?.filter((item) => {
-      return item.isAssigned == Boolean(status);
+      return item.isAssigned == bol;
     });
-   console.log(status)
     setFilteredItems(items);
   }, [status, complaints]);
   // console.log(complaints)
