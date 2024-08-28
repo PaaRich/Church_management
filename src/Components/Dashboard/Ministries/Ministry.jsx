@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getMinistries } from "../../../Redux/features/auth/authSlice";
 import Loader from "../../Reusable/Loader";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const Ministry = () => {
   const { id } = useParams();
@@ -30,6 +32,17 @@ const Ministry = () => {
     setMembers(ministryMembers);
   }, [ministryMembers]);
 
+
+     // pagination here
+     const [page, setPage] = useState(1);
+     const itemsPerPage = 10;
+     const items = [...Array(100).keys()]; // Example data
+     const handleChange = (event, value) => {
+       setPage(value);
+     };
+     const startIndex = (page - 1) * itemsPerPage;
+     const currentItems = members?.slice(startIndex, startIndex + itemsPerPage);
+
   return (
     <>
       {isLoading && <Loader />}
@@ -50,8 +63,8 @@ const Ministry = () => {
           <div>
             <p className="ml-4 text-xl my-2">Members</p>
             <div>
-              {members?.length > 0 ? (
-                members?.map((person) => (
+              {currentItems?.length > 0 ? (
+                currentItems?.map((person) => (
                   <Link to={person?.firstname} state={person} key={person._id}>
                     <Person
                       person={person?.firstname}
@@ -67,6 +80,14 @@ const Ministry = () => {
                 </div>
               )}
             </div>
+            <div className="mt-8">
+                 <Pagination 
+        count={Math.ceil(members?.length / itemsPerPage)} 
+        page={page} 
+        onChange={handleChange} 
+        color="primary"
+      />
+          </div>
           </div>
         </div>
         <div className="w-1/2 px-5">
