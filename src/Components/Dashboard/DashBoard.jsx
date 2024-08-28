@@ -1,23 +1,38 @@
 /* eslint-disable react/prop-types */
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useRedirect from "../../customHooks/useRedirect";
 import SideBar from "./SideBar";
-import { useEffect } from "react";
-import { RESET } from "../../Redux/features/auth/authSlice";
+import { useEffect, useState } from "react";
+import { getLoginStatus, RESET } from "../../Redux/features/auth/authSlice";
 //import DashBoardHome from "./DashBoardHome";
 
 const DashBoard = ({ children }) => {
   useRedirect("/login");
 
   const dispatch = useDispatch();
+  const { isLoading, activeUser } = useSelector((state) => state.auth);
+  const [user, setUser] = useState(activeUser);
+
   useEffect(() => {
     dispatch(RESET());
   }, [dispatch]);
+
+  const getStatus = async () => {
+    await dispatch(getLoginStatus());
+  };
+  useEffect(() => {
+    getStatus();
+    setUser(activeUser);
+  }, []);
+  useEffect(() => {
+    setUser(activeUser);
+  }, [activeUser]);
+
   return (
     <div>
       <div className="main--container">
         <div className="dashboard--sidebar">
-          <SideBar />
+          <SideBar user={user}/>
         </div>
         <main className="dashboard--main--content">
           <div className="dashboard-home-header flex gap-8  justify-end p-3 pr-5 shadow-md pb-0">
@@ -29,8 +44,8 @@ const DashBoard = ({ children }) => {
               />
             </form>
             <img
-              className=" w-[50px] h-[50px]"
-              src="/images/avatar2.webp"
+              className=" w-[50px] h-[50px] rounded-full"
+              src={user?.user_photo}
               alt="avatar"
             />
           </div>

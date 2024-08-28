@@ -29,10 +29,10 @@ const DashBoardHome = () => {
 
   console.log(allStats);
 
-  const malePercentage = (allStats?.maleCount/allStats?.totalUserCount)*100;
-  const femalePercentage = (allStats?.femaleCount/allStats?.totalUserCount)*100;
-  const childrenPercentage = (allStats?.children/allStats?.totalUserCount)*100;
-  const youthPercentage = (allStats?.adults/allStats?.totalUserCount)*100;
+  const malePercentage = ((allStats?.maleCount/allStats?.totalUserCount)*100).toFixed(2);
+  const femalePercentage = ((allStats?.femaleCount/allStats?.totalUserCount)*100).toFixed(2);
+  const childrenPercentage = ((allStats?.children/allStats?.totalUserCount)*100).toFixed(2);
+  const youthPercentage = ((allStats?.adults/allStats?.totalUserCount)*100).toFixed(2);
 
   return (
     <div className="dashboard-home-container">

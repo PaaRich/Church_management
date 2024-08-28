@@ -14,10 +14,12 @@ import { PiChalkboardTeacherDuotone } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
 import "./DashboardMain.css";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../Redux/features/auth/authSlice";
+import {
+  logoutUser,
+} from "../../Redux/features/auth/authSlice";
 import Loader from "../Reusable/Loader";
 
-const SideBar = () => {
+const SideBar = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.auth);
@@ -58,6 +60,8 @@ const SideBar = () => {
     }, 1000);
   };
 
+
+
   return (
     <>
       {isLoading && <Loader />}
@@ -68,11 +72,15 @@ const SideBar = () => {
         //   dropReport && setDropReport(false);
         // }}
       >
+        <div className="flex items-center gap-5">
         <img
           className="rounded-full w-[35%] mb-4 mt-2 ml-4"
-          src="/images/avatar2.webp"
+          src={props.user?.user_photo}
           alt="avartar"
         />
+        <h3 className="text-white text-semibold">Welcome, {props.user?.firstname}</h3>
+         </div>
+
 
         <ul className="overflow-auto -z-50">
           <li>

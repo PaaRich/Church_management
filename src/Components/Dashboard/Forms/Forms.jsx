@@ -52,18 +52,40 @@ function Forms() {
     );
   };
   const handleSubmit = async (e) => {
+    let formattedNumber;
     e.preventDefault();
     if (!userData.phonenumber.match(/^\d{9}$|^\d{10}$/)) {
       return toast.error("provide a valid phone number");
     }
     if (userData.phonenumber.startsWith("0")) {
-      const formattedNumber = userData.phonenumber.slice(1);
-      userData.phonenumber = `233${formattedNumber}`;
+      const number = userData.phonenumber.slice(1);
+      formattedNumber = `233${number}`;
       // console.log(userData.phonenumber)
     }else if(!userData.phonenumber.startsWith("0")){
-      userData.phonenumber=`233${userData.phonenumber}`
+      formattedNumber=`233${userData.phonenumber}`
     }
-    await dispatch(addUser(userData));
+
+    const formData= new FormData()
+    formData.append("firstname",userData.firstname)
+    formData.append("lastname",userData.lastname)
+    formData.append("othername",userData.othername)
+    formData.append("gender",userData.gender)
+    formData.append("user_photo",userData.user_photo)
+    formData.append("phonenumber",formattedNumber)
+    formData.append("education_level",userData.education_level)
+    formData.append("mustard_seed",userData.mustard_seed)
+    formData.append("ministry",userData.ministry)
+    formData.append("DOB",userData.DOB)
+    formData.append("location",userData.location)
+    formData.append("marital_status",userData.marital_status)
+    formData.append("email",userData.email)
+    formData.append("media",userData.media)
+    formData.append("school",userData.school)
+    formData.append("invited_by",userData.invited_by)
+    formData.append("position",userData.position)
+
+    // console.log(Array.from(formData))
+    await dispatch(addUser(formData));
     // console.log(userData);
   };
 
@@ -119,7 +141,7 @@ function Forms() {
             path={"/dashboard/people"}
           />
         </div>
-        <form action="" className=" w-full h-full mt-5" onSubmit={handleSubmit}>
+        <form action="" className=" w-full h-full mt-5" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="grid grid-cols-2 gap-x-5">
             <input
               type="text"
