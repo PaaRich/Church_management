@@ -301,6 +301,25 @@ export const getMustards = createAsyncThunk(
   }
 );
 
+//request password reset
+export const requestPasswordRequest = createAsyncThunk(
+  "auth/password-reset",
+  async (data, thunkAPI) => {
+    try {
+      return await authServices.requestPasswordRequest(data);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -567,6 +586,23 @@ export const authSlice = createSlice({
         state.mustardMembers = action.payload.members;
       })
       .addCase(getMustards.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+      //request password reset
+      .addCase(requestPasswordRequest.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(requestPasswordRequest.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success("new password was sent to your phone number")
+      })
+      .addCase(requestPasswordRequest.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

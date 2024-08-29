@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Reusable/Loader";
 import { toast } from "react-toastify";
-import { loginUser, RESET } from "../../Redux/features/auth/authSlice";
+import {  requestPasswordRequest, RESET } from "../../Redux/features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 function ForgotPassword() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn, isLoading, isSuccess } = useSelector(
+  const {  isLoading, isSuccess } = useSelector(
     (state) => state.auth
   );
 
@@ -20,13 +20,16 @@ function ForgotPassword() {
     if (!phonenumber) {
       return toast.error("Enter phone number");
     }
+    if(phonenumber.length < 9){
+      return toast.error("please enter a valid number")
+    }
     if (phonenumber.startsWith("0")) {
       const number = phonenumber.slice(1);
       formattedNumber = `233${number}`;
     } else if (!phonenumber.startsWith("0")) {
       formattedNumber = `233${phonenumber}`;
     }
-    await dispatch(loginUser({ phonenumber: formattedNumber }));
+    await dispatch(requestPasswordRequest({ phonenumber: formattedNumber }))
   };
 
   useEffect(() => {
@@ -34,11 +37,11 @@ function ForgotPassword() {
   }, []);
 
   useEffect(() => {
-    if (isSuccess && isLoggedIn) {
-      navigate("/dashboard", { replace: true });
+    if (isSuccess) {
+      navigate("/login");
     }
     dispatch(RESET());
-  }, [isSuccess, isLoggedIn, dispatch, navigate]);
+  }, [isSuccess,dispatch, navigate]);
 
   return (
     <>
@@ -48,8 +51,12 @@ function ForgotPassword() {
           <h2 className="text-xl font-bold text-center mb-5">
             Forgot Password
           </h2>
+          <div className="relative gap-4">
+            <div>
+            <img className=" h-[38px] rounded-sm absolute left-2 top-2" src="/images/Flag_of_Ghana.svg.png" alt="Ghana flag" />
+            </div>
           <input
-            className="w-full"
+            className="w-full pl-20"
             type="tel"
             name="phonenumber"
             id="phone"
@@ -59,7 +66,8 @@ function ForgotPassword() {
             }}
             value={phonenumber}
             maxLength={10}
-          />
+            />
+            </div>
           <br />
           <button
             type="submit"

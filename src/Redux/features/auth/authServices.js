@@ -60,24 +60,24 @@ const getAllCoaches = async function () {
 const verifyUser = async function () {};
 
 //update user
-const updateUser = async function (userData,userId) {
+const updateUser = async function (userData, userId) {
   const response = await axios({
     method: "PATCH",
     url: `/users/update-user/${userId}`,
-    data:userData
+    data: userData,
   });
   return response.data;
 };
 
 //register coach
-const registerCoach= async function (coachData){
-  const response= await axios({
-    method:"POST",
+const registerCoach = async function (coachData) {
+  const response = await axios({
+    method: "POST",
     url: "/users/register-coach",
-    data:coachData
-  })
-  return response.data
-}
+    data: coachData,
+  });
+  return response.data;
+};
 
 //get user information
 const getUser = async function (userId) {
@@ -93,7 +93,7 @@ const findUser = async function (data) {
   const response = await axios({
     method: "POST",
     url: "/users/find-user/",
-    data
+    data,
   });
   return response.data;
 };
@@ -141,6 +141,15 @@ const getMustardStats = async function () {
   return response.data;
 };
 
+//request password reset
+const requestPasswordRequest = async function (data) {
+  const response = await axios({
+    method: "POST",
+    url: "/users/request-password-reset",
+    data
+  });
+  return response.data;
+};
 
 const authServices = {
   addUser,
@@ -158,7 +167,8 @@ const authServices = {
   getAllCoaches,
   getUserStats,
   getMinistryStats,
-  getMustardStats
+  getMustardStats,
+  requestPasswordRequest,
 };
 
 export default authServices;
