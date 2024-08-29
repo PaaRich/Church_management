@@ -48,6 +48,25 @@ export const getAllLessons = createAsyncThunk(
   }
 );
 
+//get grouped lessons
+export const getGroupedLessons = createAsyncThunk(
+  "lesson/getGroupedLessons",
+  async (_, thunkAPI) => {
+    try {
+      return await lessonsServices.getGroupedLessons();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const lessonsSlice = createSlice({
   name: "lesson",
   initialState,
@@ -88,6 +107,23 @@ export const lessonsSlice = createSlice({
         state.allLessons = action.payload.lessons;
       })
       .addCase(getAllLessons.rejected, (state, action) => {
+        state.lesson_loading = false;
+        state.lesson_success = false;
+        state.lesson_error = true;
+        toast.error(action.payload);
+      })
+
+      //get grouped lessons
+      .addCase(getGroupedLessons.pending, (state, action) => {
+        state.lesson_loading = true;
+      })
+      .addCase(getGroupedLessons.fulfilled, (state, action) => {
+        state.lesson_loading = false;
+        state.lesson_success = true;
+        state.lesson_error = false;
+        state.allLessons = action.payload.data;
+      })
+      .addCase(getGroupedLessons.rejected, (state, action) => {
         state.lesson_loading = false;
         state.lesson_success = false;
         state.lesson_error = true;

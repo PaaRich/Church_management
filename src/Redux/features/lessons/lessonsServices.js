@@ -19,8 +19,20 @@ const getAllLessons = async function () {
   return response.data;
 };
 
+//get grouped lesson
+const getGroupedLessons = async function () {
+  const response = await axios({
+    method: "GET",
+    url: "/lesson/grouped-lessons",
+  });
+  return response.data;
+};
+
+
+
 const lessonsServices = {
   addLesson,
-  getAllLessons
+  getAllLessons,
+  getGroupedLessons
 };
 export default lessonsServices;
