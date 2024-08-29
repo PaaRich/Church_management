@@ -124,6 +124,22 @@ const getUserStats = async function () {
   });
   return response.data;
 };
+//get users stats
+const getMinistryStats = async function () {
+  const response = await axios({
+    method: "GET",
+    url: "/users/get-ministry-stats",
+  });
+  return response.data;
+};
+//get users stats
+const getMustardStats = async function () {
+  const response = await axios({
+    method: "GET",
+    url: "/users/get-mustard-stats",
+  });
+  return response.data;
+};
 
 
 const authServices = {
@@ -140,7 +156,9 @@ const authServices = {
   updateUser,
   registerCoach,
   getAllCoaches,
-  getUserStats
+  getUserStats,
+  getMinistryStats,
+  getMustardStats
 };
 
 export default authServices;

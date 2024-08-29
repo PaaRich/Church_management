@@ -130,6 +130,44 @@ export const getUserStats = createAsyncThunk(
   }
 );
 
+//get ministry Stats
+export const getMinistryStats = createAsyncThunk(
+  "auth/get-ministry-stats",
+  async (_, thunkAPI) => {
+    try {
+      return await authServices.getMinistryStats();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//get mustard Stats
+export const getMustardStats = createAsyncThunk(
+  "auth/get-mustard-stats",
+  async (_, thunkAPI) => {
+    try {
+      return await authServices.getMustardStats();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //get all coaches
 export const getAllCoaches = createAsyncThunk(
   "auth/all-coaches",
@@ -376,6 +414,40 @@ export const authSlice = createSlice({
         state.stats = action.payload.data;
       })
       .addCase(getUserStats.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+      //get ministry stats
+      .addCase(getMinistryStats.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMinistryStats.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.stats = action.payload.data;
+      })
+      .addCase(getMinistryStats.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+      //get mustard stats
+      .addCase(getMustardStats.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMustardStats.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.stats = action.payload.data;
+      })
+      .addCase(getMustardStats.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

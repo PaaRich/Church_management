@@ -15,7 +15,7 @@ const MustardChapter = ({ chapter, roll, location }) => {
             {roll}
             {roll > 1000 && "k"}
           </h1>
-          <p>member</p>
+          <p>member(s)</p>
         </div>
         <div>
           <IoLocationOutline size={24} className="inline mr-2" />

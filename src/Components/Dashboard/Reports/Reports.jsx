@@ -1,5 +1,6 @@
 import BackBtn from "../../Reusable/BackBtn";
 
+
 function Reports() {
   return (
     <div className="h-[80vh]">
@@ -36,6 +37,11 @@ function Reports() {
           Generate
         </button>
       </form>
+{/* charts here */}
+      <div>
+        {/* <LineChart/> */}
+        {/* {<DoughnutChart/>} */}
+      </div>
     </div>
   );
 }
