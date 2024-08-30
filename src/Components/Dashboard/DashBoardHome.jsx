@@ -27,8 +27,6 @@ const DashBoardHome = () => {
     setAllStats(stats);
   }, [stats]);
 
-  console.log(allStats);
-
   const malePercentage = ((allStats?.maleCount/allStats?.totalUserCount)*100).toFixed(2);
   const femalePercentage = ((allStats?.femaleCount/allStats?.totalUserCount)*100).toFixed(2);
   const childrenPercentage = ((allStats?.children/allStats?.totalUserCount)*100).toFixed(2);

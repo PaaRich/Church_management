@@ -46,7 +46,6 @@ const ComplainDetail = () => {
     setComplaint(specificComplaint);
   }, [specificComplaint]);
 
-
   const assignToCoach = async (e) => {
     e.preventDefault();
     if (!selectedCoach) {
@@ -63,18 +62,6 @@ const ComplainDetail = () => {
       {isLoading && <Loader />}
       <div>
         <h1 className="font-semibold text-2xl">Complaint</h1>
-        {/* <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam quae
-        nam hic facilis incidunt? Nemo perferendis iste vitae itaque autem
-        harum? Molestias repellendus ipsa laudantium aut a nam voluptates
-        possimus. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-        Magnam quae nam hic facilis incidunt? Nemo perferendis iste vitae itaque
-        autem harum? Molestias repellendus ipsa laudantium aut a nam voluptates
-        possimus. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-        Magnam quae nam hic facilis incidunt? Nemo perferendis iste vitae itaque
-        autem harum? Molestias repellendus ipsa laudantium aut a nam voluptates
-        possimus.
-      </p> */}
         <div className="border-2 border-blue-500 my-5 p-5 rounded-md">
           <div className="grid grid-cols-2 w-full items-center">
             <div className="text-lg font-semibold mr-10">
@@ -101,7 +88,9 @@ const ComplainDetail = () => {
                 Date created:{"  "}
                 <span className="underline font-light">
                   {" "}
-                  {new Date(complaint?.singleComplaint?.createdAt).toLocaleString("en-US", {
+                  {new Date(
+                    complaint?.singleComplaint?.createdAt
+                  ).toLocaleString("en-US", {
                     month: "short",
                     day: "2-digit",
                     year: "numeric",
@@ -110,16 +99,16 @@ const ComplainDetail = () => {
               </div>
               <div></div>
             </div>
-            {complaint?.singleComplaint?.isAssigned && 
-            <div className="text-lg font-semibold mr-10">
-              Assigned To:{"  "}
-              {complaint?.others?.firstname} &nbsp;
-              {complaint?.others?.lastname}
-              <span className="underline font-light">
-                {/* {complaint?.assigned_to?.firstname} */}
-              </span>
-            </div>
-            }
+            {complaint?.singleComplaint?.isAssigned && (
+              <div className="text-lg font-semibold mr-10">
+                Assigned To:{"  "}
+                {complaint?.others?.firstname} &nbsp;
+                {complaint?.others?.lastname}
+                <span className="underline font-light">
+                  {/* {complaint?.assigned_to?.firstname} */}
+                </span>
+              </div>
+            )}
           </div>
         </div>
         <div>
@@ -143,7 +132,7 @@ const ComplainDetail = () => {
                 <option value="">-- Select a Coach --</option>
                 {coaches?.map((coach) => (
                   <React.Fragment key={coach._id}>
-                    <option value={coach._id}>
+                    <option value={coach?.userId?._id}>
                       {coach?.userId?.firstname}&nbsp;{coach?.userId?.lastname}{" "}
                       &nbsp; &nbsp; &nbsp; &nbsp;{" "}
                       {`(${coach.coach_type} coach)`}

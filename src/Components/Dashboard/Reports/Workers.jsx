@@ -1,4 +1,5 @@
 import BackBtn from "../../Reusable/BackBtn";
+import BarChart from "./BarChart";
 
 function Workers() {
   return (
@@ -44,6 +45,10 @@ function Workers() {
           Generate
         </button>
       </form>
+      {/* chart here */}
+      <div className="mt-10 px-5">
+        <BarChart />
+      </div>
     </div>
   );
 }
