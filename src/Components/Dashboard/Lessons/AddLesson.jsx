@@ -91,6 +91,7 @@ function AddLesson() {
                 <option value="Programming">Programming</option>
                 <option value="Project Management">Project Management</option>
                 <option value="System Management">System Management</option>
+                <option value="Artificial Intelligence">Artificial Intelligence</option>
               </select>
             </div>
           </div>

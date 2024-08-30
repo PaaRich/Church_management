@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGroupedLessons } from "../../../Redux/features/lessons/lessonsSlice";
 
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css/skyblue";
+
 const Lessons = () => {
   const dispatch = useDispatch();
   const { allLessons } = useSelector((state) => state.lesson);
@@ -29,16 +32,6 @@ const Lessons = () => {
     setLessons(allLessons);
   }, [allLessons]);
 
-  console.log(lessons);
-
-  const settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: true,
-    dots:true
-  };
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -82,32 +75,36 @@ const Lessons = () => {
       </div>
       <div className="flex flex-col justify-between mt-3">
         <div>
-          {/* <h1 className="text-xl">Project Management</h1> */}
-          {/* <div className="border-2 h-28">
-              <img src={project} alt="img" />
-              </div> */}
           {lessons?.map((lesson, index) => (
             <div key={index + 1}>
-              <h2 className="text-xl font-semibold my-5">{lesson?.category}</h2>
-              <Slider {...settings}>
+              <h2 className="text-2xl font-semibold my-5 text-slate-800">{lesson?.category}</h2>
+              <Splide
+                options={{
+                  perPage: 3,
+                  rewind: true,
+                  gap: "1rem",
+                }}
+              >
                 {lesson?.courses?.map((course, ind) => (
-                  <div key={ind}>
-                    <h4 className="font-semibold text-md capitalize py-3">{course?.course_title}</h4>
-                    <iframe
-                      className="w-full"
-                      height="315"
-                      src="https://www.youtube.com/embed/D1QMwx41QAc?si=je0FcxFMA4lmRf9n"
-                      title={course?.course_title}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allowFullScreen
-                    ></iframe>
-                    {/* <h3>{course?.course_title}</h3> */}
-                  </div>
+                  <SplideSlide key={ind}>
+                    <div className="pb-10">
+                      <h4 className="font-semibold text-md capitalize py-3 text-center text-slate-800">
+                        {course?.course_title}
+                      </h4>
+                      <iframe
+                        className="w-full"
+                        height="315"
+                        src="https://www.youtube.com/embed/D1QMwx41QAc?si=je0FcxFMA4lmRf9n"
+                        title={course?.course_title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </SplideSlide>
                 ))}
-                {/* {console.log(lesson?.category)} */}
-              </Slider>
+              </Splide>
             </div>
           ))}
         </div>
