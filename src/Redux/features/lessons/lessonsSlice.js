@@ -86,6 +86,25 @@ export const getLesson = createAsyncThunk(
   }
 );
 
+//delete lesson
+export const deleteLesson = createAsyncThunk(
+  "lesson/deleteLesson",
+  async (lesson_id, thunkAPI) => {
+    try {
+      return await lessonsServices.deleteLesson(lesson_id);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //update lesson
 export const updateLesson = createAsyncThunk(
   "lesson/updateLessons",
@@ -179,6 +198,23 @@ export const lessonsSlice = createSlice({
         state.lesson = action.payload.lesson;
       })
       .addCase(getLesson.rejected, (state, action) => {
+        state.lesson_loading = false;
+        state.lesson_success = false;
+        state.lesson_error = true;
+        toast.error(action.payload);
+      })
+
+      //delete lesson
+      .addCase(deleteLesson.pending, (state, action) => {
+        state.lesson_loading = true;
+      })
+      .addCase(deleteLesson.fulfilled, (state, action) => {
+        state.lesson_loading = false;
+        state.lesson_success = true;
+        state.lesson_error = false;
+        toast.success("course deleted successfully")
+      })
+      .addCase(deleteLesson.rejected, (state, action) => {
         state.lesson_loading = false;
         state.lesson_success = false;
         state.lesson_error = true;

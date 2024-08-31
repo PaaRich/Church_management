@@ -37,6 +37,15 @@ const getLesson = async function (lesson_id) {
   return response.data;
 };
 
+//delete lesson
+const deleteLesson = async function (lesson_id) {
+  const response = await axios({
+    method: "DELETE",
+    url: `/lesson/delete-lesson/${lesson_id}`,
+  });
+  return response.data;
+};
+
 //lesson lesson
 const updateLesson = async function (lesson_id, lessonData) {
   const response = await axios({
@@ -52,6 +61,7 @@ const lessonsServices = {
   getAllLessons,
   getGroupedLessons,
   updateLesson,
-  getLesson
+  getLesson,
+  deleteLesson
 };
 export default lessonsServices;

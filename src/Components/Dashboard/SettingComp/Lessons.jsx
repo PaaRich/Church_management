@@ -3,23 +3,33 @@ import { BsTrash3 } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllLessons } from "../../../Redux/features/lessons/lessonsSlice";
+import { deleteLesson, getAllLessons } from "../../../Redux/features/lessons/lessonsSlice";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Loader from "../../Reusable/Loader";
+import Confirm from "../../Reusable/Confirm";
 
 function Lessons() {
   const dispatch = useDispatch();
   const { lesson_loading, allLessons } = useSelector((state) => state.lesson);
 
   const [lessons, setLessons] = useState(allLessons);
+  const [fileDeleted, setFileDeleted] = useState(false);
+  const [showConfirm, setShowConfirm]= useState(false)
+  const [deleteId, setDeleteId] = useState("")
+
+const deleteItem= async()=>{
+  await dispatch(deleteLesson(deleteId))
+  setFileDeleted(false);
+}
+
   const getLessons = async () => {
     await dispatch(getAllLessons());
   };
   useEffect(() => {
     getLessons();
     setLessons(allLessons);
-  }, []);
+  }, [fileDeleted]);
 
   useEffect(() => {
     setLessons(allLessons);
@@ -38,6 +48,13 @@ function Lessons() {
   return (
     <>
       {lesson_loading && <Loader />}
+      {showConfirm ? (
+        <Confirm
+          setShowDeleteModal={setShowConfirm}
+          onDelete={deleteItem}
+          setFileDeleted={setFileDeleted}
+        />
+      ) : null}
       <div className="mt-5">
         <h3 className="font-semibold text-2xl text-slate-800">
           Lesson Settings
@@ -75,7 +92,11 @@ function Lessons() {
                         <CiEdit size={25} color="dodgerblue" />
                       </Link>
                     </span>
-                    <span className="cursor-pointer">
+                    <span  onClick={() => {
+                          setDeleteId(lesson?._id);
+                          setShowConfirm(true);
+                        }}
+                         className="cursor-pointer">
                       <BsTrash3 color="red" />
                     </span>
                   </td>
