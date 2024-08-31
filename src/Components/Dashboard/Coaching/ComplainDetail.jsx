@@ -54,7 +54,6 @@ const ComplainDetail = () => {
     await dispatch(assignComplaint({ comp_id, assigned_to: selectedCoach }));
   };
 
-  // console.log(complaint)
 
   return (
     <>
