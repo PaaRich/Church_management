@@ -320,6 +320,25 @@ export const requestPasswordRequest = createAsyncThunk(
   }
 );
 
+//schedule meeting
+export const scheduleMeeting = createAsyncThunk(
+  "auth/schedule-meeting",
+  async (meetingData, thunkAPI) => {
+    try {
+      return await authServices.scheduleMeeting(meetingData);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -603,6 +622,23 @@ export const authSlice = createSlice({
         toast.success("new password was sent to your phone number")
       })
       .addCase(requestPasswordRequest.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+      //schedule meeting
+      .addCase(scheduleMeeting.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(scheduleMeeting.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success("messages sent to respective members")
+      })
+      .addCase(scheduleMeeting.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

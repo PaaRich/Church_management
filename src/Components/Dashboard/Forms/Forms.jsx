@@ -333,12 +333,12 @@ function Forms() {
                 className="w-full bg-slate-200"
               >
                 <option value="Member">Member</option>
-                <option value="Mustard_seed_President">
+                <option value="Mustard Seed President">
                   Mustard Seed President
                 </option>
                 <option value="Workforce">WorkForce</option>
-                <option value="Ministry_President">Ministry President</option>
-                <option value="District_Pastor">District Pastor</option>
+                <option value="Ministry President">Ministry President</option>
+                <option value="District Pastor">District Pastor</option>
               </select>
             </div>
             <div className="relative">

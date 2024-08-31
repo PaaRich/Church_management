@@ -151,6 +151,16 @@ const requestPasswordRequest = async function (data) {
   return response.data;
 };
 
+//schedule meeting
+const scheduleMeeting = async function (meetingData) {
+  const response = await axios({
+    method: "POST",
+    url: "/users/schedule-meeting",
+    data:meetingData
+  });
+  return response.data;
+};
+
 const authServices = {
   addUser,
   loginUser,
@@ -169,6 +179,7 @@ const authServices = {
   getMinistryStats,
   getMustardStats,
   requestPasswordRequest,
+  scheduleMeeting
 };
 
 export default authServices;

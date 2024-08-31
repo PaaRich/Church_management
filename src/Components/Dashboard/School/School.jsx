@@ -2,9 +2,38 @@ import BackBtn from "../../Reusable/BackBtn";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { scheduleMeeting } from "../../../Redux/features/auth/authSlice";
 
 function School() {
+  const dispatch = useDispatch();
+  const { isLoading, isSuccess } = useSelector((state) => state.auth);
+
+  const initialStates = {
+    platform: "",
+    target_group: "",
+    message: "",
+  };
   const [dropAction, setDropAction] = useState(false);
+  const [meetingData, setMeetingData] = useState(initialStates);
+
+  const handleInputChange = (e) => {
+    setMeetingData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async function (e) {
+    e.preventDefault();
+    if (
+      !meetingData.platform ||
+      !meetingData.target_group ||
+      !meetingData.message
+    ) {
+      return toast.error("all fields are required");
+    }
+    await dispatch(scheduleMeeting(meetingData));
+    // console.log(meetingData)
+  };
   return (
     <div className="w-full px-10 mt-5">
       <div className="flex items-center justify-between">
@@ -42,54 +71,64 @@ function School() {
           )}
         </div>
       </div>
-      <div className="flex items-start justify-between gap-10 mt-10">
-        <div className="w-full relative">
-          <select
-            className="py-3 px-5 w-full bg-slate-200 cursor-pointer"
-            name="Platform"
-            id=""
-          >
-            <option value="" disabled>
-              Select Platform
-            </option>
-            <option value="Zoom">Zoom</option>
-            <option value="Google Meet">Google Meet</option>
-            <option value="WhatsApp">WhatsApp</option>
-            <option value="Telegram">Telegram</option>
-          </select>
-        </div>
-        <div className="w-full relative">
-          <select
-            className="py-3 px-5 w-full bg-slate-200 cursor-pointer"
-            name="Group"
-            id=""
-          >
-            <option value="" disabled>
-              Target Group
-            </option>
-            <option value="Mustard Seed Presidents">
-              Mustard Seed Presidents
-            </option>
-            <option value="Workers">Workers</option>
-            <option value="Ministry Presidents">Ministry Presidents</option>
-            <option value="District Pastors">District Pastors</option>
-          </select>
-        </div>
-      </div>
       <div>
-        <textarea
-          className="border-2 border-slate-200/80 w-full p-5 resize-none mt-5 rounded-sm"
-          name=""
-          id=""
-          cols="30"
-          rows="6"
-          placeholder="Information about Meeting"
-        ></textarea>
-      </div>
-      <div className="w-full relative">
-        <button className="bg-slate-950 hover:bg-slate-800 duration-200 text-white mt-10 py-4 w-3/6 absolute left-1/2 -translate-x-1/2 rounded ">
-          Scheduling Meeting
-        </button>
+        <form action="" onSubmit={handleSubmit}>
+          <div className="flex items-start justify-between gap-10 mt-10">
+            <div className="w-full relative">
+              <select
+                className="py-3 px-5 w-full bg-slate-200 cursor-pointer"
+                name="platform"
+                onChange={handleInputChange}
+                value={meetingData.platform}
+                id=""
+              >
+                <option value="" disabled>
+                  Select Platform
+                </option>
+                <option value="Zoom">Zoom</option>
+                <option value="Google Meet">Google Meet</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Telegram">Telegram</option>
+              </select>
+            </div>
+            <div className="w-full relative">
+              <select
+                className="py-3 px-5 w-full bg-slate-200 cursor-pointer"
+                name="target_group"
+                onChange={handleInputChange}
+                value={meetingData.target_group}
+                id=""
+              >
+                <option value="" disabled>
+                  Target Group
+                </option>
+                <option value="Mustard Seed President">
+                  Mustard Seed Presidents
+                </option>
+                <option value="Workforce">WorkForces</option>
+                <option value="Ministry President">Ministry Presidents</option>
+                <option value="District Pastor">District Pastors</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <textarea
+              className="border-2 border-slate-200/80 w-full p-5 resize-none mt-5 rounded-sm"
+              name="message"
+              id=""
+              cols="30"
+              rows="6"
+              placeholder="Information about Meeting"
+              onChange={handleInputChange}
+              value={meetingData.message}
+            ></textarea>
+          </div>
+          <div className="w-full relative">
+            <button className="bg-slate-950 hover:bg-slate-800 duration-200 text-white mt-10 py-4 w-3/6 absolute left-1/2 -translate-x-1/2 rounded ">
+              Scheduling Meeting
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
