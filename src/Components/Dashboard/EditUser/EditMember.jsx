@@ -143,7 +143,7 @@ function EditMember() {
       return toast.error("DOB cannot be greater than today's date");
     }
     await dispatch(updateUser({ userData, userId: id }));
-    setUserData(initials);
+    // setUserData(initials);
     // console.log(userData);
   };
 

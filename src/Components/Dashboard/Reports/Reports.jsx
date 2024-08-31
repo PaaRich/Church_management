@@ -44,7 +44,7 @@ function Reports() {
         </button>
       </form>
       {/* charts here */}
-      <div className="mt-10 px-5">
+      <div className="mt-16 px-5">
         <BarChart />
       </div>
       <div className="grid grid-cols-2 gap-5 mt-20">

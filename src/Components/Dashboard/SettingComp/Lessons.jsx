@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsTrash3 } from "react-icons/bs";
+import { CiEdit } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLessons } from "../../../Redux/features/lessons/lessonsSlice";
@@ -24,68 +25,72 @@ function Lessons() {
     setLessons(allLessons);
   }, [allLessons]);
 
-    // pagination here
-    const [page, setPage] = useState(1);
-    const itemsPerPage = 10;
-    const items = [...Array(100).keys()]; // Example data
-    const handleChange = (event, value) => {
-      setPage(value);
-    };
-    const startIndex = (page - 1) * itemsPerPage;
-    const currentItems = lessons?.slice(
-      startIndex,
-      startIndex + itemsPerPage
-    );
+  // pagination here
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
+  const items = [...Array(100).keys()]; // Example data
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+  const startIndex = (page - 1) * itemsPerPage;
+  const currentItems = lessons?.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <>
-    {lesson_loading && <Loader/>}
-    <div className="mt-5">
-      <h3 className="font-semibold text-2xl text-slate-800">Lesson Settings</h3>
-      <button className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm">
-        <Link to={"/dashboard/add-lesson"}>Add new Lesson</Link>
-      </button>
+      {lesson_loading && <Loader />}
+      <div className="mt-5">
+        <h3 className="font-semibold text-2xl text-slate-800">
+          Lesson Settings
+        </h3>
+        <button className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm">
+          <Link to={"/dashboard/add-lesson"}>Add new Lesson</Link>
+        </button>
 
-      {/* lessons table */}
-      <div>
-        <table className="w-full mt-5 border-2 border-slate-700 text-left mb-5">
-          <thead>
-            <tr>
-              <th>Date Created</th>
-              <th>Category</th>
-              <th>Course Title</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems?.map((lesson) => (
-              <tr key={lesson._id}>
-                <td>
-                  {new Date(lesson.createdAt).toLocaleString("en-US", {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </td>
-                <td>{lesson?.course_category}</td>
-                <td>{lesson?.course_title}</td>
-                <td>
-                  <span className="cursor-pointer">
-                    <BsTrash3 color="red" />
-                  </span>
-                </td>
+        {/* lessons table */}
+        <div>
+          <table className="w-full mt-5 border-2 border-slate-700 text-left mb-5">
+            <thead>
+              <tr>
+                <th>Date Created</th>
+                <th>Category</th>
+                <th>Course Title</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <Pagination
-              count={Math.ceil(lessons?.length / itemsPerPage)}
-              page={page}
-              onChange={handleChange}
-              color="primary"
-            />
+            </thead>
+            <tbody>
+              {currentItems?.map((lesson) => (
+                <tr key={lesson._id}>
+                  <td>
+                    {new Date(lesson.createdAt).toLocaleString("en-US", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
+                  <td>{lesson?.course_category}</td>
+                  <td>{lesson?.course_title}</td>
+                  <td className="flex items-center gap-5">
+                    <span className="cursor-pointer">
+                      <Link to={`/dashboard/edit-lesson/${lesson?._id}`}>
+                        <CiEdit size={25} color="dodgerblue" />
+                      </Link>
+                    </span>
+                    <span className="cursor-pointer">
+                      <BsTrash3 color="red" />
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <Pagination
+            count={Math.ceil(lessons?.length / itemsPerPage)}
+            page={page}
+            onChange={handleChange}
+            color="primary"
+          />
+        </div>
       </div>
-    </div>
     </>
   );
 }

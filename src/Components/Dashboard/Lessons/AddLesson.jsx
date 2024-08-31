@@ -52,7 +52,7 @@ function AddLesson() {
       {lesson_loading && <Loader />}
       <div>
         <h3 className="text-2xl capitalize font-semibold text-slate-800">
-          Add a new lesson
+          Add a new Course
         </h3>
         <form
           action=""

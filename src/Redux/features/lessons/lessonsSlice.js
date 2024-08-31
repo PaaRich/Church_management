@@ -67,6 +67,44 @@ export const getGroupedLessons = createAsyncThunk(
   }
 );
 
+//get lesson
+export const getLesson = createAsyncThunk(
+  "lesson/getLesson",
+  async (lesson_id, thunkAPI) => {
+    try {
+      return await lessonsServices.getLesson(lesson_id);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//update lesson
+export const updateLesson = createAsyncThunk(
+  "lesson/updateLessons",
+  async ({ lesson_id, lessonData }, thunkAPI) => {
+    try {
+      return await lessonsServices.updateLesson(lesson_id, lessonData);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const lessonsSlice = createSlice({
   name: "lesson",
   initialState,
@@ -124,6 +162,40 @@ export const lessonsSlice = createSlice({
         state.allLessons = action.payload.data;
       })
       .addCase(getGroupedLessons.rejected, (state, action) => {
+        state.lesson_loading = false;
+        state.lesson_success = false;
+        state.lesson_error = true;
+        toast.error(action.payload);
+      })
+
+      //get lesson
+      .addCase(getLesson.pending, (state, action) => {
+        state.lesson_loading = true;
+      })
+      .addCase(getLesson.fulfilled, (state, action) => {
+        state.lesson_loading = false;
+        state.lesson_success = true;
+        state.lesson_error = false;
+        state.lesson = action.payload.lesson;
+      })
+      .addCase(getLesson.rejected, (state, action) => {
+        state.lesson_loading = false;
+        state.lesson_success = false;
+        state.lesson_error = true;
+        toast.error(action.payload);
+      })
+
+      //update lesson
+      .addCase(updateLesson.pending, (state, action) => {
+        state.lesson_loading = true;
+      })
+      .addCase(updateLesson.fulfilled, (state, action) => {
+        state.lesson_loading = false;
+        state.lesson_success = true;
+        state.lesson_error = false;
+        toast.success("Course updated successfully");
+      })
+      .addCase(updateLesson.rejected, (state, action) => {
         state.lesson_loading = false;
         state.lesson_success = false;
         state.lesson_error = true;

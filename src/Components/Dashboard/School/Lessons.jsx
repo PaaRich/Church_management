@@ -94,7 +94,7 @@ const Lessons = () => {
                       <iframe
                         className="w-full"
                         height="315"
-                        src="https://www.youtube.com/embed/D1QMwx41QAc?si=je0FcxFMA4lmRf9n"
+                        src={`https://www.youtube.com/embed/${course?.course_link.split('/')[3]}`}
                         title={course?.course_title}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

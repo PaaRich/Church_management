@@ -46,7 +46,7 @@ function Workers() {
         </button>
       </form>
       {/* chart here */}
-      <div className="mt-10 px-5">
+      <div className="mt-16 px-5">
         <BarChart />
       </div>
     </div>

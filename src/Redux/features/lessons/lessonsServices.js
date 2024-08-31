@@ -19,7 +19,7 @@ const getAllLessons = async function () {
   return response.data;
 };
 
-//get grouped lesson
+//get grouped lessons
 const getGroupedLessons = async function () {
   const response = await axios({
     method: "GET",
@@ -28,11 +28,30 @@ const getGroupedLessons = async function () {
   return response.data;
 };
 
+//get lesson
+const getLesson = async function (lesson_id) {
+  const response = await axios({
+    method: "GET",
+    url: `/lesson/get-lesson/${lesson_id}`,
+  });
+  return response.data;
+};
 
+//lesson lesson
+const updateLesson = async function (lesson_id, lessonData) {
+  const response = await axios({
+    method: "PATCH",
+    url: `/lesson/update-lesson/${lesson_id}`,
+    data: lessonData,
+  });
+  return response.data;
+};
 
 const lessonsServices = {
   addLesson,
   getAllLessons,
-  getGroupedLessons
+  getGroupedLessons,
+  updateLesson,
+  getLesson
 };
 export default lessonsServices;
