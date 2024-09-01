@@ -12,6 +12,7 @@ import { GiTeacher } from "react-icons/gi";
 import { TbUsersGroup } from "react-icons/tb";
 import { PiChalkboardTeacherDuotone } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
+import { ImProfile } from "react-icons/im";
 import "./DashboardMain.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -90,12 +91,6 @@ const SideBar = (props) => {
             </Link>
           </li>
           <li ref={dropJPKRef}>
-            {/* <details className="duration-500" open>
-            <summary>People</summary>
-            <div>people 1</div>
-            <div>people 2</div>
-            <div>people 3</div>
-          </details> */}
             <Link
               to={"/dashboard/people"}
               className="flex items-center gap-3"
@@ -115,6 +110,15 @@ const SideBar = (props) => {
                 JPK
               </NavLink>
             </div>
+          </li>
+          <li>
+            <NavLink
+              to={"/dashboard/profile"}
+              className="flex items-center gap-3"
+            >
+              <ImProfile color="#fff" size={25} />
+              Profile
+            </NavLink>
           </li>
           <li>
             <NavLink

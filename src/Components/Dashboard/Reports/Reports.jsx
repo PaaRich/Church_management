@@ -21,7 +21,7 @@ function Reports() {
       </div>
       <form
         action=""
-        className="bg-slate-50 shadow-md pl-3 flex items-center rounded-md w-fit mt-5"
+        className="bg-slate-50 shadow-md pl-3 flex items-center rounded-md w-fit mt-5 p-4"
       >
         <label className="flex items-center mr-5" htmlFor="">
           Start
@@ -33,7 +33,13 @@ function Reports() {
         </label>
         <label className="flex items-center mr-5" htmlFor="">
           Meeting
-          <input className="mb-0 ml-2" type="text" />
+          {/* <input className="mb-0 ml-2" type="text" /> */}
+          <select name="" id="" className="mb-0 ml-2 py-4">
+            {/* <option value="" disabled >Meeting Type</option> */}
+            <option value="General Meeting">General Meeting</option>
+            <option value="Mustard Seed Meeting">Mustard Seed Meeting</option>
+            <option value="Mustard Meeting">Mustard Meeting</option>
+          </select>
         </label>
         <button
           onClick={(e) => e.preventDefault}
