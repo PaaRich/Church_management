@@ -15,10 +15,9 @@ import { RxDashboard } from "react-icons/rx";
 import { ImProfile } from "react-icons/im";
 import "./DashboardMain.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  logoutUser,
-} from "../../Redux/features/auth/authSlice";
+import { logoutUser } from "../../Redux/features/auth/authSlice";
 import Loader from "../Reusable/Loader";
+import { ShowOnAdmin } from "../../protect/hiddenLinks";
 
 const SideBar = (props) => {
   const navigate = useNavigate();
@@ -61,8 +60,6 @@ const SideBar = (props) => {
     }, 1000);
   };
 
-
-
   return (
     <>
       {isLoading && <Loader />}
@@ -74,43 +71,50 @@ const SideBar = (props) => {
         // }}
       >
         <div className="flex items-center gap-5">
-        <img
-          className="rounded-full w-[35%] mb-4 mt-2 ml-4"
-          src={props.user?.user_photo}
-          alt="avartar"
-        />
-        <h3 className="text-white text-semibold">Welcome, {props.user?.firstname}</h3>
-         </div>
-
+          <img
+            className="rounded-full w-[35%] mb-4 mt-2 ml-4"
+            src={props.user?.user_photo}
+            alt="avartar"
+          />
+          <h3 className="text-white text-semibold">
+            Welcome, {props.user?.firstname}
+          </h3>
+        </div>
 
         <ul className="overflow-auto -z-50">
-          <li>
-            <Link to={"/dashboard"} className="flex items-center gap-3">
-              <RxDashboard color="#fff" size={25} />
-              Dashboard
-            </Link>
-          </li>
-          <li ref={dropJPKRef}>
-            <Link
-              to={"/dashboard/people"}
-              className="flex items-center gap-3"
-              onClick={() => setDropJPK(!dropJPK)}
-            >
-              <IoPerson color="#fff" size={25} />
-              <div className="flex justify-between items-center w-full">
-                People
-                <IoIosArrowDown
-                  size={20}
-                  className={`${dropJPK && "rotate-180"}`}
-                />
+          <ShowOnAdmin>
+            <li>
+              <Link to={"/dashboard"} className="flex items-center gap-3">
+                <RxDashboard color="#fff" size={25} />
+                Dashboard
+              </Link>
+            </li>
+          </ShowOnAdmin>
+          <ShowOnAdmin>
+            <li ref={dropJPKRef}>
+              <Link
+                to={"/dashboard/people"}
+                className="flex items-center gap-3"
+                onClick={() => setDropJPK(!dropJPK)}
+              >
+                <IoPerson color="#fff" size={25} />
+                <div className="flex justify-between items-center w-full">
+                  People
+                  <IoIosArrowDown
+                    size={20}
+                    className={`${dropJPK && "rotate-180"}`}
+                  />
+                </div>
+              </Link>
+              <div
+                className={`${dropJPK ? "drop--down-c" : "drop--Up-c"} ml-10`}
+              >
+                <NavLink to={"/dashboard/people/jpk"} className="block child">
+                  JPK
+                </NavLink>
               </div>
-            </Link>
-            <div className={`${dropJPK ? "drop--down-c" : "drop--Up-c"} ml-10`}>
-              <NavLink to={"/dashboard/people/jpk"} className="block child">
-                JPK
-              </NavLink>
-            </div>
-          </li>
+            </li>
+          </ShowOnAdmin>
           <li>
             <NavLink
               to={"/dashboard/profile"}
@@ -120,73 +124,81 @@ const SideBar = (props) => {
               Profile
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to={"/dashboard/forms"}
-              className="flex items-center gap-3"
-            >
-              <LuFileEdit color="#fff" size={25} />
-              Forms
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={"/dashboard/attendance"}
-              className="flex items-center gap-3"
-            >
-              <MdOutlineFingerprint color="#fff" size={25} />
-              Attendance
-            </NavLink>
-          </li>
-          {/* <Dropdown options={options} placeholder="Select an option" /> */}
-
-          <li ref={dropDownRef}>
-            <Link
-              to={"/dashboard/reports/attendance"}
-              className="flex items-center gap-3 peer"
-              onClick={() => setDropReport(!dropReport)}
-            >
-              <TbReport color="#fff" size={25} />
-              <div className="flex justify-between items-center w-full">
-                Reports
-                <IoIosArrowDown
-                  size={20}
-                  className={`${dropReport && "rotate-180"}`}
-                />
-              </div>
-            </Link>
-            <div
-              //className="flex flex-col ml-10"
-              className={`${
-                dropReport ? "drop--down" : "drop--Up"
-              } flex flex-col ml-10 duration-500 `}
-            >
-              <NavLink className="child" to="/dashboard/reports/attendance">
+          <ShowOnAdmin>
+            <li>
+              <NavLink
+                to={"/dashboard/forms"}
+                className="flex items-center gap-3"
+              >
+                <LuFileEdit color="#fff" size={25} />
+                Forms
+              </NavLink>
+            </li>
+          </ShowOnAdmin>
+          <ShowOnAdmin>
+            <li>
+              <NavLink
+                to={"/dashboard/attendance"}
+                className="flex items-center gap-3"
+              >
+                <MdOutlineFingerprint color="#fff" size={25} />
                 Attendance
               </NavLink>
-              <NavLink className="child" to={"/dashboard/reports/workers"}>
-                WorkerForce
+            </li>
+          </ShowOnAdmin>
+          {/* <Dropdown options={options} placeholder="Select an option" /> */}
+
+          <ShowOnAdmin>
+            <li ref={dropDownRef}>
+              <Link
+                to={"/dashboard/reports/attendance"}
+                className="flex items-center gap-3 peer"
+                onClick={() => setDropReport(!dropReport)}
+              >
+                <TbReport color="#fff" size={25} />
+                <div className="flex justify-between items-center w-full">
+                  Reports
+                  <IoIosArrowDown
+                    size={20}
+                    className={`${dropReport && "rotate-180"}`}
+                  />
+                </div>
+              </Link>
+              <div
+                //className="flex flex-col ml-10"
+                className={`${
+                  dropReport ? "drop--down" : "drop--Up"
+                } flex flex-col ml-10 duration-500 `}
+              >
+                <NavLink className="child" to="/dashboard/reports/attendance">
+                  Attendance
+                </NavLink>
+                <NavLink className="child" to={"/dashboard/reports/workers"}>
+                  WorkerForce
+                </NavLink>
+              </div>
+            </li>
+          </ShowOnAdmin>
+          <ShowOnAdmin>
+            <li>
+              <NavLink
+                to={"/dashboard/mustard_seed"}
+                className="flex items-center gap-3"
+              >
+                <IoIosPeople color="#fff" size={25} />
+                Mustard Seed
               </NavLink>
-            </div>
-          </li>
-          <li>
-            <NavLink
-              to={"/dashboard/mustard_seed"}
-              className="flex items-center gap-3"
-            >
-              <IoIosPeople color="#fff" size={25} />
-              Mustard Seed
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={"/dashboard/ministries"}
-              className="flex items-center gap-3"
-            >
-              <TbUsersGroup color="#fff" size={25} />
-              Ministries
-            </NavLink>
-          </li>
+            </li>
+            <li>
+              <NavLink
+                to={"/dashboard/ministries"}
+                className="flex items-center gap-3"
+              >
+                <TbUsersGroup color="#fff" size={25} />
+                Ministries
+              </NavLink>
+            </li>
+          </ShowOnAdmin>
           <li ref={dropDownCoachRef}>
             <NavLink
               to={"/dashboard/coaching"}
@@ -202,6 +214,7 @@ const SideBar = (props) => {
                 />
               </div>
             </NavLink>
+            <ShowOnAdmin>
             <div
               className={`${
                 dropComplain ? "drop--down-c" : "drop--Up-c"
@@ -211,6 +224,7 @@ const SideBar = (props) => {
                 Complains
               </NavLink>
             </div>
+            </ShowOnAdmin>
           </li>
           <li>
             <NavLink
@@ -221,6 +235,7 @@ const SideBar = (props) => {
               Foundation School
             </NavLink>
           </li>
+          <ShowOnAdmin>
           <li>
             <NavLink
               to={"/dashboard/communications"}
@@ -230,6 +245,8 @@ const SideBar = (props) => {
               Communication
             </NavLink>
           </li>
+          </ShowOnAdmin>
+          <ShowOnAdmin>
           <li>
             <NavLink
               to={"/dashboard/setting"}
@@ -240,6 +257,7 @@ const SideBar = (props) => {
               Settings
             </NavLink>
           </li>
+          </ShowOnAdmin>
         </ul>
         <button
           className="flex items-center gap-3 text-white px-4 py-3 bg-blue-500 hover:bg-blue-500/60 w-full"

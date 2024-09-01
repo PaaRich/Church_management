@@ -38,6 +38,7 @@ import { useEffect } from "react";
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import AddLesson from "./Components/Dashboard/Lessons/AddLesson";
 import EditLesson from "./Components/Dashboard/Lessons/EditLesson";
+import UserProfile from "./Components/Dashboard/profile/UserProfile";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1";
 axios.defaults.withCredentials = true;
@@ -263,6 +264,14 @@ function App() {
             element={
               <DashBoard>
                 <EditLesson />
+              </DashBoard>
+            }
+          />
+          <Route
+            path="/dashboard/profile"
+            element={
+              <DashBoard>
+                <UserProfile/>
               </DashBoard>
             }
           />

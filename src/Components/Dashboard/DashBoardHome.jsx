@@ -5,10 +5,18 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import ProgressCircle from "../Reusable/ProgressCircle";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserStats } from "../../Redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const DashBoardHome = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, stats, isSuccess } = useSelector((state) => state.auth);
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const userRole = useSelector((state) => state.auth.activeUser);
+  if (isLoggedIn && userRole?.role === "member") {
+    navigate("/dashboard/profile", { replace: true });
+  }
 
   const [allStats, setAllStats] = useState(stats);
 
@@ -27,10 +35,22 @@ const DashBoardHome = () => {
     setAllStats(stats);
   }, [stats]);
 
-  const malePercentage = ((allStats?.maleCount/allStats?.totalUserCount)*100).toFixed(2);
-  const femalePercentage = ((allStats?.femaleCount/allStats?.totalUserCount)*100).toFixed(2);
-  const childrenPercentage = ((allStats?.children/allStats?.totalUserCount)*100).toFixed(2);
-  const youthPercentage = ((allStats?.adults/allStats?.totalUserCount)*100).toFixed(2);
+  const malePercentage = (
+    (allStats?.maleCount / allStats?.totalUserCount) *
+    100
+  ).toFixed(2);
+  const femalePercentage = (
+    (allStats?.femaleCount / allStats?.totalUserCount) *
+    100
+  ).toFixed(2);
+  const childrenPercentage = (
+    (allStats?.children / allStats?.totalUserCount) *
+    100
+  ).toFixed(2);
+  const youthPercentage = (
+    (allStats?.adults / allStats?.totalUserCount) *
+    100
+  ).toFixed(2);
 
   return (
     <div className="dashboard-home-container">
