@@ -1,0 +1,66 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+import attendanceServices from "./attendanceServices";
+
+const initialState = {
+  attendanceLoading: false,
+  attendanceError: false,
+  attendanceSuccess: false,
+  attendanceStats: [],
+};
+
+//mark attendance
+export const markAttendance = createAsyncThunk(
+  "attendance/markAttendance",
+  async (attendanceData, thunkAPI) => {
+    try {
+      return await attendanceServices.markAttendance(attendanceData);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+
+
+export const attendanceSlice = createSlice({
+  name: "attendance",
+  initialState,
+  reducers: {
+    RESET_ATTENDANCE_STATES(state) {
+      (state.attendanceLoading = false),
+        (state.attendanceError = false),
+        (state.attendanceSuccess = false);
+    },
+  },
+  extraReducers(builder) {
+    builder
+      //adding new attendance
+      .addCase(markAttendance.pending, (state, action) => {
+        state.attendanceLoading = true;
+      })
+      .addCase(markAttendance.fulfilled, (state, action) => {
+        state.attendanceLoading = false;
+        state.attendanceSuccess = true;
+        state.attendanceError = false;
+        toast.success(action.payload.message);
+      })
+      .addCase(markAttendance.rejected, (state, action) => {
+        state.attendanceLoading = false;
+        state.attendanceSuccess = false;
+        state.attendanceError = true;
+        toast.error(action.payload);
+      })
+
+  },
+});
+
+export const { RESET_ATTENDANCE_STATES } = attendanceSlice.actions;
+export default attendanceSlice.reducer;

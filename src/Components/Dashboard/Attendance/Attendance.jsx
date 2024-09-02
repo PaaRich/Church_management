@@ -1,22 +1,59 @@
+import { useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { markAttendance } from "../../../Redux/features/attendance/attendanceSlice";
+import Loader from "../../Reusable/Loader";
 
 function Attendance() {
+  const dispatch = useDispatch();
+  const { attendanceLoading, attendanceSuccess } = useSelector(
+    (state) => state.attendance
+  );
+
+  const [churchID, setChurchID] = useState("");
+  const [meetingType, setMeetingType] = useState("");
+
+  const signAttendance = async (e) => {
+    e.preventDefault();
+    if (!churchID || !meetingType) {
+      return toast.error("all fields are required");
+    }
+    if (!churchID.toLocaleUpperCase().match(/^FCH.*\d{2}$/)) {
+      return toast.error("invalid churchID");
+    }
+    if (churchID.length > 10) {
+      return toast.error("invalid churchID");
+    }
+    await dispatch(markAttendance({ churchID: churchID.toUpperCase(), meetingType }))
+  };
+
   return (
+    <>
+    {attendanceLoading && <Loader/>}
     <div className="mt-5">
-      <BackBtn text="Attendance" paddingAndMargin="mb-3 p-2" path={'/dashboard/forms'} />
-      <form action="" className="relative">
+      <BackBtn
+        text="Attendance"
+        paddingAndMargin="mb-3 p-2"
+        path={"/dashboard/forms"}
+      />
+      <form action="" className="relative" onSubmit={signAttendance}>
         <div className="flex items-center gap-10">
           <div className="relative w-full">
             <select
               className="py-4 px-5 w-full bg-slate-200 cursor-pointer"
               name="Select Meeting"
               id=""
+              onChange={(e) => {
+                setMeetingType(e.target.value);
+              }}
+              value={meetingType}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Select Meeting
               </option>
               <option value="General Meeting">General Meeting</option>
-              <option value="Mustard seed Meeting">Mustard seed Meeting</option>
+              <option value="Mustard Seed Meeting">Mustard seed Meeting</option>
               <option value="Ministry Meeting">Ministry Meeting</option>
             </select>
           </div>
@@ -26,6 +63,11 @@ function Attendance() {
             name=""
             id=""
             placeholder="Enter ID"
+            maxLength={10}
+            onChange={(e) => {
+              setChurchID(e.target.value);
+            }}
+            value={churchID}
           />
         </div>
         <div className="w-full relative mt-20">
@@ -39,6 +81,7 @@ function Attendance() {
         </div>
       </form>
     </div>
+    </>
   );
 }
 

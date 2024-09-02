@@ -11,7 +11,7 @@ const initialState = {
 
 //create mustard
 export const createMustard = createAsyncThunk(
-  "mustard/addMinistry",
+  "mustard/addMustard",
   async (data, thunkAPI) => {
     try {
       return await mustardServices.addMustard(data);
