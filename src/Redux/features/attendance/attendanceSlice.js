@@ -6,7 +6,7 @@ const initialState = {
   attendanceLoading: false,
   attendanceError: false,
   attendanceSuccess: false,
-  attendanceStats: [],
+  attendanceRecords: [],
 };
 
 //mark attendance
@@ -28,7 +28,24 @@ export const markAttendance = createAsyncThunk(
   }
 );
 
-
+//GET attendance records
+export const getAttendanceRecords = createAsyncThunk(
+  "attendance/getAttendanceRecords",
+  async (query, thunkAPI) => {
+    try {
+      return await attendanceServices.getAttendanceRecords(query);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const attendanceSlice = createSlice({
   name: "attendance",
@@ -59,6 +76,22 @@ export const attendanceSlice = createSlice({
         toast.error(action.payload);
       })
 
+      //GET attendance records
+      .addCase(getAttendanceRecords.pending, (state, action) => {
+        state.attendanceLoading = true;
+      })
+      .addCase(getAttendanceRecords.fulfilled, (state, action) => {
+        state.attendanceLoading = false;
+        state.attendanceSuccess = true;
+        state.attendanceError = false;
+        state.attendanceRecords = action.payload;
+      })
+      .addCase(getAttendanceRecords.rejected, (state, action) => {
+        state.attendanceLoading = false;
+        state.attendanceSuccess = false;
+        state.attendanceError = true;
+        toast.error(action.payload);
+      });
   },
 });
 

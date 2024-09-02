@@ -1,9 +1,46 @@
+import { useEffect, useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
 import ProgressCircle from "../../Reusable/ProgressCircle";
 import BarChart from "./BarChart";
 import PieChartReport from "./PieChartReport";
+import { useDispatch, useSelector } from "react-redux";
+import { getAttendanceRecords } from "../../../Redux/features/attendance/attendanceSlice";
 
 function Reports() {
+  const dispatch = useDispatch();
+  const { attendanceLoading, attendanceRecords } = useSelector(
+    (state) => state.attendance
+  );
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [meetingType, setMeetingType] = useState("General Meeting");
+  const [records, setRecords] = useState(attendanceRecords);
+
+  // console.log(meetingType)
+
+  useEffect(() => {
+    const fetchRecords = async () => {
+      const queryParams = new URLSearchParams();
+      if (meetingType) queryParams.append("meetingType", meetingType);
+      if (startDate) queryParams.append("startDate", startDate);
+      if (endDate) queryParams.append("endDate", endDate);
+      console.log(queryParams);
+      await dispatch(getAttendanceRecords(queryParams));
+      setRecords(attendanceRecords);
+    };
+    fetchRecords();
+  }, [endDate, startDate, meetingType]);
+
+  useEffect(() => {
+    setRecords(attendanceRecords);
+  }, [attendanceRecords]);
+  console.log(records);
+
+  const generateReport = async (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="h-[80vh]">
       <div className="flex items-center justify-between">
@@ -25,17 +62,34 @@ function Reports() {
       >
         <label className="flex items-center mr-5" htmlFor="">
           Start
-          <input className="mb-0 ml-2" type="date" />
+          <input
+            className="mb-0 ml-2"
+            onChange={(e) => {
+              setStartDate(e.target.value);
+            }}
+            type="date"
+          />
         </label>
         <label className="flex items-center mr-5" htmlFor="">
           End
-          <input className="mb-0 ml-2" type="date" />
+          <input
+            className="mb-0 ml-2"
+            onChange={(e) => {
+              setEndDate(e.target.value);
+            }}
+            type="date"
+          />
         </label>
-        <label className="flex items-center mr-5" htmlFor="">
+        <label className="flex items-center mr-5" htmlFor="meetingtype">
           Meeting
-          {/* <input className="mb-0 ml-2" type="text" /> */}
-          <select name="" id="" className="mb-0 ml-2 py-4">
-            {/* <option value="" disabled >Meeting Type</option> */}
+          <select
+            name="meetingType"
+            id="meetingtype"
+            onChange={(e) => {
+              setMeetingType(e.target.value);
+            }}
+            className="mb-0 ml-2 py-4"
+          >
             <option value="General Meeting">General Meeting</option>
             <option value="Mustard Seed Meeting">Mustard Seed Meeting</option>
             <option value="Mustard Meeting">Mustard Meeting</option>
