@@ -1,7 +1,34 @@
+import { useEffect, useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
 import BarChart from "./BarChart";
+import { useDispatch, useSelector } from "react-redux";
+import { getAttendanceRecords } from "../../../Redux/features/attendance/attendanceSlice";
 
 function Workers() {
+  const dispatch = useDispatch();
+
+  const { attendanceLoading, attendanceRecords } = useSelector(
+    (state) => state.attendance
+  );
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [meetingType, setMeetingType] = useState("General Meeting");
+  const [records, setRecords] = useState(attendanceRecords);
+
+  useEffect(() => {
+    const fetchRecords = async () => {
+      const queryParams = new URLSearchParams();
+      if (meetingType) queryParams.append("meetingType", meetingType);
+      if (startDate) queryParams.append("startDate", startDate);
+      if (endDate) queryParams.append("endDate", endDate);
+      // console.log(queryParams);
+      await dispatch(getAttendanceRecords(queryParams));
+      setRecords(attendanceRecords);
+    };
+    fetchRecords();
+  }, [endDate, startDate, meetingType]);
+
   return (
     <div className="h-[80vh]">
       <div className="flex items-center justify-between">
@@ -23,16 +50,38 @@ function Workers() {
       >
         <label className="flex items-center mr-5" htmlFor="">
           Start
-          <input className="mb-0 ml-2" type="date" />
+          <input
+            className="mb-0 ml-2"
+            type="date"
+            onChange={(e) => {
+              setStartDate(e.target.value);
+            }}
+            value={startDate}
+          />
         </label>
         <label className="flex items-center mr-5" htmlFor="">
           End
-          <input className="mb-0 ml-2" type="date" />
+          <input
+            className="mb-0 ml-2"
+            type="date"
+            onChange={(e) => {
+              setEndDate(e.target.value);
+            }}
+            value={endDate}
+          />
         </label>
         <label className="flex items-center mr-5" htmlFor="">
           Meeting
           {/* <input className="mb-0 ml-2 w-32" type="text" /> */}
-          <select name="" id="" className="mb-0 ml-2 py-4">
+          <select
+            name=""
+            id=""
+            onChange={(e) => {
+              setMeetingType(e.target.value);
+            }}
+            value={meetingType}
+            className="mb-0 ml-2 py-4"
+          >
             {/* <option value="" disabled >Meeting Type</option> */}
             <option value="General Meeting">General Meeting</option>
             <option value="Mustard Seed Meeting">Mustard Seed Meeting</option>
@@ -53,7 +102,7 @@ function Workers() {
       </form>
       {/* chart here */}
       <div className="mt-16 px-5">
-        <BarChart />
+        <BarChart records={records} />
       </div>
     </div>
   );

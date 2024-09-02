@@ -5,6 +5,7 @@ import BarChart from "./BarChart";
 import PieChartReport from "./PieChartReport";
 import { useDispatch, useSelector } from "react-redux";
 import { getAttendanceRecords } from "../../../Redux/features/attendance/attendanceSlice";
+import Loader from "../../Reusable/Loader";
 
 function Reports() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function Reports() {
       if (meetingType) queryParams.append("meetingType", meetingType);
       if (startDate) queryParams.append("startDate", startDate);
       if (endDate) queryParams.append("endDate", endDate);
-      console.log(queryParams);
+      // console.log(queryParams);
       await dispatch(getAttendanceRecords(queryParams));
       setRecords(attendanceRecords);
     };
@@ -37,11 +38,29 @@ function Reports() {
   }, [attendanceRecords]);
   console.log(records);
 
+  let males = 0;
+  let females = 0;
+  let children = 0;
+  let youth = 0;
+  records.forEach((cur) => {
+    males += cur.male;
+    females += cur.female;
+    children += cur.children;
+    youth += cur.youth;
+  });
+  // console.log({male:males,female:females,children:children,youth:youth})
+  const malePercentage = ((males / (males + females)) * 100).toFixed(2);
+  const femalePercentage = ((females / (males + females)) * 100).toFixed(2);
+  const childrenPercentage = ((children / (males + females)) * 100).toFixed(2);
+  const youthPercentage = ((youth / (males + females)) * 100).toFixed(2);
+
   const generateReport = async (e) => {
     e.preventDefault();
   };
 
   return (
+    <>
+    {attendanceLoading && <Loader/>}
     <div className="h-[80vh]">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-between w-1/3">
@@ -92,7 +111,7 @@ function Reports() {
           >
             <option value="General Meeting">General Meeting</option>
             <option value="Mustard Seed Meeting">Mustard Seed Meeting</option>
-            <option value="Mustard Meeting">Mustard Meeting</option>
+            <option value="Mustard Meeting">Ministry Meeting</option>
           </select>
         </label>
         <button
@@ -105,7 +124,7 @@ function Reports() {
       </form>
       {/* charts here */}
       <div className="mt-16 px-5">
-        <BarChart />
+        <BarChart records={records} />
       </div>
       <div className="grid grid-cols-2 gap-5 mt-20">
         <div>
@@ -113,24 +132,37 @@ function Reports() {
         </div>
         <div className="grid grid-cols-2">
           <div className="text-center w-[150px] h-[150px] mb-10">
-            <ProgressCircle percentage={20} text={`20%`} />
+            <ProgressCircle
+              percentage={femalePercentage}
+              text={`${femalePercentage}%`}
+            />
             <h4 className="font-semibold text-md mt-5 text-xl">Female</h4>
           </div>
           <div className="text-center w-[150px] h-[150px]">
-            <ProgressCircle percentage={20} text={`20%`} />
+            <ProgressCircle
+              percentage={malePercentage}
+              text={`${malePercentage}%`}
+            />
             <h4 className="font-semibold text-md mt-5 text-xl">Male</h4>
           </div>
           <div className="text-center w-[150px] h-[150px]">
-            <ProgressCircle percentage={20} text={`20%`} />
+            <ProgressCircle
+              percentage={childrenPercentage}
+              text={`${childrenPercentage}%`}
+            />
             <h4 className="font-semibold text-md mt-5 text-xl">Childern</h4>
           </div>
           <div className="text-center w-[150px] h-[150px]">
-            <ProgressCircle percentage={20} text={`20%`} />
+            <ProgressCircle
+              percentage={youthPercentage}
+              text={`${youthPercentage}%`}
+            />
             <h4 className="font-semibold text-md mt-5 text-xl">Youth</h4>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
