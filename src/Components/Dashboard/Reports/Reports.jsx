@@ -26,23 +26,39 @@ function Reports() {
       if (meetingType) queryParams.append("meetingType", meetingType);
       if (startDate) queryParams.append("startDate", startDate);
       if (endDate) queryParams.append("endDate", endDate);
-      // console.log(queryParams);
+      console.log(queryParams);
       await dispatch(getAttendanceRecords(queryParams));
       setRecords(attendanceRecords);
     };
     fetchRecords();
-  }, [endDate, startDate, meetingType]);
+    return ()=>{
+      fetchRecords
+    }
+  }, []);
 
   useEffect(() => {
     setRecords(attendanceRecords);
   }, [attendanceRecords]);
-  console.log(records);
+  // console.log(attendanceRecords);
+
+
+  const generateReport = async (e) => {
+    e.preventDefault();
+      const queryParams = new URLSearchParams();
+      if (meetingType) queryParams.append("meetingType", meetingType);
+      if (startDate) queryParams.append("startDate", startDate);
+      if (endDate) queryParams.append("endDate", endDate);
+      // console.log(queryParams);
+      await dispatch(getAttendanceRecords(queryParams));
+      setRecords(attendanceRecords);
+  };
+
 
   let males = 0;
   let females = 0;
   let children = 0;
   let youth = 0;
-  records.forEach((cur) => {
+  attendanceRecords?.forEach((cur) => {
     males += cur.male;
     females += cur.female;
     children += cur.children;
@@ -53,10 +69,6 @@ function Reports() {
   const femalePercentage = ((females / (males + females)) * 100).toFixed(2);
   const childrenPercentage = ((children / (males + females)) * 100).toFixed(2);
   const youthPercentage = ((youth / (males + females)) * 100).toFixed(2);
-
-  const generateReport = async (e) => {
-    e.preventDefault();
-  };
 
   return (
     <>
@@ -115,7 +127,7 @@ function Reports() {
           </select>
         </label>
         <button
-          onClick={(e) => e.preventDefault}
+          onClick={generateReport}
           className="bg-blue-700 hover:bg-blue-500 duration-300 p-4 rounded-e-md text-white"
           type="submit"
         >
@@ -124,7 +136,7 @@ function Reports() {
       </form>
       {/* charts here */}
       <div className="mt-16 px-5">
-        <BarChart records={records} />
+        <BarChart records={attendanceRecords} />
       </div>
       <div className="grid grid-cols-2 gap-5 mt-20">
         <div>
