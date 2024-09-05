@@ -1,10 +1,10 @@
 import BackBtn from "../../Reusable/BackBtn";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { scheduleMeeting } from "../../../Redux/features/auth/authSlice";
+import { RESET, scheduleMeeting } from "../../../Redux/features/auth/authSlice";
 
 function School() {
   const dispatch = useDispatch();
@@ -34,6 +34,14 @@ function School() {
     await dispatch(scheduleMeeting(meetingData));
     // console.log(meetingData)
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setMeetingData(initialStates);
+    }
+    dispatch(RESET());
+  }, [isSuccess]);
+
   return (
     <div className="w-full px-10 mt-5">
       <div className="flex items-center justify-between">

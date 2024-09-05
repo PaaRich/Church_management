@@ -123,7 +123,7 @@ function Reports() {
           >
             <option value="General Meeting">General Meeting</option>
             <option value="Mustard Seed Meeting">Mustard Seed Meeting</option>
-            <option value="Mustard Meeting">Ministry Meeting</option>
+            <option value="Ministry Meeting">Ministry Meeting</option>
           </select>
         </label>
         <button
