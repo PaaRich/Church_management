@@ -263,6 +263,25 @@ export const getUser = createAsyncThunk(
   }
 );
 
+//get current user
+export const getMe = createAsyncThunk(
+  "auth/getMe",
+  async (_, thunkAPI) => {
+    try {
+      return await authServices.getMe();
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //get ministries data
 export const getMinistries = createAsyncThunk(
   "auth/get-ministries",
@@ -326,6 +345,25 @@ export const scheduleMeeting = createAsyncThunk(
   async (meetingData, thunkAPI) => {
     try {
       return await authServices.scheduleMeeting(meetingData);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//change password
+export const changePassword = createAsyncThunk(
+  "auth/change-password",
+  async (passwordData, thunkAPI) => {
+    try {
+      return await authServices.changePassword(passwordData);
     } catch (error) {
       // console.log(error);
       const message =
@@ -577,6 +615,23 @@ export const authSlice = createSlice({
         toast.error(action.payload);
       })
 
+      //get user
+      .addCase(getMe.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.user = action.payload.user;
+      })
+      .addCase(getMe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
       //get ministry users
       .addCase(getMinistries.pending, (state, action) => {
         state.isLoading = true;
@@ -639,6 +694,23 @@ export const authSlice = createSlice({
         toast.success("messages sent to respective members")
       })
       .addCase(scheduleMeeting.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+    
+      //change password
+      .addCase(changePassword.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success("password changed successfully")
+      })
+      .addCase(changePassword.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

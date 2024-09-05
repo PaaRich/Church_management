@@ -161,6 +161,25 @@ const scheduleMeeting = async function (meetingData) {
   return response.data;
 };
 
+//get current user
+const getMe = async function () {
+  const response = await axios({
+    method: "GET",
+    url: "/users/getMe",
+  });
+  return response.data;
+};
+
+//change password
+const changePassword = async function (passwordData) {
+  const response = await axios({
+    method: "POST",
+    url: "/users/change-password",
+    data:passwordData
+  });
+  return response.data;
+};
+
 const authServices = {
   addUser,
   loginUser,
@@ -179,7 +198,9 @@ const authServices = {
   getMinistryStats,
   getMustardStats,
   requestPasswordRequest,
-  scheduleMeeting
+  scheduleMeeting,
+  getMe,
+  changePassword
 };
 
 export default authServices;

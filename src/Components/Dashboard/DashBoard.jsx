@@ -12,6 +12,11 @@ const DashBoard = ({ children }) => {
   const dispatch = useDispatch();
   const { isLoading, activeUser } = useSelector((state) => state.auth);
   const [user, setUser] = useState(activeUser);
+  const [imageLoaded, setImageLoaded]= useState(true)
+
+  const handleImageError = ()=>{
+    setImageLoaded(false)
+  }
 
   useEffect(() => {
     dispatch(RESET());
@@ -45,8 +50,9 @@ const DashBoard = ({ children }) => {
             </form>
             <img
               className=" w-[50px] h-[50px] rounded-full"
-              src={user?.user_photo}
+              src={imageLoaded?user?.user_photo:"/images/avatar.webp"}
               alt="avatar"
+              onError={handleImageError}
             />
           </div>
           <div className="p-5 w-full overflow-y-scroll h-[85vh]">

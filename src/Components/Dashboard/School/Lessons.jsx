@@ -1,7 +1,4 @@
 import BackBtn from "../../Reusable/BackBtn";
-import project from "../../../assets/management.webp";
-import projectRoll from "../../../assets/project-manager-roll.jpg";
-import discipline from "../../../assets/discipline1.jpg";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";

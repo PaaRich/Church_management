@@ -30,6 +30,11 @@ const SideBar = (props) => {
   const dropJPKRef = useRef(null);
   const dropDownRef = useRef(null);
   const dropDownCoachRef = useRef(null);
+  const [imageLoaded, setImageLoaded] = useState(true);
+
+  const handleImageError = () => {
+    setImageLoaded(false);
+  };
 
   const handleClickOutside = (event) => {
     if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
@@ -71,11 +76,20 @@ const SideBar = (props) => {
         // }}
       >
         <div className="flex items-center gap-5">
-          <img
-            className="rounded-full w-[35%] mb-4 mt-2 ml-4"
-            src={props.user?.user_photo}
-            alt="avartar"
-          />
+          {!props.user ? (
+            <img
+              className="rounded-full w-[35%] mb-4 mt-2 ml-4"
+              src={"/images/avatar.webp"}
+              alt="user photo"
+            />
+          ) : (
+            <img
+              className="rounded-full w-[35%] mb-4 mt-2 ml-4"
+              src={imageLoaded ? props.user?.user_photo : "/images/avatar.webp"}
+              alt="user photo"
+              onError={handleImageError}
+            />
+          )}
           <h3 className="text-white text-semibold">
             Welcome, {props.user?.firstname}
           </h3>
@@ -215,15 +229,15 @@ const SideBar = (props) => {
               </div>
             </NavLink>
             <ShowOnAdmin>
-            <div
-              className={`${
-                dropComplain ? "drop--down-c" : "drop--Up-c"
-              } ml-10`}
-            >
-              <NavLink to={"complains"} className="block child">
-                Complains
-              </NavLink>
-            </div>
+              <div
+                className={`${
+                  dropComplain ? "drop--down-c" : "drop--Up-c"
+                } ml-10`}
+              >
+                <NavLink to={"complains"} className="block child">
+                  Complains
+                </NavLink>
+              </div>
             </ShowOnAdmin>
           </li>
           <li>
@@ -236,27 +250,27 @@ const SideBar = (props) => {
             </NavLink>
           </li>
           <ShowOnAdmin>
-          <li>
-            <NavLink
-              to={"/dashboard/communications"}
-              className="flex items-center gap-3"
-            >
-              <TbMessageCircleDown color="#fff" size={25} />
-              Communication
-            </NavLink>
-          </li>
+            <li>
+              <NavLink
+                to={"/dashboard/communications"}
+                className="flex items-center gap-3"
+              >
+                <TbMessageCircleDown color="#fff" size={25} />
+                Communication
+              </NavLink>
+            </li>
           </ShowOnAdmin>
           <ShowOnAdmin>
-          <li>
-            <NavLink
-              to={"/dashboard/setting"}
-              className="flex items-center gap-3"
-            >
-              {/* change this icon */}
-              <IoIosSettings color="#fff" size={25} />
-              Settings
-            </NavLink>
-          </li>
+            <li>
+              <NavLink
+                to={"/dashboard/setting"}
+                className="flex items-center gap-3"
+              >
+                {/* change this icon */}
+                <IoIosSettings color="#fff" size={25} />
+                Settings
+              </NavLink>
+            </li>
           </ShowOnAdmin>
         </ul>
         <button
