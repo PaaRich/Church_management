@@ -20,6 +20,9 @@ function ForgotPassword() {
     if (!phonenumber) {
       return toast.error("Enter phone number");
     }
+    if (!phonenumber.match(/[0-9]/)) {
+      return toast.error("please enter a valid number");
+    }
     if(phonenumber.length < 9){
       return toast.error("please enter a valid number")
     }
