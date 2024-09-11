@@ -13,7 +13,7 @@ function Forms() {
     (state) => state.ministry
   );
   const { mustardLoading, allMustards } = useSelector((state) => state.mustard);
-  const { isSuccess,isLoading } = useSelector((state) => state.auth);
+  const { isSuccess, isLoading } = useSelector((state) => state.auth);
 
   const initialStates = {
     firstname: "",
@@ -61,28 +61,28 @@ function Forms() {
       const number = userData.phonenumber.slice(1);
       formattedNumber = `233${number}`;
       // console.log(userData.phonenumber)
-    }else if(!userData.phonenumber.startsWith("0")){
-      formattedNumber=`233${userData.phonenumber}`
+    } else if (!userData.phonenumber.startsWith("0")) {
+      formattedNumber = `233${userData.phonenumber}`;
     }
 
-    const formData= new FormData()
-    formData.append("firstname",userData.firstname)
-    formData.append("lastname",userData.lastname)
-    formData.append("othername",userData.othername)
-    formData.append("gender",userData.gender)
-    formData.append("user_photo",userData.user_photo)
-    formData.append("phonenumber",formattedNumber)
-    formData.append("education_level",userData.education_level)
-    formData.append("mustard_seed",userData.mustard_seed)
-    formData.append("ministry",userData.ministry)
-    formData.append("DOB",userData.DOB)
-    formData.append("location",userData.location)
-    formData.append("marital_status",userData.marital_status)
-    formData.append("email",userData.email)
-    formData.append("media",userData.media)
-    formData.append("school",userData.school)
-    formData.append("invited_by",userData.invited_by)
-    formData.append("position",userData.position)
+    const formData = new FormData();
+    formData.append("firstname", userData.firstname);
+    formData.append("lastname", userData.lastname);
+    formData.append("othername", userData.othername);
+    formData.append("gender", userData.gender);
+    formData.append("user_photo", userData.user_photo);
+    formData.append("phonenumber", formattedNumber);
+    formData.append("education_level", userData.education_level);
+    formData.append("mustard_seed", userData.mustard_seed);
+    formData.append("ministry", userData.ministry);
+    formData.append("DOB", userData.DOB);
+    formData.append("location", userData.location);
+    formData.append("marital_status", userData.marital_status);
+    formData.append("email", userData.email);
+    formData.append("media", userData.media);
+    formData.append("school", userData.school);
+    formData.append("invited_by", userData.invited_by);
+    formData.append("position", userData.position);
 
     // console.log(Array.from(formData))
     await dispatch(addUser(formData));
@@ -141,15 +141,27 @@ function Forms() {
             path={"/dashboard/people"}
           />
         </div>
-        <form action="" className=" w-full h-full mt-5" onSubmit={handleSubmit} encType="multipart/form-data">
+        <form
+          action=""
+          className=" w-full h-full mt-5"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
           <div className="grid grid-cols-2 gap-x-5">
-            <input
-              type="text"
-              placeholder="Firstname"
-              onChange={handleChange}
-              value={userData.firstname}
-              name="firstname"
-            />
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                First Name <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="text"
+                placeholder="Enter Firstname "
+                onChange={handleChange}
+                value={userData.firstname}
+                name="firstname"
+                className="w-full mt-2"
+              />
+            </div>
             <input
               type="text"
               placeholder="Othername"
@@ -157,6 +169,10 @@ function Forms() {
               value={userData.othername}
               name="othername"
             />
+            <label htmlFor="" className="font-semibold capitalize">
+              Select Gender <span className="text-red-500">*</span>
+            </label>
+            <br />
             <div className="flex my-2">
               <label htmlFor="Male" className="mr-5">
                 <input
@@ -183,14 +199,21 @@ function Forms() {
                 Female
               </label>
             </div>
-            <input
-              type="tel"
-              placeholder="telephone  eg: 0242424444"
-              onChange={handleChange}
-              value={userData.phonenumber}
-              name="phonenumber"
-              maxLength={10}
-            />
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                User Phone Number <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="tel"
+                placeholder="telephone  eg: 0242424444"
+                onChange={handleChange}
+                value={userData.phonenumber}
+                name="phonenumber"
+                maxLength={10}
+                className="mt-2 w-full"
+              />
+            </div>
             <div className="relative">
               <select
                 className="py-3 px-5 w-full bg-slate-200/80"
@@ -254,31 +277,51 @@ function Forms() {
                 ))}
               </select>
             </div>
-
-            <input
-              type="text"
-              name="lastname"
-              id=""
-              onChange={handleChange}
-              value={userData.lastname}
-              placeholder="Lastname"
-            />
-            <input
-              type="date"
-              name="DOB"
-              onChange={handleChange}
-              value={userData.DOB}
-              id=""
-              placeholder="Date of birth"
-            />
-            <input
-              type="text"
-              name="location"
-              id=""
-              onChange={handleChange}
-              value={userData.location}
-              placeholder="Location"
-            />
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                Last Name <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="text"
+                name="lastname"
+                id=""
+                onChange={handleChange}
+                value={userData.lastname}
+                placeholder="Lastname"
+                className="mt-2 w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                Date of Birth <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="date"
+                name="DOB"
+                onChange={handleChange}
+                value={userData.DOB}
+                id=""
+                placeholder="Date of birth"
+                className="mt-2 w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                Location <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="text"
+                name="location"
+                id=""
+                onChange={handleChange}
+                value={userData.location}
+                placeholder="Enter Location"
+                className="mt-2 w-full"
+              />
+            </div>
             <div className="relative">
               <select
                 className="py-3 px-5 w-full bg-slate-200/80"
@@ -302,19 +345,26 @@ function Forms() {
               placeholder="Email"
             />
             <div className="relative">
-              <select
-                className="py-3 px-5 w-full bg-slate-200/80"
-                name="media"
-                id=""
-                onChange={handleChange}
-                value={userData.media}
-              >
-                <option value="">How did you hear of us</option>
-                <option value="COSMOPOLITAN TV">COSMOPOLITAN TV</option>
-                <option value="Social Media">Social Media</option>
-                <option value="Invited by someone">Invited by someone</option>
-                <option value="others">others</option>
-              </select>
+              <div>
+                <label htmlFor="" className="font-semibold capitalize">
+                  How You Heard of Us <span className="text-red-500">*</span>
+                </label>
+                <br />
+                <select
+                  className="py-3 px-5 w-full bg-slate-200/80 mt-2"
+                  name="media"
+                  id=""
+                  onChange={handleChange}
+                  value={userData.media}
+                >
+                  <option value="">How did you hear of us</option>
+                  <option value="COSMOPOLITAN TV">COSMOPOLITAN TV</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Invited by someone">Invited by someone</option>
+                  <option value="others">others</option>
+                </select>
+              </div>
+
               {userData.media === "Invited by someone" && (
                 <input
                   className="w-full"
@@ -358,6 +408,11 @@ function Forms() {
                 <option value="SDA">SDA</option>
               </select>
               <div className="mt-3">
+                <p htmlFor="" className="font-semibold capitalize">
+                  Upload a User photo <span className="text-red-500">*</span>
+                </p>
+                <br />
+
                 <label
                   className="p-3 py-4 hover:bg-blue-400 duration-500 bg-blue-500 text-white rounded-md cursor-pointer"
                   htmlFor="userPhoto"
@@ -375,7 +430,7 @@ function Forms() {
               </div>
             </div>
           </div>
-          <div className="w-full relative pb-5 mt-2">
+          <div className="w-full relative pb-5 mt-10">
             <button
               className="btn w-80 rounded-md text-white px-3 py-4 bg-slate-900 absolute left-1/2 -translate-x-1/2"
               type="submit"
