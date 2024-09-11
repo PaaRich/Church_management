@@ -225,6 +225,25 @@ export const updateUser = createAsyncThunk(
   }
 );
 
+//update user profile
+export const updateUserProfile = createAsyncThunk(
+  "auth/update-user-profile",
+  async ( userData , thunkAPI) => {
+    try {
+      return await authServices.updateUserProfile(userData);
+    } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 //register coach
 export const registerCoach = createAsyncThunk(
   "auth/register-coach",
@@ -575,6 +594,24 @@ export const authSlice = createSlice({
         toast.success("user updated successfully");
       })
       .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        toast.error(action.payload);
+      })
+
+      //update user profile
+      .addCase(updateUserProfile.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.user= action.payload.user
+        toast.success("profile updated");
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;

@@ -63,7 +63,7 @@ const DashBoardHome = () => {
               <IoIosPeople color="#fff" size={40} />
             </div>
             <div className="number my-2">
-              <h2 className="text-3xl font-bold">{allStats?.totalUserCount}</h2>
+              <h2 className="text-3xl font-bold">{allStats?.members}</h2>
             </div>
             <p className="p-2">Members</p>
           </div>
@@ -72,7 +72,7 @@ const DashBoardHome = () => {
               <FaStarHalfAlt color="#fff" size={40} />
             </div>
             <div className="number my-2">
-              <h2 className="text-3xl font-bold">200</h2>
+              <h2 className="text-3xl font-bold">{allStats?.visitors}</h2>
             </div>
             <p className="p-2">Visitors</p>
           </div>
@@ -81,18 +81,18 @@ const DashBoardHome = () => {
               <IoIosHeartEmpty color="#fff" size={40} />
             </div>
             <div className="number my-2">
-              <h2 className="text-3xl font-bold">200</h2>
+              <h2 className="text-3xl font-bold">{allStats?.firstTimers}</h2>
             </div>
-            <p className="p-2">New Comers</p>
+            <p className="p-2">First Timers</p>
           </div>
           <div className="dash--card shadow-lg rounded-md text-center">
             <div className="icon bg-purple-500 rounded-t-md flex items-center justify-center p-3">
               <IoIosHeartEmpty color="#fff" size={40} />
             </div>
             <div className="number my-2">
-              <h2 className="text-3xl font-bold">200</h2>
+              <h2 className="text-3xl font-bold">{allStats?.totalUserCount}</h2>
             </div>
-            <p className="p-2">New Comers</p>
+            <p className="p-2">All Users</p>
           </div>
         </div>
 

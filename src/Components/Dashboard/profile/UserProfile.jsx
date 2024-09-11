@@ -4,6 +4,7 @@ import {
   changePassword,
   getMe,
   RESET,
+  updateUserProfile,
 } from "../../../Redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 
@@ -28,6 +29,21 @@ function UserProfile() {
   const [imageLoaded, setImageLoaded] = useState(true);
   const [passwordSubmitted, setPasswordSubmitted] = useState(false);
   // const [userInfo, setUserInfo] = useState(userInitials);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [userPhoto, setUserPhoto]= useState("")
+
+  const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setUserPhoto(file)
+              setImagePreview(reader.result);
+          };
+          reader.readAsDataURL(file);
+      }
+  };
+
 
   const handleImageError = () => {
     setImageLoaded(false);
@@ -60,11 +76,22 @@ function UserProfile() {
     }));
   }, [user]);
 
+  const handleChangeProfile = async function (e) {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("firstname", userData.firstname);
+    data.append("lastname", userData.lastname);
+    data.append("phonenumber", userData.phonenumber);
+    data.append("location", userData.location);
+    data.append("school", userData.school);
+    data.append("user_photo", userPhoto);
+
+    // console.log(Array.from(data))
+    await dispatch(updateUserProfile(data));
+  };
   const handleInputChange = function (e) {
-    setUserData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value })
+    );
   };
 
   const handlePasswordChange = function (e) {
@@ -139,7 +166,12 @@ function UserProfile() {
         <div className="my-10 bg-blue-100/20 p-10">
           <h3 className="font-semibold mb-5">Update Profile</h3>
           <div>
-            <form action="" className="grid grid-cols-3 gap-10">
+            <form
+              action=""
+              className="grid grid-cols-3 gap-10"
+              onSubmit={handleChangeProfile}
+              encType="multipart/form-data"
+            >
               <div className="col-span-2">
                 <div className="grid grid-cols-2 gap-10">
                   <div>
@@ -205,13 +237,29 @@ function UserProfile() {
                 </div>
               </div>
               <div className="border-dashed border-2 border-slate-400 p-10 flex flex-col items-center">
+                {imagePreview ? 
+                  <img
+                  className="w-[200px] h-[200px] rounded-full"
+                  src={imagePreview}
+                  alt="profile photo"
+                />
+                :
                 <img
                   className="w-[200px] h-[200px] rounded-full"
                   src={imageLoaded ? user?.user_photo : "/images/avatar.webp"}
                   alt="profile photo"
                   onError={handleImageError}
                 />
-                <input className="invisible" type="file" name="" id="photo" />
+                
+                }
+                <input
+                  className="invisible"
+                  type="file"
+                  name="user_photo"
+                  onChange={handleImageChange}
+                  file={userData.user_photo}
+                  id="photo"
+                />
                 <label htmlFor="photo" className="btn--primary cursor-pointer">
                   Change Photo
                 </label>

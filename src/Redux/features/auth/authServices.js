@@ -69,6 +69,16 @@ const updateUser = async function (userData, userId) {
   return response.data;
 };
 
+//update user profile
+const updateUserProfile = async function (userData) {
+  const response = await axios({
+    method: "PATCH",
+    url: "/users/update-user-profile",
+    data: userData,
+  });
+  return response.data;
+};
+
 //register coach
 const registerCoach = async function (coachData) {
   const response = await axios({
@@ -200,7 +210,8 @@ const authServices = {
   requestPasswordRequest,
   scheduleMeeting,
   getMe,
-  changePassword
+  changePassword,
+  updateUserProfile
 };
 
 export default authServices;
