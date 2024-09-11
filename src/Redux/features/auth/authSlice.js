@@ -9,6 +9,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   allUsers: [],
+  allChildren:[],
   user: null,
   ministryMembers: [],
   mustardMembers: [],
@@ -490,6 +491,7 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         state.allUsers = action.payload.users;
+        state.allChildren= action.payload.children
       })
       .addCase(getAllUser.rejected, (state, action) => {
         state.isLoading = false;

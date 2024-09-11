@@ -9,7 +9,7 @@ const Profile = () => {
   const location = useLocation();
   const personData = location.state;
   return (
-    <div>
+    <div className="px-3">
       <div className="c-profile flex justify-between border-b-2 border-b-black h-3/6">
         <div className="w-1/2 h-full">
           <div>
@@ -31,6 +31,10 @@ const Profile = () => {
           <div>
             <p className="font-semibold">Phone Number</p>
             <p>{personData?.phonenumber}</p>
+          </div>
+          <div>
+            <p className="font-semibold">Age</p>
+            <p>{personData?.age}</p>
           </div>
         </div>
         <div className="w-1/2 text-end">

@@ -1,15 +1,11 @@
-/* eslint-disable react/prop-types */
 //import React from "react";
 import Person from "./Person";
-//import Profile from "./Profile";
-//import { committee } from "./Committee";
 import BackBtn from "../../Reusable/BackBtn";
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect, useState } from "react";
 import { getAllUser } from "../../../Redux/features/auth/authSlice";
 import Loader from "../../Reusable/Loader";
-import InfiniteScroll from 'react-infinite-scroll-component';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
@@ -22,7 +18,7 @@ function People({ children }) {
   const getUsers= async()=>{
     await dispatch(getAllUser())
   }
-
+// console.log(users)
   useEffect(()=>{
     getUsers()
     setUsers(allUsers)

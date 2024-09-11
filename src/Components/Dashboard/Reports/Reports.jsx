@@ -6,8 +6,20 @@ import PieChartReport from "./PieChartReport";
 import { useDispatch, useSelector } from "react-redux";
 import { getAttendanceRecords } from "../../../Redux/features/attendance/attendanceSlice";
 import Loader from "../../Reusable/Loader";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 function Reports() {
+
+  const exportToExcel = (data,fileName) => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], {type: 'application/octet-stream'});
+    saveAs(blob, `${fileName}.xlsx`);
+  };
+
   const dispatch = useDispatch();
   const { attendanceLoading, attendanceRecords } = useSelector(
     (state) => state.attendance
@@ -26,7 +38,6 @@ function Reports() {
       if (meetingType) queryParams.append("meetingType", meetingType);
       if (startDate) queryParams.append("startDate", startDate);
       if (endDate) queryParams.append("endDate", endDate);
-      console.log(queryParams);
       await dispatch(getAttendanceRecords(queryParams));
       setRecords(attendanceRecords);
     };
@@ -70,6 +81,10 @@ function Reports() {
   const childrenPercentage = ((children / (males + females)) * 100).toFixed(2);
   const youthPercentage = ((youth / (males + females)) * 100).toFixed(2);
 
+
+  const downloadReport = ()=>{
+    exportToExcel(attendanceRecords,"service_assessment_report")
+  }
   return (
     <>
     {attendanceLoading && <Loader/>}
@@ -83,7 +98,7 @@ function Reports() {
           />
           <p className="text-xl">Attendance</p>
         </div>
-        <button className="bg-green-600 cursor-pointer text-white p-3 rounded-sm hover:bg-green-500 duration-300">
+        <button onClick={downloadReport} className="bg-green-600 cursor-pointer text-white p-3 rounded-sm hover:bg-green-500 duration-300">
           Download Report
         </button>
       </div>
