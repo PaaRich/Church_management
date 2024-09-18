@@ -53,8 +53,8 @@ function People({ children }) {
           <div></div>
         </div>
       </div>
-      <div className="flex h-full">
-        <div className="w-1/2 h-full pr-4 border-r-2 ">
+      <div className="flex h-full max-md:flex-col-reverse">
+        <div className="w-1/2 max-md:w-full h-full md:pr-4 border-r-2 ">
           {currentItems?.map((person, index) => (
             <Link
               key={index}
@@ -62,6 +62,7 @@ function People({ children }) {
               to={`/dashboard/people/${person?.firstname}`}
             >
               <Person
+              photo={person?.user_photo}
                 person={person?.firstname}
                 ministry={person?.ministry}
                 mustard_seed={person?.role}
@@ -77,7 +78,7 @@ function People({ children }) {
       />
           </div>
         </div>
-        <div className="w-1/2 h-full pr-4 pt-4 pl-4">{children}</div>
+        <div className="w-1/2 max-md:w-full max-md:border-t-2 border-slate-700 h-full md:pr-4 pt-4 md:pl-4 max-md:mb-16">{children}</div>
       </div>
     </div>
     </>

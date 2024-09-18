@@ -50,8 +50,8 @@ function Attendance() {
           paddingAndMargin="mb-3 p-2"
           path={"/dashboard/forms"}
         />
-        <form action="" className="relative" onSubmit={signAttendance}>
-          <div className="flex items-center gap-10">
+        <form action="" className="relative max-md:mt-10" onSubmit={signAttendance}>
+          <div className="flex items-center gap-10 max-md:flex-col max-md:gap-5">
             <div className="relative w-full">
               <select
                 className="py-4 px-5 w-full bg-slate-200 cursor-pointer"
@@ -85,7 +85,7 @@ function Attendance() {
               value={churchID}
             />
           </div>
-          <div className="w-full relative mt-20">
+          <div className="w-full relative mt-20 max-md:mt-10">
             <button
               type="submit"
               className="border-0 w-80 text-white py-4 text-lg absolute left-1/2 -translate-x-1/2 bg-slate-900 hover:bg-slate-800 duration-200 rounded"

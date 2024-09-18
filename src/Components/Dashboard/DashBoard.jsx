@@ -45,7 +45,7 @@ const DashBoard = ({ children }) => {
               <input
                 type="text"
                 placeholder="Search..."
-                className="px-5 py-3 rounded-full bg-slate-100 w-[40%] outline-blue-300/80"
+                className="px-5 py-3 rounded-full bg-slate-100 w-[40%] outline-blue-300/80 max-md:w-[60%] max-sm:w-full"
               />
             </form>
             <img

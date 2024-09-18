@@ -37,17 +37,21 @@ const JPK = () => {
     const currentItems = users?.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div className="flex">
-      <div className="basis-1/2 border-r-2 pr-2 ">
-        <BackBtn
+    <div>
+      <div>
+      <BackBtn
           text="People"
           paddingAndMargin="mb-0 p-2"
           path={"/dashboard/people"}
         />
-        <div className="mt-5">
+      </div>
+    <div className="flex max-md:flex-col-reverse border-t-2 border-slate-300 mt-5 pt-5">
+      <div className="basis-1/2 border-r-2 pr-2 ">
+    
+        <div className="mt-5 max-md:mt-10">
           {currentItems?.map((user) => (
             <Link key={user._id} to={user.firstname} state={user}>
-              <Person person={user.firstname} ministry={user?.ministry} />
+              <Person photo={user?.user_photo} person={user?.firstname} ministry={user?.ministry} />
             </Link>
           ))}
                     <div className="mt-8">
@@ -60,9 +64,10 @@ const JPK = () => {
           </div>
         </div>
       </div>
-      <div className="basis-1/2">
+      <div className="basis-1/2 ">
         <Outlet />
       </div>
+    </div>
     </div>
   );
 };

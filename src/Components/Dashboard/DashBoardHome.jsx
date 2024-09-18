@@ -57,7 +57,7 @@ const DashBoardHome = () => {
     <div className="dashboard-home-container">
       {/* navbar here */}
       <div className="dashboard-home-main mt-1">
-        <div className="dashboard--cards">
+        <div className="dashboard--cards grid grid-cols-4 gap-4 max-md:grid-cols-2 max-sm:grid-cols-2 max-sm:gap-y-10 max-sm:mt-7">
           <div className="dash--card shadow-lg rounded-md text-center">
             <div className="icon bg-violet-900 rounded-t-md flex items-center justify-center p-3">
               <IoIosPeople color="#fff" size={40} />
@@ -97,7 +97,7 @@ const DashBoardHome = () => {
         </div>
 
         {/* cards end here */}
-        <div className="mt-10 grid grid-cols-4 gap-10">
+        <div className="mt-10 grid grid-cols-4 gap-10 max-md:grid-cols-2">
           <div className="text-center">
             <ProgressCircle
               percentage={femalePercentage}

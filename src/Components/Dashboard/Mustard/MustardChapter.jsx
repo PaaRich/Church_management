@@ -4,7 +4,7 @@ import img from "/images/avatar2.webp";
 import { IoLocationOutline } from "react-icons/io5";
 const MustardChapter = ({ chapter, roll, location }) => {
   return (
-    <div className="w-96 flex items-center bg-slate-50 shadow-md h-52 cursor-pointer hover:scale-105 duration-300">
+    <div className="w-96 max-sm:w-full flex items-center bg-slate-50 shadow-md h-52 cursor-pointer hover:scale-105 duration-300">
       <div className="w-1/2 bg-yellow-300">
         <img className="w-full h-full" src={img} alt="chapter_img" />
       </div>

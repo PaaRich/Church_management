@@ -131,10 +131,10 @@ function UserProfile() {
         <h2 className="text-xl font-semibold">User Profile</h2>
       </div>
       <div>
-        <div className="contact--details flex items-center justify-between bg-blue-100/20 p-5 px-10">
+        <div className="contact--details flex max-md:flex-col max-md:gap-10 sm:items-center justify-between bg-blue-100/20 p-5 sm:px-10">
           <div className="flex items-center gap-4">
             <img
-              className="w-[120px] h-[120px] rounded-full"
+              className="w-[120px] h-[120px] max-sm:w-[100px] max-sm:h-[100px] rounded-full"
               src={imageLoaded ? user?.user_photo : "/images/avatar.webp"}
               alt="profile photo"
               onError={handleImageError}
@@ -147,7 +147,7 @@ function UserProfile() {
 
           <div className="border-l-2 border-gray-200 pl-5">
             <h4 className="font-semibold mb-5">Contact Details</h4>
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-2 ">
               <li>
                 <span className="font-semibold">Email:</span> {user?.email}
               </li>
@@ -163,17 +163,17 @@ function UserProfile() {
           </div>
           <div></div>
         </div>
-        <div className="my-10 bg-blue-100/20 p-10">
+        <div className="my-10 bg-blue-100/20 p-10 max-sm:p-4">
           <h3 className="font-semibold mb-5">Update Profile</h3>
           <div>
             <form
               action=""
-              className="grid grid-cols-3 gap-10"
+              className="grid grid-cols-3 gap-10 max-md:grid-cols-1"
               onSubmit={handleChangeProfile}
               encType="multipart/form-data"
             >
-              <div className="col-span-2">
-                <div className="grid grid-cols-2 gap-10">
+              <div className="md:col-span-2">
+                <div className="grid grid-cols-2 gap-10 max-sm:grid-cols-1">
                   <div>
                     <label htmlFor="firstname">First Name</label>
                     <br />
@@ -245,7 +245,7 @@ function UserProfile() {
                 />
                 :
                 <img
-                  className="w-[200px] h-[200px] rounded-full"
+                  className="w-[200px] h-[200px] max-sm:w-[160px] max-sm:h-[160px] rounded-full"
                   src={imageLoaded ? user?.user_photo : "/images/avatar.webp"}
                   alt="profile photo"
                   onError={handleImageError}
@@ -270,7 +270,7 @@ function UserProfile() {
             </form>
           </div>
         </div>
-        <div className="my-10 bg-blue-100/20 p-10">
+        <div className="my-10 bg-blue-100/20 p-10 max-sm:p-5">
           <h3 className="font-semibold mb-5">Password Settings</h3>
           <form action="" onSubmit={handlePasswordSubmit}>
             <div>
@@ -285,7 +285,7 @@ function UserProfile() {
                 value={passwordData.currentPassword}
               />
             </div>
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid grid-cols-2 gap-10 max-md:grid-cols-1 max-sm:gap-2">
               <div>
                 <label htmlFor="password">New Password</label>
                 <br />

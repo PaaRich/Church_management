@@ -48,12 +48,12 @@ const LogComplain = () => {
     <>
     {complaintLoading && <Loader/>}
     <div className="mt-5">
-      <p className="font-semibold text-2xl">Log Complain</p>
+      <p className="font-semibold text-2xl max-sm:text-xl">Log Complain</p>
       <form className=" mt-5" onSubmit={submitData}>
-        <div className="grid grid-cols-2 gap-10">
-          <div>
+        <div className="grid grid-cols-2 gap-5 items-end max-md:grid-cols-1">
+          <div >
             <input
-              className="mb-0 w-full mr-10 pl-3"
+              className="w-full"
               type="phone"
               placeholder="Active Phone Number"
               name="active_number"
@@ -62,9 +62,9 @@ const LogComplain = () => {
               maxLength={10}
             />
           </div>
-          <div>
+          <div className="w-full">
             <select
-              className="mb-0 w-full mr-10 pl-3"
+              className="w-full"
               name="complaint_type"
               id=""
               value={complaintData.complaint_type}
@@ -89,7 +89,7 @@ const LogComplain = () => {
           </div>
         </div>
         <button
-          className="bg-blue-500 py-3 px-6 w-1/5 mt-4 text-white rounded-sm hover:bg-blue-400 duration-200"
+          className="bg-blue-500 py-3 px-6 w-1/5 max-sm:w-full mt-4 text-white rounded-sm hover:bg-blue-400 duration-200"
           type="submit"
         >
           Submit

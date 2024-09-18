@@ -49,7 +49,7 @@ function Ministries() {
         paddingAndMargin="mb-3 p-2"
         path={"/dashboard/mustard_seed"}
       />
-      <div className="grid gap-y-10 w-11/12 m-auto grid-cols-2">
+      <div className="grid gap-y-10 w-11/12 m-auto grid-cols-2 max-sm:grid-cols-1 max-md:w-full max-md:mt-5 max-sm:gap-5 max-sm:mt-10 max-sm:pb-10">
         {ministries?.map((item) => (
           <Link
             to={`/dashboard/ministries/${item?.ministry}`}

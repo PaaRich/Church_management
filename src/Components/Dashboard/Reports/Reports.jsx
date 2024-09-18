@@ -89,13 +89,16 @@ function Reports() {
     <>
     {attendanceLoading && <Loader/>}
     <div className="h-[80vh]">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center justify-between w-1/3">
-          <BackBtn
+      <div>
+      <BackBtn
             text="Report"
             paddingAndMargin="p-3 mb-3"
             path={"/dashboard/attendance"}
           />
+      </div>
+      <div className="flex items-center justify-between max-md:my-5">
+        <div className="flex items-center justify-between w-1/3">
+       
           <p className="text-xl">Attendance</p>
         </div>
         <button onClick={downloadReport} className="bg-green-600 cursor-pointer text-white p-3 rounded-sm hover:bg-green-500 duration-300">
@@ -104,29 +107,29 @@ function Reports() {
       </div>
       <form
         action=""
-        className="bg-slate-50 shadow-md pl-3 flex items-center rounded-md w-fit mt-5 p-4"
+        className="bg-slate-50 shadow-md  flex max-md:flex-col items-center max-md:items-start max-md:gap-5 rounded-md w-fit mt-5 p-4"
       >
-        <label className="flex items-center mr-5" htmlFor="">
+        <label className="flex items-center mr-5 w-full" htmlFor="">
           Start
           <input
-            className="mb-0 ml-2"
+            className="mb-0 ml-2 w-full"
             onChange={(e) => {
               setStartDate(e.target.value);
             }}
             type="date"
           />
         </label>
-        <label className="flex items-center mr-5" htmlFor="">
+        <label className="flex items-center mr-5 w-full" htmlFor="">
           End
           <input
-            className="mb-0 ml-2"
+            className="mb-0 ml-2 w-full"
             onChange={(e) => {
               setEndDate(e.target.value);
             }}
             type="date"
           />
         </label>
-        <label className="flex items-center mr-5" htmlFor="meetingtype">
+        <label className="flex items-center mr-5 w-full" htmlFor="meetingtype">
           Meeting
           <select
             name="meetingType"
@@ -134,7 +137,7 @@ function Reports() {
             onChange={(e) => {
               setMeetingType(e.target.value);
             }}
-            className="mb-0 ml-2 py-4"
+            className="mb-0 ml-2 py-4 w-full"
           >
             <option value="General Meeting">General Meeting</option>
             <option value="Mustard Seed Meeting">Mustard Seed Meeting</option>
@@ -143,21 +146,21 @@ function Reports() {
         </label>
         <button
           onClick={generateReport}
-          className="bg-blue-700 hover:bg-blue-500 duration-300 p-4 rounded-e-md text-white"
+          className="bg-blue-700 hover:bg-blue-500 duration-300 p-4 rounded-e-md text-white max-sm:w-full max-sm:rounded-md"
           type="submit"
         >
           Generate
         </button>
       </form>
       {/* charts here */}
-      <div className="mt-16 px-5">
+      <div className="mt-16 sm:px-5 max-sm:-ml-[40px]">
         <BarChart records={attendanceRecords} />
       </div>
-      <div className="grid grid-cols-2 gap-5 mt-20">
+      <div className="grid grid-cols-2 gap-5 mt-20 max-md:grid-cols-1 max-md:gap-20 max-md:pb-24">
         <div>
           <PieChartReport />
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 max-md:gap-y-10">
           <div className="text-center w-[150px] h-[150px] mb-10">
             <ProgressCircle
               percentage={femalePercentage}

@@ -46,20 +46,22 @@ const Chapter = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="flex">
-        <div className="w-1/2 border-r-2 border-r-slate-300">
-          <span className="flex items-center">
+      <div>
+      <span className="flex items-center justify-between">
             <BackBtn
               text="Mustard Seed"
               paddingAndMargin="p-2 mb-1"
               path={"/dashboard/mustard_seed"}
             />
-            <p className="text-xl font-medium ml-10">{id}</p>
+            <p className="text-lg font-medium ml-10 uppercase">{id}</p>
           </span>
-          <span>
+      <div className="flex max-md:flex-col-reverse mt-10 max-md:gap-16">
+        <div className="w-1/2 max-md:w-full border-r-2 border-r-slate-300">
+         
+          {/* <span>
             <p className="ml-4 text-xl mb-1">President</p>
             <Person person="Jane Smith" position="President" />
-          </span>
+          </span> */}
           <div>
             <p className="ml-4 text-xl my-2">Members</p>
             <div>
@@ -67,6 +69,7 @@ const Chapter = () => {
                 members?.map((person) => (
                   <Link to={person?.firstname} state={person} key={person._id}>
                     <Person
+                    photo={person?.user_photo}
                       person={person.firstname}
                       mustard_seed={person.role}
                     />
@@ -90,9 +93,10 @@ const Chapter = () => {
           </div>
           </div>
         </div>
-        <div className="w-1/2 px-5">
+        <div className="w-1/2 px-5 max-md:w-full max-md:p-0">
           <Outlet />
         </div>
+      </div>
       </div>
     </>
   );

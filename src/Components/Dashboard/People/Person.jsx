@@ -1,13 +1,21 @@
 /* eslint-disable react/prop-types */
-//import React from 'react'
+import React, { useState } from 'react'
 
-const Person = ({ person, ministry, mustard_seed }) => {
+
+const Person = ({ photo,person, ministry, mustard_seed }) => {
+  const [imageLoaded, setImageLoaded] = useState(true);
+
+const handleImageError = () => {
+  setImageLoaded(false);
+};
+
   return (
     <div className="c-person flex items-center py-0 cursor-pointer">
       <div className="w-1/6 py-4">
         <img
-          src="/images/avatar2.webp"
-          alt="Person_img"
+          src={imageLoaded ? photo : "/images/avatar.webp"}
+          alt="user photo"
+          onError={handleImageError}
           className="w-12 h-12 mx-auto"
         />
       </div>

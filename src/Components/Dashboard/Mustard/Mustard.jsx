@@ -46,7 +46,7 @@ function Mustard() {
           paddingAndMargin="mb-3 p-2"
           path={"/dashboard/reports/attendance"}
         />
-        <div className="grid gap-y-10 w-11/12 m-auto grid-cols-2">
+        <div className="grid gap-y-10 w-11/12 m-auto grid-cols-2 max-sm:grid-cols-1 max-md:mt-5 max-sm:mt-10 max-sm:gap-5 pb-10">
           {mustards?.map((item, index) => (
             <Link
               to={`/dashboard/mustard_seed/${item?.mustard}`}

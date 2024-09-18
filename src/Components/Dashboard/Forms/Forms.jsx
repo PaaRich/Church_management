@@ -124,6 +124,13 @@ function Forms() {
       {isLoading && <Loader />}
       {ministryLoading && <Loader />}
       <div className="w-full">
+        <div>
+  <BackBtn
+            text="Form"
+            paddingAndMargin="mb-0 p-2"
+            path={"/dashboard/people"}
+          />
+        </div>
         <div className="church_profile pb-1 relative">
           <div className="flex items-center justify-center flex-col">
             <img
@@ -135,11 +142,7 @@ function Forms() {
             <p className="font-light">Logo</p>
             <p className="pt-1">Church membership form</p>
           </div>
-          <BackBtn
-            text="Form"
-            paddingAndMargin="mb-0 p-2"
-            path={"/dashboard/people"}
-          />
+        
         </div>
         <form
           action=""
@@ -147,7 +150,7 @@ function Forms() {
           onSubmit={handleSubmit}
           encType="multipart/form-data"
         >
-          <div className="grid grid-cols-2 gap-x-5">
+          <div className="grid grid-cols-2 items-end gap-x-5 max-sm:grid-cols-1 max-sm:gap-y-3">
             <div>
               <label htmlFor="" className="font-semibold capitalize">
                 First Name <span className="text-red-500">*</span>
@@ -162,13 +165,17 @@ function Forms() {
                 className="w-full mt-2"
               />
             </div>
+            <div>
+
             <input
               type="text"
               placeholder="Othername"
               onChange={handleChange}
               value={userData.othername}
               name="othername"
-            />
+              className="w-full"
+              />
+              </div>
             <label htmlFor="" className="font-semibold capitalize">
               Select Gender <span className="text-red-500">*</span>
             </label>
@@ -414,7 +421,7 @@ function Forms() {
                 <br />
 
                 <label
-                  className="p-3 py-4 hover:bg-blue-400 duration-500 bg-blue-500 text-white rounded-md cursor-pointer"
+                  className="p-3 py-4 max-sm:px-10 hover:bg-blue-400 duration-500 bg-blue-500 text-white rounded-md cursor-pointer"
                   htmlFor="userPhoto"
                 >
                   Upload Photo

@@ -2,12 +2,19 @@
 //import React from 'react'
 
 //import BarChart from "../../Reusable/BarChart";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const Profile = () => {
-  //const { person } = useParams();
   const location = useLocation();
   const personData = location.state;
+
+  const [imageLoaded, setImageLoaded] = useState(true);
+
+  const handleImageError = () => {
+    setImageLoaded(false);
+  };
+  
   return (
     <div className="px-3">
       <div className="c-profile flex justify-between border-b-2 border-b-black h-3/6">
@@ -41,8 +48,9 @@ const Profile = () => {
           <div className="flex flex-col text-right items-end">
             <img
               className="h-24 w-24 mb-4"
-              src="../../../../public/images/avatar2.webp"
-              alt=""
+              src={imageLoaded ? personData?.user_photo : "/images/avatar.webp"}
+              alt="user photo"
+              onError={handleImageError}
             />
             <div className="my-3">
               <p>Position</p>
