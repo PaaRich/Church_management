@@ -58,7 +58,7 @@ function Ministries() {
             <MustardChapter
               chapter={item?.ministry?.toUpperCase()}
               roll={ministryStats?ministryStats[item?.ministry]:"N/A"}
-              location={"N/A"}
+              // location={"N/A"}
               //img={item.img}
             />
           </Link>

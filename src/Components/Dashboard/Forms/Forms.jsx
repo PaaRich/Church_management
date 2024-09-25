@@ -134,12 +134,11 @@ function Forms() {
         <div className="church_profile pb-1 relative">
           <div className="flex items-center justify-center flex-col">
             <img
-              className="rounded-full w-10 h-10 bg-black"
-              src="/images/avatar2.webp"
+              className="rounded-full w-20 h-20 bg-black"
+              src="/images/images.jpeg"
               alt="church_profile-pic"
             />
-            <h2 className="text-xl">Church Name</h2>
-            <p className="font-light">Logo</p>
+            <h2 className="text-xl">Christ Cosmopolitan Incorporated Sunyani</h2>
             <p className="pt-1">Church membership form</p>
           </div>
         
@@ -393,9 +392,10 @@ function Forms() {
                 <option value="Mustard Seed President">
                   Mustard Seed President
                 </option>
-                <option value="Workforce">WorkForce</option>
+                <option value="Workforces">WorkForces</option>
                 <option value="Ministry President">Ministry President</option>
                 <option value="District Pastor">District Pastor</option>
+                <option value="Stwards">Stward</option>
               </select>
             </div>
             <div className="relative">

@@ -28,9 +28,10 @@ const Communications = () => {
               <option value="" disabled selected>
                 Target People
               </option>
-              <option value="General">General</option>
-              <option value="Pastors">Pastors</option>
-              <option value="Workers">Workers</option>
+              <option value="Members">Members</option>
+              <option value="WorkForcers">WorkForcers</option>
+              <option value="Leaders">Leaders</option>
+              <option value="Stewards">Stewards</option>
             </select>
           </div>
           <textarea
