@@ -85,9 +85,9 @@ function EditLesson() {
         <form
           action=""
           onSubmit={handleSubmit}
-          className="lesson--forms mt-10 mx-10"
+          className="lesson--forms mt-10 md:mx-10"
         >
-          <div className="grid grid-cols-2 gap-8 w-full items-center justify-between">
+          <div className="grid grid-cols-2 gap-8 w-full items-center justify-between max-md:grid-cols-1 max-md:gap-2">
             <div>
               <label htmlFor="course_title" className="font-semibold text-lg">
                 Course Title
@@ -151,8 +151,8 @@ function EditLesson() {
             value={lessonData.course_description}
           ></textarea>
 
-          <button className="btn--primary" type="submit">
-            Add Lesson
+          <button className="btn--primary max-sm:w-full" type="submit">
+            Update Lesson
           </button>
         </form>
       </div>

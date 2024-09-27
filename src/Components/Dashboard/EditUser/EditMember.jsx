@@ -184,23 +184,23 @@ function EditMember() {
       {isLoading && <Loader />}
       {ministryLoading && <Loader />}
       <div className="w-full">
-        <div className="church_profile pb-1 relative">
-          <div className="flex items-center justify-center flex-col mt-5">
-            <h2 className="text-xl">Edit Member Information</h2>
-            <p className="pt-1">Church membership form</p>
-          </div>
           <BackBtn
             text="Form"
             paddingAndMargin="mb-0 p-2"
             path={"/dashboard/people"}
           />
+        <div className="church_profile pb-1 relative">
+          <div className="flex items-center justify-center flex-col mt-5">
+            <h2 className="text-xl">Edit Member Information</h2>
+            <p className="pt-1">Church membership form</p>
+          </div>
         </div>
         <form
           action=""
           className=" w-full h-full mt-5 pb-20"
           onSubmit={handleSubmit}
         >
-          <div className="grid grid-cols-2 gap-x-5">
+          <div className="grid grid-cols-2 gap-x-5 max-md:grid-cols-1">
             <input
               type="text"
               placeholder="Firstname"
@@ -465,14 +465,14 @@ function EditMember() {
           </div>
           <form
             action=""
-            className="mt-5 flex items-center gap-10 w-3/6 justify-between"
+            className="mt-5 flex max-md:flex-col items-center gap-10 w-3/6 justify-between max-md:w-full max-sm:gap-5"
             onSubmit={submitCoach}
           >
-            <div>
+            <div >
               {/* <label htmlFor="" className="text-xl">Select Coach Type</label> <br /> */}
               <select
                 name="coach_type"
-                className=" mt-5 w-96"
+                className=" mt-5 md:w-96 max-sm:w-full"
                 id=""
                 value={coach}
                 onChange={(e) => {

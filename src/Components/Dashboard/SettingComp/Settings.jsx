@@ -156,6 +156,7 @@ const Settings = () => {
     <>
       {ministryLoading && <Loader />}
       {mustardLoading && <Loader />}
+      {isLoading && <Loader />}
       {/* delete modal */}
       {showDeleteModal ? (
         <Confirm
@@ -196,7 +197,7 @@ const Settings = () => {
           </form>
           {state && (
             <div className="mt-5">
-              <div className="w-[70%] flex items-center justify-between gap-5 shadow-md p-3 px-5 rounded-md border-2 border-slate-300">
+              <div className="w-[70%] max-md:p-7 max-md:w-full flex max-md:flex-col items-center max-md:items-start justify-between gap-5 shadow-md p-3 px-5 rounded-md border-2 border-slate-300">
                 <div>
                   <h5 className="font-semibold text-lg mb-1">Phone</h5>
                   <p>{searchedUser?.phonenumber}</p>
