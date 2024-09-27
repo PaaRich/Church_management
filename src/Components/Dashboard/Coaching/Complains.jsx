@@ -45,7 +45,7 @@ const Complains = () => {
   }, [searchInput, complaints]);
 
   useEffect(() => {
-    const bol = status==="true";
+    const bol = status === "true";
     const items = complaints?.filter((item) => {
       return item.isAssigned == bol;
     });
@@ -70,12 +70,12 @@ const Complains = () => {
     <>
       {complaintLoading && <Loader />}
       <div>
-        <div className="mt-5">
+        <div className="mt-5 max-sm:mt-8">
           <h1 className="font-semibold text-2xl mb-2">Complaints</h1>
           {/* search button here */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between max-sm:flex-col">
             <input
-              className="w-[50%] rounded-sm"
+              className="w-[50%] rounded-sm max-sm:w-full"
               type="search"
               name="search_complaint"
               id=""
@@ -84,6 +84,7 @@ const Complains = () => {
               maxLength={9}
             />
             <select
+              className="max-sm:w-full"
               value={status}
               name="complaint_type"
               id=""
@@ -97,8 +98,8 @@ const Complains = () => {
             </select>
           </div>
           {/* search button here */}
-          <div className="w-full mt-5">
-            <table className="w-full border-2 border-black c-complains mb-8">
+          <div className="w-full mt-5 max-md:overflow-x-scroll">
+            <table className="w-full border-2 border-black c-complains mb-8 max-md:overflow-x-scroll">
               <thead className="bg-blue-500 text-white border-b-4">
                 <tr>
                   <td className="border-r-2  font-semibold text-xl py-3 w-1">
@@ -170,6 +171,8 @@ const Complains = () => {
                 </h3>
               )}
             </div>
+          </div>
+          <div>
             <Pagination
               count={Math.ceil(complaints?.length / itemsPerPage)}
               page={page}

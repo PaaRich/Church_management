@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 function Coaching() {
   return (
-    <div className="px-5">
+    <div className="px-5 max-sm:px-1">
       <BackBtn
         text="Foundational School"
         paddingAndMargin="mb-2 p-2"

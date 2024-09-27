@@ -27,7 +27,7 @@ function Header() {
               </button>
             </div>
           </div>
-          <img className="w-full" src="/images/card-1.jpg" alt="" />
+          <img className="w-full" src="/images/cci-logo-1.png" alt="" />
         </div>
       </div>
     </div>

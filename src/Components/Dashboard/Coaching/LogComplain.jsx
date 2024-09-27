@@ -47,10 +47,10 @@ const LogComplain = () => {
   return (
     <>
     {complaintLoading && <Loader/>}
-    <div className="mt-5">
+    <div className="mt-5 max-sm:mt-10">
       <p className="font-semibold text-2xl max-sm:text-xl">Log Complain</p>
       <form className=" mt-5" onSubmit={submitData}>
-        <div className="grid grid-cols-2 gap-5 items-end max-md:grid-cols-1">
+        <div className="sm:grid grid-cols-2 gap-5 items-end ">
           <div >
             <input
               className="w-full"
