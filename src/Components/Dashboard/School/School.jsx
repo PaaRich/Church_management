@@ -43,14 +43,14 @@ function School() {
   }, [isSuccess]);
 
   return (
-    <div className="w-full px-10 mt-5">
-      <div className="flex items-center justify-between">
+    <div className="w-full px-10 mt-5 max-md:px-5 max-sm:px-1">
         <BackBtn
           text="Foundational School"
           paddingAndMargin="mb-3 p-2"
           path={"/dashboard/coaching"}
         />
-        <div className="relative w-[40%]">
+      <div className="flex items-center justify-between max-sm:mt-5">
+        <div className="relative w-[40%] max-md:w-[60%] max-sm:w-full">
           <div
             className="flex items-center justify-between border-2 p-2 cursor-pointer rounded-sm"
             onClick={() => setDropAction(!dropAction)}
@@ -81,7 +81,7 @@ function School() {
       </div>
       <div>
         <form action="" onSubmit={handleSubmit}>
-          <div className="flex items-start justify-between gap-10 mt-10">
+          <div className="flex max-sm:flex-col items-start justify-between gap-10 max-sm:gap-2 mt-10">
             <div className="w-full relative">
               <select
                 className="py-3 px-5 w-full bg-slate-200 cursor-pointer"
@@ -132,7 +132,7 @@ function School() {
             ></textarea>
           </div>
           <div className="w-full relative">
-            <button className="bg-slate-950 hover:bg-slate-800 duration-200 text-white mt-10 py-4 w-3/6 absolute left-1/2 -translate-x-1/2 rounded ">
+            <button className="bg-slate-950 hover:bg-slate-800 duration-200 text-white mt-10 py-4 w-3/6 absolute left-1/2 -translate-x-1/2 rounded max-sm:w-full">
               Scheduling Meeting
             </button>
           </div>

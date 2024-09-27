@@ -3,7 +3,10 @@ import { BsTrash3 } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteLesson, getAllLessons } from "../../../Redux/features/lessons/lessonsSlice";
+import {
+  deleteLesson,
+  getAllLessons,
+} from "../../../Redux/features/lessons/lessonsSlice";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Loader from "../../Reusable/Loader";
@@ -15,13 +18,13 @@ function Lessons() {
 
   const [lessons, setLessons] = useState(allLessons);
   const [fileDeleted, setFileDeleted] = useState(false);
-  const [showConfirm, setShowConfirm]= useState(false)
-  const [deleteId, setDeleteId] = useState("")
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [deleteId, setDeleteId] = useState("");
 
-const deleteItem= async()=>{
-  await dispatch(deleteLesson(deleteId))
-  setFileDeleted(false);
-}
+  const deleteItem = async () => {
+    await dispatch(deleteLesson(deleteId));
+    setFileDeleted(false);
+  };
 
   const getLessons = async () => {
     await dispatch(getAllLessons());
@@ -59,13 +62,13 @@ const deleteItem= async()=>{
         <h3 className="font-semibold text-2xl text-slate-800">
           Lesson Settings
         </h3>
-        <button className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm">
+        <button className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm max-sm:w-full">
           <Link to={"/dashboard/add-lesson"}>Add new Lesson</Link>
         </button>
 
         {/* lessons table */}
-        <div>
-          <table className="w-full mt-5 border-2 border-slate-700 text-left mb-5">
+        <div className="overflow-x-scroll">
+          <table className="w-full mt-5 border-2 border-slate-700 text-left mb-5 overflow-x-scroll">
             <thead>
               <tr>
                 <th>Date Created</th>
@@ -92,11 +95,13 @@ const deleteItem= async()=>{
                         <CiEdit size={25} color="dodgerblue" />
                       </Link>
                     </span>
-                    <span  onClick={() => {
-                          setDeleteId(lesson?._id);
-                          setShowConfirm(true);
-                        }}
-                         className="cursor-pointer">
+                    <span
+                      onClick={() => {
+                        setDeleteId(lesson?._id);
+                        setShowConfirm(true);
+                      }}
+                      className="cursor-pointer"
+                    >
                       <BsTrash3 color="red" />
                     </span>
                   </td>
@@ -104,6 +109,8 @@ const deleteItem= async()=>{
               ))}
             </tbody>
           </table>
+        </div>
+        <div>
           <Pagination
             count={Math.ceil(lessons?.length / itemsPerPage)}
             page={page}

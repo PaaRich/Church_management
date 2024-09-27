@@ -31,14 +31,14 @@ const Lessons = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
         <BackBtn
           text="Foundational Studies"
           paddingAndMargin="p-2 mb-0"
           path={"/dashboard/school"}
         />
-        <h1 className="text-xl ">Lessons</h1>
-        <div className="relative w-[40%]">
+      <div className="flex max-sm:flex-col-reverse max-sm:gap-5 items-center justify-between max-md:mt-10">
+        <h1 className="text-xl font-semibold">Lessons</h1>
+        <div className="relative w-[40%] max-md:w-[60%] max-sm:w-full">
           <div
             className="flex items-center justify-between border-2 p-2  cursor-pointer rounded-sm"
             onClick={() => setDropAction(!dropAction)}
@@ -80,6 +80,15 @@ const Lessons = () => {
                   perPage: 3,
                   rewind: true,
                   gap: "1rem",
+                  breakpoints: {
+                    768: {
+                      perPage: 2,
+                    },
+                    510: {
+                      perPage: 1,
+                      loop:true
+                    },
+                  }
                 }}
               >
                 {lesson?.courses?.map((course, ind) => (

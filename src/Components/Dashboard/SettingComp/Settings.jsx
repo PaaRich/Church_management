@@ -177,7 +177,7 @@ const Settings = () => {
           <h1 className="text-2xl font-semibold">Member Information</h1>
           <form className="mt-5" onSubmit={searchUser}>
             <input
-              className="mr-5 w-[40%]"
+              className="mr-5 w-[40%] max-md:w-[60%] max-sm:w-full"
               type="tel"
               name="tel"
               value={tel}
@@ -189,7 +189,7 @@ const Settings = () => {
             />
             <button
               type="submit"
-              className=" bg-blue-600 cursor-pointer shadow-lg text-white p-3 px-8 rounded-sm hover:bg-blue-500 duration-300 "
+              className=" bg-blue-600 cursor-pointer shadow-lg text-white p-3 px-8 rounded-sm hover:bg-blue-500 duration-300"
             >
               Search
             </button>
@@ -224,12 +224,12 @@ const Settings = () => {
           )}
         </div>
         <hr />
-        <div className="mt-10 grid grid-cols-2 gap-10 pb-20">
+        <div className="mt-10 grid grid-cols-2 gap-10 pb-20 max-md:grid-cols-1">
           <div>
             <h3 className="text-2xl font-semibold text-slate-800">Ministry Settings</h3>
             <button
               onClick={() => setIsOpen(true)}
-              className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm"
+              className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm max-sm:w-full"
             >
               Add Ministry
             </button>
@@ -276,7 +276,7 @@ const Settings = () => {
             <h3 className="text-2xl font-semibold text-slate-800">Mustard Settings</h3>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm"
+              className="mt-5 bg-blue-500 hover:bg-blue-400 duration-500 p-3 px-5 text-white rounded-sm max-sm:w-full"
             >
               Add Mustard
             </button>

@@ -3,12 +3,13 @@ import BackBtn from "../../Reusable/BackBtn";
 
 const Communications = () => {
   return (
-    <div className="flex">
-      <div className="w-1/2 border-r-2 ">
+    <div>
         <BackBtn text="Communication" paddingAndMargin="mb-2 p-2" path={'/dashboard/school'} />
-        <form>
-          <p className="text-xl font-medium mb-2">Broadcast</p>
-          <div className="flex items-center justify-between w-11/12">
+    <div className="flex max-md:flex-col gap-5 max-md:gap-10 mt-10">
+      <div className="w-1/2 sm:border-r-2 max-md:w-full">
+        <form >
+          <p className="text-xl font-semibold mb-2">Broadcast</p>
+          <div className="flex items-center justify-between w-11/12 max-md:w-full">
             <select
               className="py-2 px-5 w-2/3 mr-2 bg-slate-200 cursor-pointer"
               name="Platform"
@@ -35,19 +36,19 @@ const Communications = () => {
             </select>
           </div>
           <textarea
-            className="w-11/12 h-40 resize-none outline-none bg-slate-200 mt-5 p-3"
+            className="w-11/12 max-md:w-full h-40 resize-none outline-none bg-slate-200 mt-5 p-3"
             name=""
             id=""
             placeholder="Message"
           />
-          <button className="bg-blue-600 hover:bg-blue-500 duration-200 text-white py-3 px-14 rounded-md mt-5">
+          <button className="bg-blue-600 hover:bg-blue-500 duration-200 text-white py-3 px-14 rounded-md mt-5 max-sm:w-full">
             Submit
           </button>
         </form>
         <div className="mt-5">
           <p className="text-xl my-3 font-medium">Follow up</p>
           <select
-            className="py-2 px-5 w-2/3 bg-slate-200 cursor-pointer"
+            className="py-2 px-5 w-2/3 bg-slate-200 cursor-pointer max-md:w-full"
             name="Follow up"
             id=""
           >
@@ -60,8 +61,8 @@ const Communications = () => {
           </select>
         </div>
       </div>
-      <div className="w-1/2 px-5">
-        <p className="my-4 text-xl font-medium">Memo</p>
+      <div className="w-1/2 sm:px-5 max-md:w-full">
+        <p className="my-4 text-xl font-semibold">Memo</p>
         <div>
           <p className="text-lg mb-1">Upload</p>
           <span>
@@ -114,6 +115,7 @@ const Communications = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

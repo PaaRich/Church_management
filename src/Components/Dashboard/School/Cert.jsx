@@ -7,8 +7,8 @@ const Cert = () => {
       className="flex flex-col items-center"
     >
       <div className="my-8">
-        <h1 className="text-center text-2xl mb-3">
-          Congratulations you have completed Course
+        <h1 className="text-center text-2xl max-sm:text-xl mb-3">
+          Congratulations you have completed the Course
         </h1>
         <img className="w-5/6 mx-auto" src={cert} alt="cert" />
       </div>
