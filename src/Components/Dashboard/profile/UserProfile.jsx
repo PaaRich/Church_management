@@ -311,7 +311,7 @@ function UserProfile() {
                 />
               </div>
             </div>
-            <button className="btn--primary mt-5" type="submit">
+            <button className="btn--primary mt-5 max-sm:w-full" type="submit">
               Update Password
             </button>
           </form>

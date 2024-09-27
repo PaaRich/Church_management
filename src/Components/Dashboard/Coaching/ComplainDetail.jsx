@@ -62,7 +62,7 @@ const ComplainDetail = () => {
       <div>
         <h1 className="font-semibold text-2xl">Complaint</h1>
         <div className="border-2 border-blue-500 my-5 p-5 rounded-md">
-          <div className="grid grid-cols-2 w-full items-center">
+          <div className="grid grid-cols-2 w-full items-center max-sm:grid-cols-1">
             <div className="text-lg font-semibold mr-10">
               Complainant Name:{"  "}
               <span className="underline font-light">
@@ -126,7 +126,7 @@ const ComplainDetail = () => {
                 onChange={(e) => {
                   setSelectedCoach(e.target.value);
                 }}
-                className="bg-slate-200 w-[40%]"
+                className="bg-slate-200 w-[40%] max-md:w-[60%] max-sm:w-full"
               >
                 <option value="">-- Select a Coach --</option>
                 {coaches?.map((coach) => (
@@ -140,7 +140,7 @@ const ComplainDetail = () => {
                 ))}
               </select>
               <button
-                className="bg-blue-500 text-white px-5 py-3 rounded-sm ml-8 shadow-lg"
+                className="bg-blue-500 text-white px-5 py-3 rounded-sm sm:ml-8 shadow-lg max-sm:w-full"
                 type="submit"
               >
                 Assign

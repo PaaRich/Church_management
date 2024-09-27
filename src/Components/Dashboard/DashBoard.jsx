@@ -12,11 +12,23 @@ const DashBoard = ({ children }) => {
   const dispatch = useDispatch();
   const { isLoading, activeUser } = useSelector((state) => state.auth);
   const [user, setUser] = useState(activeUser);
-  const [imageLoaded, setImageLoaded]= useState(true)
+  const [imageLoaded, setImageLoaded] = useState(true);
 
-  const handleImageError = ()=>{
-    setImageLoaded(false)
-  }
+  const toggleBar = function () {
+    const sidebarLinks = document.querySelectorAll(".sidebar--links li");
+    const sidebar = document.querySelector(".dashboard--sidebar");
+    sidebar.classList.toggle("sidebar--active");
+
+    sidebarLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        sidebar.classList.remove("sidebar--active");
+      });
+    });
+  };
+
+  const handleImageError = () => {
+    setImageLoaded(false);
+  };
 
   useEffect(() => {
     dispatch(RESET());
@@ -36,8 +48,8 @@ const DashBoard = ({ children }) => {
   return (
     <div>
       <div className="main--container">
-        <div className="dashboard--sidebar">
-          <SideBar user={user}/>
+        <div className={"dashboard--sidebar"}>
+          <SideBar user={user} />
         </div>
         <main className="dashboard--main--content">
           <div className="dashboard-home-header flex gap-8 max-sm:gap-5 justify-end p-3 pr-5 shadow-md pb-0">
@@ -50,25 +62,26 @@ const DashBoard = ({ children }) => {
             </form>
             <img
               className=" w-[50px] h-[50px] rounded-full max-md:hidden"
-              src={imageLoaded?user?.user_photo:"/images/avatar.webp"}
+              src={imageLoaded ? user?.user_photo : "/images/avatar.webp"}
               alt="avatar"
               onError={handleImageError}
             />
-               <button
+            <button
               id="hamburger"
-              class="hamburger hidden max-lg:block focus:outline-none max-lg:text-black pb-3"
+              className="hamburger hidden max-lg:block focus:outline-none max-lg:text-black pb-3"
+              onClick={toggleBar}
             >
               <svg
-                class="w-7 h-7"
+                className="w-7 h-7"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M4 6h16M4 12h16m-7 6h7"
                 ></path>
               </svg>

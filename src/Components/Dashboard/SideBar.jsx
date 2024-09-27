@@ -95,7 +95,7 @@ const SideBar = (props) => {
           </h3>
         </div>
 
-        <ul className="overflow-auto -z-50">
+        <ul className="overflow-auto -z-50 sidebar--links">
           <ShowOnAdmin>
             <li>
               <Link to={"/dashboard"} className="flex items-center gap-3">

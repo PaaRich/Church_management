@@ -138,7 +138,7 @@ function Forms() {
               src="/images/images.jpeg"
               alt="church_profile-pic"
             />
-            <h2 className="text-xl">Christ Cosmopolitan Incorporated Sunyani</h2>
+            <h2 className="text-xl text-center">Christ Cosmopolitan Incorporated Sunyani</h2>
             <p className="pt-1">Church membership form</p>
           </div>
         
