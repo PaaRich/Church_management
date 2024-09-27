@@ -4,8 +4,8 @@ function Footer() {
   return (
     <>
     <hr/>
-    <footer className='text-center py-10'>
-      <p>&copy; church name here | All Rights Reserved</p>
+    <footer className='text-center py-10 px-2'>
+      <p>Copyright &copy; christ cosmopolitan incorporated | All Rights Reserved</p>
     </footer>
     </>
   )

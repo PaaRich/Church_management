@@ -10,13 +10,10 @@ function Navbar() {
       <div className="row">
         <div className="container">
           <div className="flex items-center justify-between">
-            <div className="logo font-semibold text-xl">Church Name</div>
+            <div className="logo font-semibold text-xl">CCI SUNYANI</div>
             <ul className="flex items-center gap-5 uppercase">
               <li>
-                <Link>Home</Link>
-              </li>
-              <li>
-                <Link>About</Link>
+                <Link className="font-semibold">Home</Link>
               </li>
               {isLoggedIn && (
                 <li className="underline">
