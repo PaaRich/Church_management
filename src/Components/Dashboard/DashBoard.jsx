@@ -40,7 +40,7 @@ const DashBoard = ({ children }) => {
           <SideBar user={user}/>
         </div>
         <main className="dashboard--main--content">
-          <div className="dashboard-home-header flex gap-8  justify-end p-3 pr-5 shadow-md pb-0">
+          <div className="dashboard-home-header flex gap-8 max-sm:gap-5 justify-end p-3 pr-5 shadow-md pb-0">
             <form action="" className="w-full text-right">
               <input
                 type="text"
@@ -49,11 +49,30 @@ const DashBoard = ({ children }) => {
               />
             </form>
             <img
-              className=" w-[50px] h-[50px] rounded-full"
+              className=" w-[50px] h-[50px] rounded-full max-md:hidden"
               src={imageLoaded?user?.user_photo:"/images/avatar.webp"}
               alt="avatar"
               onError={handleImageError}
             />
+               <button
+              id="hamburger"
+              class="hamburger hidden max-lg:block focus:outline-none max-lg:text-black pb-3"
+            >
+              <svg
+                class="w-7 h-7"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
           </div>
           <div className="p-5 w-full overflow-y-scroll h-[85vh]">
             {children}
