@@ -7,7 +7,7 @@ const Modal = ({ isOpen, onClose,title,data,setData,submitHandler }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 max-md:p-5">
       <div className="bg-white rounded-lg p-6 w-96">
         <h2 className="text-2xl font-semibold text-blue-600 mb-4">Add {title}</h2>
         <form onSubmit={submitHandler}>

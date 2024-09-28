@@ -62,16 +62,16 @@ function Login() {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="flex flex-col items-center justify-center h-screen gap-5">
-        <div className="flex items-center flex-col mb-10 max-sm:mb-5">
-          <img src="/images/images.jpeg" className="w-[150px] h-[150px]" alt="" />
+      <div className="flex flex-col items-center justify-center h-screen gap-5 p-4">
+        <div className="flex items-center flex-col mb-10">
+          <img src="/images/images.jpeg" className="w-[150px] h-[150px] max-sm:h-[100px] max-sm:w-[100px]" alt="" />
           <p className="text-xl uppercase font-semibold text-center">
           Chirst Cosmopolitan Incorporated
           </p>
         </div>
         <form
           action=""
-          className="w-2/6 max-lg:w-3/6 max-md:w-5/6 max-sm:w-full px-4"
+          className="w-2/6 max-lg:w-3/6 max-md:w-5/6 max-sm:w-full border-2 p-8 max-md:p-4"
           onSubmit={submitData}
         >
           <h2 className="text-xl font-bold text-center mb-5">Login</h2>
