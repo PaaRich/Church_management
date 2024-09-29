@@ -71,6 +71,12 @@ function School() {
               </Link>
               <Link
                 className="hover:bg-slate-500 hover:text-white w-full p-1"
+                to="/dashboard/school/files"
+              >
+                Browse Files
+              </Link>
+              <Link
+                className="hover:bg-slate-500 hover:text-white w-full p-1"
                 to="/dashboard/school/exams"
               >
                 Exams

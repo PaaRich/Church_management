@@ -188,7 +188,7 @@ const SideBar = (props) => {
                   Attendance
                 </NavLink>
                 <NavLink className="child" to={"/dashboard/reports/workers"}>
-                  WorkerForce
+                  WorkerForces
                 </NavLink>
               </div>
             </li>

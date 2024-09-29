@@ -39,6 +39,7 @@ import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import AddLesson from "./Components/Dashboard/Lessons/AddLesson";
 import EditLesson from "./Components/Dashboard/Lessons/EditLesson";
 import UserProfile from "./Components/Dashboard/profile/UserProfile";
+import Files from "./Components/Dashboard/School/Files";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1";
 axios.defaults.withCredentials = true;
@@ -217,6 +218,14 @@ function App() {
             }
           />
           <Route
+            path="/dashboard/school/files"
+            element={
+              <DashBoard>
+                <Files />
+              </DashBoard>
+            }
+          ></Route>
+          <Route
             path="/dashboard/school/exams"
             element={
               <DashBoard>
@@ -271,7 +280,7 @@ function App() {
             path="/dashboard/profile"
             element={
               <DashBoard>
-                <UserProfile/>
+                <UserProfile />
               </DashBoard>
             }
           />
