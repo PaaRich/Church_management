@@ -81,10 +81,11 @@ const LogComplain = () => {
               name="complaint"
               id=""
               cols="30"
-              rows="7"
-              placeholder="Enter Complaint"
+              rows="5"
+              placeholder="Brief description of complaint (maximum of 100 characters)"
               value={complaintData.complaint}
               onChange={handleChange}
+              maxLength={100}
             ></textarea>
           </div>
         </div>

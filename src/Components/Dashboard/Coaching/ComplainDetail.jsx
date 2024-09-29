@@ -8,8 +8,14 @@ import React, { useEffect, useState } from "react";
 import Loader from "../../Reusable/Loader";
 import { getAllCoaches } from "../../../Redux/features/auth/authSlice";
 import { toast } from "react-toastify";
+import Select from "react-select";
 
 const ComplainDetail = () => {
+  const handleChange = (selectedOption) => {
+    setSelectedCoach(selectedOption.value);
+    // console.log(`Selected: ${selectedOption.value}`);
+  };
+
   const location = useLocation();
   const complainData = location.state;
   const dispatch = useDispatch();
@@ -54,6 +60,14 @@ const ComplainDetail = () => {
     await dispatch(assignComplaint({ comp_id, assigned_to: selectedCoach }));
   };
 
+  let coachesArray = [];
+  for (const coach of coaches) {
+    const newObj = {
+      value: coach?.userId?._id,
+      label: `${coach?.userId?.firstname}  ${coach?.userId?.lastname} (${coach.coach_speciality})`,
+    };
+    coachesArray.push(newObj);
+  }
 
   return (
     <>
@@ -120,27 +134,15 @@ const ComplainDetail = () => {
           <div className="mt-5">
             <h4 className="font-semibold text-xl mb-4">Assign Complaint</h4>
             <form action="" onSubmit={assignToCoach}>
-              <select
-                name="coach"
-                id=""
-                onChange={(e) => {
-                  setSelectedCoach(e.target.value);
-                }}
-                className="bg-slate-200 w-[40%] max-md:w-[60%] max-sm:w-full"
-              >
-                <option value="">-- Select a Coach --</option>
-                {coaches?.map((coach) => (
-                  <React.Fragment key={coach._id}>
-                    <option value={coach?.userId?._id}>
-                      {coach?.userId?.firstname}&nbsp;{coach?.userId?.lastname}{" "}
-                      &nbsp; &nbsp; &nbsp; &nbsp;{" "}
-                      {`(${coach.coach_type} coach)`}
-                    </option>
-                  </React.Fragment>
-                ))}
-              </select>
+              <Select
+                options={coachesArray}
+                onChange={handleChange}
+                isSearchable
+                placeholder="Select a Coach..."
+                className="w-3/6 max-md:w-full mb-5"
+              />
               <button
-                className="bg-blue-500 text-white px-5 py-3 rounded-sm sm:ml-8 shadow-lg max-sm:w-full"
+                className="bg-blue-500 text-white px-5 py-3 rounded-sm w-3/12 shadow-lg max-sm:w-full"
                 type="submit"
               >
                 Assign

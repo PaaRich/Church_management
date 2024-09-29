@@ -45,6 +45,7 @@ function EditMember() {
   const [userInfo, setUserInfo] = useState(user);
   const [userData, setUserData] = useState(initials);
   const [coach, setCoach] = useState("");
+  const [speciality, setSpeciality] = useState("");
 
   // console.log(user?.DOB==undefined)
   const getUserInfo = async () => {
@@ -172,7 +173,16 @@ function EditMember() {
     if (!coach) {
       return toast.error("please select a coach type");
     }
-    await dispatch(registerCoach({ userId: id, coach_type: coach }));
+    if (coach === "specific" && !speciality) {
+      return toast.error("please specify coach's speciality");
+    }
+    await dispatch(
+      registerCoach({
+        userId: id,
+        coach_type: coach,
+        coach_speciality: speciality,
+      })
+    );
     // console.log(coach)
   };
 
@@ -505,14 +515,14 @@ function EditMember() {
           </div>
           <form
             action=""
-            className="mt-5 flex max-md:flex-col items-center gap-10 w-3/6 justify-between max-md:w-full max-sm:gap-5"
+            className="mt-5 items-start gap-10 w-3/6 justify-between max-md:w-full max-sm:gap-5"
             onSubmit={submitCoach}
           >
             <div>
               {/* <label htmlFor="" className="text-xl">Select Coach Type</label> <br /> */}
               <select
                 name="coach_type"
-                className=" mt-5 md:w-96 max-sm:w-full"
+                className=" mt-5 w-full max-sm:w-full"
                 id=""
                 value={coach}
                 onChange={(e) => {
@@ -523,12 +533,29 @@ function EditMember() {
                 <option value="general">General Coach</option>
                 <option value="specific">Specific Coach</option>
               </select>
+
+              {coach === "specific" && (
+                <div className="mt-5">
+                  <label htmlFor="" className="font-semibold">
+                    Indicate Coaches Speciality
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full mt-2 mb-5"
+                    placeholder="Enter Speciality"
+                    value={speciality}
+                    onChange={(e) => {
+                      setSpeciality(e.target.value);
+                    }}
+                  />
+                </div>
+              )}
             </div>
             <button
               type="submit"
-              className="py-3 px-8 bg-blue-500 rounded-sm shadow-lg text-white"
+              className="py-3 px-8 bg-blue-500 rounded-sm shadow-lg text-white max-sm:w-full"
             >
-              Assign
+              Assign as Coach
             </button>
           </form>
         </div>
