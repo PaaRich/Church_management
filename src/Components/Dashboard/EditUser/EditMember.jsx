@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import BackBtn from "../../Reusable/BackBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, registerCoach, updateUser } from "../../../Redux/features/auth/authSlice";
+import {
+  getUser,
+  registerCoach,
+  updateUser,
+} from "../../../Redux/features/auth/authSlice";
 import Loader from "../../Reusable/Loader";
 import { getMinistries } from "../../../Redux/features/ministry/ministrySlice";
 import { getMustards } from "../../../Redux/features/mustard/mustardSlice";
@@ -34,7 +38,6 @@ function EditMember() {
     media: "",
     school: "",
     invited_by: "",
-    position: "",
     role: "",
   };
   const [ministries, setMinistries] = useState(allMinistries);
@@ -73,7 +76,6 @@ function EditMember() {
       media: user?.media,
       school: user?.school,
       invited_by: user?.invited_by,
-      position: user?.position,
       role: user?.role,
     }));
   }, []);
@@ -102,7 +104,6 @@ function EditMember() {
       media: user?.media,
       school: user?.school,
       invited_by: user?.invited_by,
-      position: user?.position,
       role: user?.role,
     }));
   }, [user]);
@@ -127,11 +128,7 @@ function EditMember() {
       !userData.gender ||
       !userData.firstname ||
       !userData.lastname ||
-      !userData.ministry ||
-      !userData.mustard_seed ||
       !userData.location ||
-      !userData.position ||
-      !userData.marital_status ||
       !userData.media ||
       !userData.DOB
     ) {
@@ -170,12 +167,12 @@ function EditMember() {
     setMustards(allMustards);
   }, [allMustards]);
 
-  const submitCoach=async(e)=>{
-    e.preventDefault()
-    if(!coach) {
-      return toast.error('please select a coach type')
+  const submitCoach = async (e) => {
+    e.preventDefault();
+    if (!coach) {
+      return toast.error("please select a coach type");
     }
-    await dispatch(registerCoach({userId:id,coach_type:coach}))
+    await dispatch(registerCoach({ userId: id, coach_type: coach }));
     // console.log(coach)
   };
 
@@ -184,11 +181,11 @@ function EditMember() {
       {isLoading && <Loader />}
       {ministryLoading && <Loader />}
       <div className="w-full">
-          <BackBtn
-            text="Form"
-            paddingAndMargin="mb-0 p-2"
-            path={"/dashboard/people"}
-          />
+        <BackBtn
+          text="Form"
+          paddingAndMargin="mb-0 p-2"
+          path={"/dashboard/people"}
+        />
         <div className="church_profile pb-1 relative">
           <div className="flex items-center justify-center flex-col mt-5">
             <h2 className="text-xl">Edit Member Information</h2>
@@ -201,6 +198,10 @@ function EditMember() {
           onSubmit={handleSubmit}
         >
           <div className="grid grid-cols-2 gap-x-5 max-md:grid-cols-1">
+            <label htmlFor="" className="font-semibold capitalize">
+              First Name <span className="text-red-500">*</span>
+            </label>
+            <br />
             <input
               type="text"
               placeholder="Firstname"
@@ -215,6 +216,10 @@ function EditMember() {
               value={userData.othername}
               name="othername"
             />
+            <label htmlFor="" className="font-semibold capitalize">
+              Select Gender <span className="text-red-500">*</span>
+            </label>
+            <br />
             <div className="flex my-2">
               <label htmlFor="Male" className="mr-5">
                 <input
@@ -241,14 +246,21 @@ function EditMember() {
                 Female
               </label>
             </div>
-            <input
-              type="tel"
-              placeholder="telephone"
-              onChange={handleChange}
-              value={userData.phonenumber}
-              name="phonenumber"
-              disabled={true}
-            />
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                User Phone Number <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="tel"
+                placeholder="telephone"
+                onChange={handleChange}
+                value={userData.phonenumber}
+                name="phonenumber"
+                disabled={true}
+                className="w-full"
+              />
+            </div>
             <div className="relative">
               <select
                 className="py-3 px-5 w-full bg-slate-200/80"
@@ -313,30 +325,50 @@ function EditMember() {
               </select>
             </div>
 
-            <input
-              type="text"
-              name="lastname"
-              id=""
-              onChange={handleChange}
-              value={userData.lastname}
-              placeholder="Lastname"
-            />
-            <input
-              type="date"
-              name="DOB"
-              onChange={handleChange}
-              value={userData.DOB}
-              id=""
-              placeholder="Date of birth"
-            />
-            <input
-              type="text"
-              name="location"
-              id=""
-              onChange={handleChange}
-              value={userData.location}
-              placeholder="Location"
-            />
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                Last Name <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="text"
+                name="lastname"
+                id=""
+                onChange={handleChange}
+                value={userData.lastname}
+                placeholder="Lastname"
+                className="w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                Date of Birth <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="date"
+                name="DOB"
+                onChange={handleChange}
+                value={userData.DOB}
+                id=""
+                className="w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="" className="font-semibold capitalize">
+                Location <span className="text-red-500">*</span>
+              </label>
+              <br />
+              <input
+                type="text"
+                name="location"
+                id=""
+                onChange={handleChange}
+                value={userData.location}
+                placeholder="Location"
+                className="w-full"
+              />
+            </div>
             <div className="relative">
               <select
                 className="py-3 px-5 w-full bg-slate-200/80"
@@ -361,6 +393,10 @@ function EditMember() {
               disabled={true}
             />
             <div className="relative">
+              <label htmlFor="" className="font-semibold capitalize">
+                How You Heard of Us <span className="text-red-500">*</span>
+              </label>
+              <br />
               <select
                 className="py-3 px-5 w-full bg-slate-200/80"
                 name="media"
@@ -384,7 +420,7 @@ function EditMember() {
                   placeholder="Invited By"
                 />
               )}
-              <select
+              {/* <select
                 name="position"
                 onChange={handleChange}
                 value={userData.position}
@@ -395,10 +431,10 @@ function EditMember() {
                 <option value="Mustard_seed_President">
                   Mustard Seed President
                 </option>
-                <option value="Workforce">WorkForce</option>
+                <option value="Workforcers">WorkForcers</option>
                 <option value="Ministry_President">Ministry President</option>
                 <option value="District_Pastor">District Pastor</option>
-              </select>
+              </select> */}
             </div>
             <div className="relative">
               <select
@@ -431,6 +467,10 @@ function EditMember() {
                 </select>
               </div>
               <div className="mt-3">
+                <p htmlFor="" className="font-semibold capitalize">
+                  Upload a User photo <span className="text-red-500">*</span>
+                </p>
+                <br />
                 <label
                   className="p-3 py-4 hover:bg-blue-400 duration-500 bg-blue-500 text-white rounded-md cursor-pointer"
                   htmlFor="userPhoto"
@@ -468,7 +508,7 @@ function EditMember() {
             className="mt-5 flex max-md:flex-col items-center gap-10 w-3/6 justify-between max-md:w-full max-sm:gap-5"
             onSubmit={submitCoach}
           >
-            <div >
+            <div>
               {/* <label htmlFor="" className="text-xl">Select Coach Type</label> <br /> */}
               <select
                 name="coach_type"

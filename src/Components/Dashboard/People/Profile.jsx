@@ -4,17 +4,32 @@
 //import BarChart from "../../Reusable/BarChart";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../../../Redux/features/auth/authSlice";
+import { toast } from "react-toastify";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.auth);
+
   const location = useLocation();
   const personData = location.state;
 
   const [imageLoaded, setImageLoaded] = useState(true);
+  const [position, setPosition] = useState("");
 
   const handleImageError = () => {
     setImageLoaded(false);
   };
-  
+
+  const updatePosition = async function (e) {
+    e.preventDefault()
+    if(!position){
+      return toast.error("please select a position")
+    }
+    await dispatch(updateUser({userData:{position},userId:personData._id}));
+  };
+
   return (
     <div className="px-3">
       <div className="c-profile flex justify-between border-b-2 border-b-black h-3/6">
@@ -29,7 +44,7 @@ const Profile = () => {
           </div>
           <div>
             <p className="font-semibold">Date Joined</p>
-            <p>{new Date(personData?.createdAt).toLocaleString("en-US") }</p>
+            <p>{new Date(personData?.createdAt).toLocaleString("en-US")}</p>
           </div>
           <div>
             <p className="font-semibold">Marital Status</p>
@@ -63,8 +78,37 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="h-2/6">Graph</div>
-      <div className="h-1/6">Label</div>
+      {/* <div className="h-2/6">Graph</div> */}
+      {/* <div className="h-1/6">Label</div> */}
+      {personData?.age >=14 && 
+      <div className="mt-5">
+        <form
+          action=""
+          className="flex items-center gap-3 justify-between max-md:flex-col max-sm:items-start"
+          onSubmit={updatePosition}
+        >
+          <select
+            name=""
+            id=""
+            className="w-full"
+            value={position}
+            onChange={(e) => {
+              setPosition(e.target.value);
+            }}
+          >
+            <option value="">-- Change User Position --</option>
+            <option value="Member">Member</option>
+            <option value="Steward">Steward</option>
+            <option value="Ministry President">Ministry President</option>
+            <option value="Mustard President">Mustard Seed President</option>
+            <option value="Workforcers">Workforcers</option>
+          </select>
+          <button type="submit" className="btn--primary">
+            Submit
+          </button>
+        </form>
+      </div>
+      }
     </div>
   );
 };

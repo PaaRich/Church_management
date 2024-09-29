@@ -110,12 +110,12 @@ function School() {
                 <option value="" disabled>
                   Target Group
                 </option>
+                <option value="Steward">Stewards</option>
+                <option value="Ministry President">Ministry Presidents</option>
                 <option value="Mustard Seed President">
                   Mustard Seed Presidents
                 </option>
-                <option value="Workforce">WorkForces</option>
-                <option value="Ministry President">Ministry Presidents</option>
-                <option value="District Pastor">District Pastors</option>
+                <option value="Workforces">WorkForces</option>
               </select>
             </div>
           </div>

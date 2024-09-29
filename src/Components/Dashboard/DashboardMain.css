@@ -6,6 +6,7 @@
 
 .sidebar--items {
   overflow-y: auto;
+  /* color: rgb(7, 25, 50); */
 }
 .drop--down {
   animation: dropDown 0.3s forwards;
