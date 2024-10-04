@@ -390,7 +390,7 @@ function Forms() {
               >
                 <option value="Member">Member</option>
                 <option value="Stward">Stward</option>
-                <option value="Ministry President">Ministry President</option>
+                <option value="Ministry Head">Ministry Head</option>
                 <option value="Mustard Seed President">
                   Mustard Seed President
                 </option>

@@ -138,7 +138,7 @@ const Settings = () => {
     }
     // setState(true);
     await dispatch(findUser({ number: phonenumber }));
-    setTel("");
+    // setTel("");
   };
   useEffect(() => {
     setSearchedUser(user);
@@ -195,7 +195,7 @@ const Settings = () => {
               Search
             </button>
           </form>
-          {state && (
+          {(state && tel) && (
             <div className="mt-5">
               <div className="w-[70%] max-md:p-7 max-md:w-full flex max-md:flex-col items-center max-md:items-start justify-between gap-5 shadow-md p-3 px-5 rounded-md border-2 border-slate-300">
                 <div>
@@ -204,13 +204,13 @@ const Settings = () => {
                 </div>
                 <div>
                   <h5 className="font-semibold text-lg mb-1">First Name</h5>
-                  <p>{searchedUser?.firstname}</p>
+                  <p className="capitalize">{searchedUser?.firstname}</p>
                 </div>
                 <div>
                   <h5 className="font-semibold text-lg mb-1">
-                    Current Position
+                    Church ID
                   </h5>
-                  <p>{searchedUser?.role}</p>
+                  <p>{searchedUser?.church_ID}</p>
                 </div>
                 <button className="shadow-lg">
                   <Link

@@ -117,7 +117,7 @@ function School() {
                   Target Group
                 </option>
                 <option value="Steward">Stewards</option>
-                <option value="Ministry President">Ministry Presidents</option>
+                <option value="Ministry Head">Ministry Head</option>
                 <option value="Mustard Seed President">
                   Mustard Seed Presidents
                 </option>

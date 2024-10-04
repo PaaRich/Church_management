@@ -46,10 +46,13 @@ const Profile = () => {
             <p className="font-semibold">Date Joined</p>
             <p>{new Date(personData?.createdAt).toLocaleString("en-US")}</p>
           </div>
+          {
+            personData?.age >=14 &&
           <div>
             <p className="font-semibold">Marital Status</p>
             <p>{personData?.marital_status}</p>
           </div>
+          }
           <div>
             <p className="font-semibold">Phone Number</p>
             <p>{personData?.phonenumber}</p>
@@ -99,7 +102,7 @@ const Profile = () => {
             <option value="">-- Change User Position --</option>
             <option value="Member">Member</option>
             <option value="Steward">Steward</option>
-            <option value="Ministry President">Ministry President</option>
+            <option value="Ministry Head">Ministry Head</option>
             <option value="Mustard President">Mustard Seed President</option>
             <option value="Workforcers">Workforcers</option>
           </select>

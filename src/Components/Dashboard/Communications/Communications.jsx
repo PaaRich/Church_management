@@ -35,7 +35,7 @@ const Communications = () => {
                 </option>
                 <option value="Member">Members</option>
                 <option value="WorkForce">WorkForces</option>
-                <option value="Ministry President">Ministry Presidents</option>
+                <option value="Ministry Head">Ministry Head</option>
                 <option value="Mustard Seed President">
                   Mustard Seed Presidents
                 </option>

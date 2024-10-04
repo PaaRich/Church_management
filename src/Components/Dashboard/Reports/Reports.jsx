@@ -8,50 +8,8 @@ import { getAttendanceRecords } from "../../../Redux/features/attendance/attenda
 import Loader from "../../Reusable/Loader";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
-import {
-  Page,
-  Text,
-  View,
-  Image,
-  Document,
-  StyleSheet,
-  PDFDownloadLink,
-} from "@react-pdf/renderer";
-import localImage from "./../../../../public/pdf-logo.png";
-
-// Define styles for your PDF
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    padding: 20,
-  },
-  section: {
-    marginBottom: 20,
-  },
-  heading: {
-    fontSize: 18,
-    marginBottom: 10,
-    textTransform: "uppercase",
-    fontWeight: "extrabold",
-    color: "rgb(7, 25, 50)",
-  },
-  text: {
-    fontSize: 12,
-    paddingBottom: 10,
-  },
-  smallText: {
-    fontSize: 9,
-    fontWeight: "semibold",
-  },
-  box: {
-    backgroundColor: "rgb(7, 25, 50)",
-    width: "100%",
-    height: "25",
-    marginTop: "10",
-    marginBottom: "20",
-  },
-});
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfTemplate from "../../Reusable/PdfTemplate";
 
 function Reports() {
   const exportToExcel = (data, fileName) => {
@@ -65,77 +23,6 @@ function Reports() {
     const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
     saveAs(blob, `${fileName}.xlsx`);
   };
-
-  // Create the PDF document structure
-  const MyDocument = () => (
-    <Document>
-      <Page size="A4" style={styles.page}>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text style={styles.smallText}>
-            {new Date(Date.now()).toLocaleString("en-US")}
-          </Text>
-          <Text style={styles.smallText}>Christ Cosmopolitan Incorporated</Text>
-        </View>
-        <View style={styles.box}></View>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Image src={localImage} style={{ width: 100, height: 100 }} />
-          <Text
-            style={{ ...styles.heading, width: "50%", textAlign: "center" }}
-          >
-            Christ Cosmopolitan Incorporated Sunyani
-          </Text>
-          <Image src={localImage} style={{ width: 100, height: 100 }} />
-        </View>
-        <View style={{ ...styles.section, marginTop: "30px" }}>
-          <Text
-            style={{
-              ...styles.heading,
-              textAlign: "center",
-              marginBottom: "20px",
-            }}
-          >
-            SERVICE ASSESSMENT REPORT - {startDate} - {endDate}
-          </Text>
-          <Text style={styles.text}>Network: Sunyani</Text>
-          <Text style={styles.text}>Meeting Type: {meetingType}</Text>
-          <Text style={styles.text}>Total Attendance: {males + females}</Text>
-          <Text style={styles.text}>
-            Adults: {males + females - (youth + children)}
-          </Text>
-          <Text style={styles.text}>Male: {males}</Text>
-          <Text style={styles.text}>Female: {females}</Text>
-          <Text style={styles.text}>Youth: {youth}</Text>
-          <Text style={styles.text}>JTK: {children}</Text>
-        </View>
-        <View
-          style={{
-            ...styles.box,
-            position: "absolute",
-            bottom: 30,
-            right: 20,
-            left: 20,
-          }}
-        ></View>
-        <View style={{ position: "absolute", bottom: 20, left: 20}}>
-          <Text style={styles.smallText}>{window.location.href}</Text>
-        </View>
-      </Page>
-    </Document>
-  );
 
   const dispatch = useDispatch();
   const { attendanceLoading, attendanceRecords } = useSelector(
@@ -184,6 +71,7 @@ function Reports() {
   let females = 0;
   let children = 0;
   let youth = 0;
+
   attendanceRecords?.forEach((cur) => {
     males += cur.male;
     females += cur.female;
@@ -199,6 +87,19 @@ function Reports() {
   const downloadReport = () => {
     exportToExcel(attendanceRecords, "service_assessment_report");
   };
+
+  const data = {
+    startDate,
+    endDate,
+    meetingType,
+    males,
+    females,
+    youth,
+    children,
+    attendanceRecords
+  };
+
+  // console.log(attendanceRecords)
   return (
     <>
       {attendanceLoading && <Loader />}
@@ -219,8 +120,10 @@ function Reports() {
         </button> */}
           <button className="bg-green-600 cursor-pointer text-white p-3 rounded-sm hover:bg-green-500 duration-300">
             <PDFDownloadLink
-              document={<MyDocument />}
-              fileName="church-report.pdf"
+              document={
+                <PdfTemplate data={data} title={"SERVICE ASSESSMENT REPORT"} />
+              }
+              fileName="service-assessment-report.pdf"
             >
               {({ blob, url, loading, error }) =>
                 loading ? "Generating PDF..." : "Download PDF"
